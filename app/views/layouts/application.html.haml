@@ -10,12 +10,8 @@
         .container
           .nav-collapse.collapse
             %ul.nav
-              %li.active
-                %a(href) Home
-              %li
-                %a(href) Test
-              %li
-                %a(href) Blah
+              = nav_link "Home", root_path
+              = nav_link "Sign Up", new_account_path
     %header.title
       .container
         .row
