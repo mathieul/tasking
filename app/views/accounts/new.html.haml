@@ -1,10 +1,13 @@
-%h1 Sign Up
+%h2 Sign Up
+
+%br
 = simple_form_for @account do |f|
-  = f.error_notification
+  %fieldset
+    %legend Fill up below to sign up
+    = f.error_notification
 
-  .inputs
-    = f.input :email
-    = f.input :password
+    = f.input :email, html: {class: "span6"}
+    = f.input :password, html: {class: "span6"}
 
-  .actions
-    = f.button :submit, "Sign Up"
+    %br
+    = f.button :submit, "Sign Up", class: "btn-primary"
