@@ -1,6 +1,6 @@
 Tasking::Application.routes.draw do
-  resources :accounts
-  get "home/index"
+  resources :accounts, only: [:new, :create]
+  resources :sessions, only: [:new, :create]
   root "home#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
