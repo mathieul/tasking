@@ -17,4 +17,12 @@ describe Account do
     account.valid?
     expect(account).to have(1).error_on(:email)
   end
+
+  it "is not valid with an invalid password" do
+    account = build(:account, password: "12345")
+    account.valid?
+    expect(account).to have(1).error_on(:password)
+    account.password = "123456"
+    expect(account).to be_valid
+  end
 end
