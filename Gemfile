@@ -29,15 +29,21 @@ gem 'jquery-rails', '~> 2.2.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 1.1.1'
 
+gem 'simple_form', '~> 1.4.1'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-gem "rspec-rails", "~> 2.0", group: [:test, :development]
+gem 'guard', group: :development
+gem 'guard-rspec', group: :development
+gem 'pry-nav', group: [:test, :development]
+gem 'rspec-rails', '~> 2.0', group: [:test, :development]
+gem 'factory_girl_rails', '~> 4.2.0', group: [:test, :development]
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
