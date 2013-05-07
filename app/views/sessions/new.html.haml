@@ -8,6 +8,10 @@
 
     = f.input :email, html: {class: "span6"}
     = f.input :password, html: {class: "span6"}
+    = f.input :remember_me, as: :boolean,
+                            label: false,
+                            inline_label: "Remember me",
+                            html: {class: "span6"}
 
     %br
     = f.button :submit, "Sign In", class: "btn-primary"
