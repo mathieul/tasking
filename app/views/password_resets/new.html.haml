@@ -1,0 +1,12 @@
+%h2 Reset
+
+%br
+= simple_form_for @password_reset, method: :post do |f|
+  %fieldset
+    %legend Reset forgotten password
+    = f.error_notification
+
+    = f.input :email, html: {class: "span6"}
+
+    %br
+    = f.button :submit, "Reset Password", class: "btn-primary"

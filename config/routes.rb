@@ -7,6 +7,7 @@ Tasking::Application.routes.draw do
 
   resources :accounts, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   root "home#index"
 
