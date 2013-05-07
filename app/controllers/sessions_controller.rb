@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @session = Session.new(session_params[:session])
+    @session = Session.new(session_params)
     session[:remember_me] = @session.remember_me
     account = Account.find_by_email(@session.email)
     if account && account.authenticate(@session.password)
@@ -24,6 +24,8 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.permit(session: [:email, :password, :remember_me])
+    params
+      .permit(session: [:email, :password, :remember_me])
+      .fetch(:session)
   end
 end

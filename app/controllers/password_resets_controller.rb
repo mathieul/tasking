@@ -4,7 +4,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    account = Account.find_by(email: password_reset_params[:password_reset][:email])
+    account = Account.find_by(email: password_reset_params[:email])
     account.send_password_reset! if account
     redirect_to root_url, notice: "Email sent with password reset instructions."
   end
@@ -32,10 +32,14 @@ class PasswordResetsController < ApplicationController
   end
 
   def password_reset_params
-    params.permit(password_reset: [:email])
+    params
+      .permit(password_reset: [:email])
+      .fetch(:password_reset)
   end
 
   def account_params
-    params.require(:account).permit(:password)
+    params
+      .require(:account)
+      .permit(:password)
   end
 end
