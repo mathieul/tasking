@@ -7,12 +7,17 @@ class SessionsController < ApplicationController
     @session = Session.new(session_params[:session])
     account = Account.find_by_email(@session.email)
     if account && account.authenticate(@session.password)
-      session[:account_id] = account.id
+      set_current_account(account)
       redirect_to root_url, notice: "Welcome back!"
     else
       flash.now.alert = "Email or password is invalid"
       render "new"
     end
+  end
+
+  def destroy
+    reset_session
+    redirect_to root_url, notice: "Logged out successfully"
   end
 
   private

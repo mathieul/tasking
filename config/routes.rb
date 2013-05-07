@@ -1,6 +1,11 @@
 Tasking::Application.routes.draw do
+  get "sign_up"  => "accounts#new", as: :sign_up
+  get "sign_in"  => "sessions#new", as: :sign_in
+  get "sign_out" => "sessions#destroy", as: :sign_out
+
   resources :accounts, only: [:new, :create]
-  resources :sessions, only: [:new, :create]
+  resources :sessions, only: [:new, :create, :destroy]
+
   root "home#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
