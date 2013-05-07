@@ -3,6 +3,8 @@ Tasking::Application.routes.draw do
   get "sign_in"  => "sessions#new", as: :sign_in
   get "sign_out" => "sessions#destroy", as: :sign_out
 
+  get "edit_stuff" => "home#edit", as: :edit_stuff
+
   resources :accounts, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 

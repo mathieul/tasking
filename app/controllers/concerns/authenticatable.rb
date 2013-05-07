@@ -15,4 +15,9 @@ module Authenticatable
   def set_current_account(account)
     session[:account_id] = account.id
   end
+
+  def authorize
+    return if current_account
+    redirect_to sign_in_url, alert: "You're not authorized to access this page"
+  end
 end
