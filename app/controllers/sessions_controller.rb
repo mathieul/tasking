@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to root_url, notice: "Welcome back!"
     else
       flash.now.alert = "Email or password is invalid"
-      render "new"
+      render :new
     end
   end
 

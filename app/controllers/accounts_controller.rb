@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
       set_current_account(@account)
       redirect_to root_url, notice: "Thank you for signing up!"
     else
-      render "new"
+      render :new
     end
   end
 
