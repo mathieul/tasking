@@ -33,7 +33,7 @@ gem 'jquery-rails', '~> 2.2.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 1.1.1'
 
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form', ref: "ee5d6be669df9a5587c53f1212cde91af227a8d1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -44,6 +44,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'letter_opener'
+  gem 'spring'
 end
 
 group :test do
