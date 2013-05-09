@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/dockyard/capybara-email.git
+  revision: 34de34568e033889fd78d05d46e333e341ab398c
+  ref: 34de34568e033889fd78d05d46e333e341ab398c
+  specs:
+    capybara-email (2.0.2)
+      capybara (~> 2.1.0)
+      mail
+
+GIT
   remote: git://github.com/milgner/compass-rails.git
   revision: 1749c06f15dc4b058427e7969810457213647fb8
   branch: rails4
@@ -216,6 +225,7 @@ DEPENDENCIES
   bootstrap-sass (~> 2.3.1.0)
   bootstrap_helper (~> 4.2.2.1)
   capybara
+  capybara-email!
   coffee-rails (~> 4.0.0)
   compass-rails!
   factory_girl_rails (~> 4.2.0)
