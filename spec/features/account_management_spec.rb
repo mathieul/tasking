@@ -47,4 +47,28 @@ feature "Account management" do
     expect(page).to have_content("Logged out successfully.")
     expect(page).to have_css("li > a", text: "Sign In")
   end
+
+  scenario "Forgotten password" do
+    clear_emails
+    visit "/"
+    click_link "Sign In"
+
+    click_link "forgotten password?"
+    fill_in "Email", with: "john@zorn.com"
+    click_button "Reset Password"
+    expect(page).to have_content("Email sent with password reset instructions.")
+
+    open_email "john@zorn.com"
+    current_email.click_link "Reset my password"
+    fill_in "New Password", with: "verysecret1"
+    click_button "Update Password"
+    expect(page).to have_content("Password has been reset!")
+    click_link "Sign Out"
+
+    click_link "Sign In"
+    fill_in "Email", with: "john@zorn.com"
+    fill_in "Password", with: "verysecret1"
+    click_button "Sign In"
+    expect(page).to have_content("Welcome back!")
+  end
 end
