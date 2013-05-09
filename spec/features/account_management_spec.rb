@@ -71,4 +71,30 @@ feature "Account management" do
     click_button "Sign In"
     expect(page).to have_content "Welcome back!"
   end
+
+  scenario "Confirm account" do
+    clear_emails
+    visit "/sign_up"
+    fill_in "Email", with: "user@example.com"
+    fill_in "Password", with: "verysecret"
+    click_button "Sign Up"
+    click_link "Sign Out"
+
+    click_link "Sign In"
+    fill_in "Email", with: "user@example.com"
+    fill_in "Password", with: "verysecret"
+    click_button "Sign In"
+    expect(page).to have_content "This account hasn't been confirmed. Please follow instructions emailed."
+
+    open_email "user@example.com"
+    current_email.click_link "Confirm my account"
+    expect(page).to have_content "Thank you for confirming your account!"
+
+    visit "/"
+    click_link "Sign In"
+    fill_in "Email", with: "user@example.com"
+    fill_in "Password", with: "verysecret"
+    click_button "Sign In"
+    expect(page).to have_content "Welcome back!"
+  end
 end
