@@ -11,14 +11,14 @@ class SessionsController < ApplicationController
       set_current_account(account, permanent: @session.remember_me)
       redirect_to root_url, notice: "Welcome back!"
     else
-      flash.now.alert = "Email or password is invalid"
+      flash.now.alert = "Email or password is invalid."
       render :new
     end
   end
 
   def destroy
     clear_current_account
-    redirect_to root_url, notice: "Logged out successfully"
+    redirect_to root_url, notice: "Logged out successfully."
   end
 
   private
