@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       set_current_account(account, permanent: @session.remember_me)
       redirect_to root_url, notice: "Welcome back!"
     when :not_activated
-      flash.now.alert = "This account hasn't been yet confirmed. Please follow instructions emailed."
+      flash.now.alert = "This account hasn't yet been confirmed. Please follow instructions emailed."
       render :new
     else
       flash.now.alert = "Email or password is invalid."

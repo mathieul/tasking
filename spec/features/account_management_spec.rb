@@ -85,7 +85,7 @@ feature "Account management" do
     fill_in "Email", with: "user@example.com"
     fill_in "Password", with: "verysecret"
     click_button "Sign In"
-    expect(page).to have_content "This account hasn't been yet confirmed. Please follow instructions emailed."
+    expect(page).to have_content "This account hasn't yet been confirmed. Please follow instructions emailed."
 
     open_email "user@example.com"
     expect(current_email).to be_present
