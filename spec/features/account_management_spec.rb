@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "Account management" do
   background do
-    create(:account, email: "john@zorn.com", password: "secret0")
+    create(:account, email: "john@zorn.com", password: "secret0").activate!
   end
 
   scenario "Signing up" do
@@ -60,6 +60,7 @@ feature "Account management" do
 
     open_email "john@zorn.com"
     current_email.click_link "Reset my password"
+    expect(current_email).to be_present
     fill_in "New Password", with: "verysecret1"
     click_button "Update Password"
     expect(page).to have_content "Password has been reset!"
@@ -84,9 +85,10 @@ feature "Account management" do
     fill_in "Email", with: "user@example.com"
     fill_in "Password", with: "verysecret"
     click_button "Sign In"
-    expect(page).to have_content "This account hasn't been confirmed. Please follow instructions emailed."
+    expect(page).to have_content "This account hasn't been yet confirmed. Please follow instructions emailed."
 
     open_email "user@example.com"
+    expect(current_email).to be_present
     current_email.click_link "Confirm my account"
     expect(page).to have_content "Thank you for confirming your account!"
 

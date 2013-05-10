@@ -6,10 +6,14 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(session_params)
     session[:remember_me] = @session.remember_me
-    account = Account.find_by_email(@session.email)
-    if account && account.authenticate(@session.password)
+    account, status = authenticate_and_verify_account(@session.email, @session.password)
+    case status
+    when :activated
       set_current_account(account, permanent: @session.remember_me)
       redirect_to root_url, notice: "Welcome back!"
+    when :not_activated
+      flash.now.alert = "This account hasn't been yet confirmed. Please follow instructions emailed."
+      render :new
     else
       flash.now.alert = "Email or password is invalid."
       render :new
@@ -27,5 +31,11 @@ class SessionsController < ApplicationController
     params
       .permit(session: [:email, :password, :remember_me])
       .fetch(:session)
+  end
+
+  def authenticate_and_verify_account(email, password)
+    account = Account.find_by_email(email)
+    return [nil, :invalid] unless account && account.authenticate(password)
+    [account, account.activated? ? :activated : :not_activated]
   end
 end

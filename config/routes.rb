@@ -5,7 +5,9 @@ Tasking::Application.routes.draw do
 
   get "edit_stuff" => "home#edit", as: :edit_stuff
 
-  resources :accounts, only: [:new, :create]
+  resources :accounts, only: [:new, :create] do
+    get "activate/:token", as: :activate, on: :collection, action: :activate
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
