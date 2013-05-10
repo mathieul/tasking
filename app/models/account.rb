@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   validates :password, length: {minimum: 6, allow_nil: true}, presence: {on: :create}
 
   before_create :generate_auth_token
+  before_create :generate_activation_token
 
   def generate_token(field)
     begin
@@ -20,9 +21,21 @@ class Account < ActiveRecord::Base
     EmailService.new(account: :password_reset).deliver(id: id)
   end
 
+  def activate!
+    update!(activated_at: Time.zone.now)
+  end
+
+  def activated?
+    activated_at.present?
+  end
+
   private
 
   def generate_auth_token
     generate_token(:auth_token)
+  end
+
+  def generate_activation_token
+    generate_token(:activation_token)
   end
 end

@@ -36,9 +36,23 @@ describe Account do
   end
 
   context "tokens" do
-    it "it is created with an authentication token" do
-      account = create(:account)
+    let(:account) { create(:account) }
+
+    it "is created with an authentication token" do
       expect(account.auth_token).to be_a(String)
+    end
+
+    it "is created with an activation token" do
+      expect(account.activation_token).to be_a(String)
+    end
+  end
+
+  context "activation" do
+    it "can be activated with #activate!" do
+      account = create(:account)
+      expect(account).not_to be_activated
+      account.activate!
+      expect(account).to be_activated
     end
   end
 end
