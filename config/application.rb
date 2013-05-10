@@ -25,5 +25,8 @@ module Tasking
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    # Add custom paths to the load path
+    config.autoload_paths.concat(%W[#{config.root}/app/services])
   end
 end
