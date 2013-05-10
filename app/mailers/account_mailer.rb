@@ -6,8 +6,8 @@ class AccountMailer < ActionMailer::Base
   #
   #   en.account_mailer.password_reset.subject
   #
-  def password_reset(account)
-    @account = account
-    mail to: account.email, subject: "Password reset"
+  def password_reset(id: nil)
+    @account = Account.find(id)
+    mail to: @account.email, subject: "Password reset"
   end
 end

@@ -17,7 +17,7 @@ class Account < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    AccountMailer.password_reset(self).deliver
+    EmailService.new(account: :password_reset).deliver(id: id)
   end
 
   private
