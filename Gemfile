@@ -50,6 +50,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email', github: 'dockyard/capybara-email', ref: '34de34568e033889fd78d05d46e333e341ab398c'
+  gem 'simplecov'
 end
 
 gem 'pry-nav', group: [:test, :development]
