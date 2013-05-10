@@ -1,0 +1,5 @@
+Welcome <%= @account.email %>!
+
+You can confirm your account through the link below:
+
+<%= activate_accounts_url(@account, token: @account.activation_token) %>

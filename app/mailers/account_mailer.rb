@@ -10,4 +10,9 @@ class AccountMailer < ActionMailer::Base
     @account = Account.find(id)
     mail to: @account.email, subject: "Password reset"
   end
+
+  def activate(id: nil)
+    @account = Account.find(id)
+    mail to: @account.email, subject: "Confirm account"
+  end
 end
