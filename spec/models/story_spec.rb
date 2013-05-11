@@ -20,19 +20,17 @@ describe Story do
       expect(story).to be_valid
     end
 
-    it "is not valid without a sort value" do
-      story = build(:story, sort: nil)
+    it "is not valid without a row order" do
+      story = build(:story, row_order: nil)
       expect(story).not_to be_valid
-      story.sort = 3
+      story.row_order = 3
       expect(story).to be_valid
     end
 
-    it "is not valid if the sort value is not a positive number" do
-      story = build(:story, sort: "blah")
+    it "is not valid if the row order is not an integer number" do
+      story = build(:story, row_order: "blah")
       expect(story).not_to be_valid
-      story.sort = -12
-      expect(story).not_to be_valid
-      story.sort = 12
+      story.row_order = 12
       expect(story).to be_valid
     end
   end

@@ -1,25 +1,21 @@
 Tasking::Application.routes.draw do
-  resources :stories
-
   get "sign_up"  => "accounts#new", as: :sign_up
   get "sign_in"  => "sessions#new", as: :sign_in
   get "sign_out" => "sessions#destroy", as: :sign_out
 
   get "edit_stuff" => "home#edit", as: :edit_stuff
 
+  # authentication
   resources :accounts, only: [:new, :create] do
     get "activate/:token", as: :activate, on: :collection, action: :activate
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  # backlog
+  resources :stories
+
   root "home#index"
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

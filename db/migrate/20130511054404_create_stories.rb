@@ -3,7 +3,7 @@ class CreateStories < ActiveRecord::Migration
     create_table :stories do |t|
       t.string     :description,     null: false
       t.integer    :points,          null: false
-      t.decimal    :sort,            precision: 5, scale: 2
+      t.integer    :row_order,       null: false
       t.references :tech_lead,       index: true
       t.references :product_manager, index: true
       t.string     :business_driver

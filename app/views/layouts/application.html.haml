@@ -14,7 +14,8 @@
               = nav_link "Home", root_path
               %li.divider-vertical
               - if current_account
-                = nav_link "Edit Stuff", edit_stuff_path
+                = nav_link "Backlog", stories_path
+                %li.divider-vertical
                 %li.dropdown
                   %a.dropdown-toggle(href data-toggle="dropdown")
                     = current_account.email

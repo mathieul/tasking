@@ -1,0 +1,32 @@
+%h2 Product Backlog
+%p The ordered list of "requirements" that is maintained for your product.
+%table.table.table-bordered.table-stripped
+  %colgroup
+    %col.span1
+    %col.span2
+  %thead.table
+    %tr
+      %th Tech lead
+      %th Product manager
+      %th Id
+      %th Business driver
+      %th User story
+      %th Story points
+      %th Spec
+  %tbody.table
+    - if @stories.empty?
+      %tr#elem-no-story
+        %td(colspan="7")
+          There are not stories yet -
+          %a.btn.btn-mini.btn-primary(href) Create first story
+
+%div(style="display: none")
+  = simple_form_for @new_story, wrapper: false, class: "form-inline", id: "tpl-new-story-row" do |f|
+    %tr
+      %td= f.association :tech_lead, label: false, wrapper: false
+      %td= f.association :product_manager, label: false, wrapper: false
+      %td ###
+      %td= f.input :business_driver, label: false, wrapper: false
+      %td= f.input :description, label: false, wrapper: false
+      %td= f.input :points, collection: [0, 1, 2, 3, 5, 8, 13, 21], label: false, wrapper: false
+      %td= f.input :spec_link, label: false, wrapper: false

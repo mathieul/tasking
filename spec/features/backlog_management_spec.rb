@@ -8,6 +8,7 @@ feature "Backlog management" do
   end
 
   scenario "Create story" do
+    pending
     sign_in("serge@gainsbourg.com", password: "auxarmesetc...")
     click_link "Backlog"
 
