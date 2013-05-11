@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130509143801) do
+ActiveRecord::Schema.define(version: 20130511181002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,5 +31,29 @@ ActiveRecord::Schema.define(version: 20130509143801) do
   add_index "accounts", ["activation_token"], name: "index_accounts_on_activation_token", unique: true, using: :btree
   add_index "accounts", ["auth_token"], name: "index_accounts_on_auth_token", unique: true, using: :btree
   add_index "accounts", ["password_reset_token"], name: "index_accounts_on_password_reset_token", unique: true, using: :btree
+
+  create_table "stories", force: true do |t|
+    t.string   "description",                                null: false
+    t.integer  "points",                                     null: false
+    t.decimal  "sort",               precision: 5, scale: 2
+    t.integer  "tech_lead_id"
+    t.integer  "product_manager_id"
+    t.string   "business_driver"
+    t.string   "spec_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stories", ["product_manager_id"], name: "index_stories_on_product_manager_id", using: :btree
+  add_index "stories", ["tech_lead_id"], name: "index_stories_on_tech_lead_id", using: :btree
+
+  create_table "teammates", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "teammates", ["account_id"], name: "index_teammates_on_account_id", using: :btree
 
 end
