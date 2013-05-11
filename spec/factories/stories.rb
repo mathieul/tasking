@@ -2,5 +2,8 @@
 
 FactoryGirl.define do
   factory :story do
+    description "as a tester I can test so I know it works"
+    sort        7
+    points      5
   end
 end
