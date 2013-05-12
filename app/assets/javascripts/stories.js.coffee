@@ -1,3 +1,7 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+@App ||= {}
+@App.stories = {}
+
+@App.stories.init = ->
+  $("#new-story-button").click (event) ->
+    event.preventDefault()
+    $("#edit-story-modal").modal("show")
