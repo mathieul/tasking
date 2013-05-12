@@ -15,6 +15,9 @@ Tasking::Application.routes.draw do
   # backlog
   resources :stories
 
+  # config
+  resources :teammates
+
   root "home#index"
 
   # Example of regular route:
