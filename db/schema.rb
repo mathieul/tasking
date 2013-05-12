@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20130511181002) do
   add_index "accounts", ["password_reset_token"], name: "index_accounts_on_password_reset_token", unique: true, using: :btree
 
   create_table "stories", force: true do |t|
-    t.string   "description",        null: false
+    t.text     "description",        null: false
     t.integer  "points",             null: false
     t.integer  "row_order",          null: false
     t.integer  "tech_lead_id"
