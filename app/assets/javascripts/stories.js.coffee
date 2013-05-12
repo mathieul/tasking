@@ -25,6 +25,8 @@ class StoryEditor
       @box.find("*[name=\"story[#{field}]\"]").val(story[field])
     @points.find("button").removeClass("active")
     @points.find("button[data-value=#{story.points}]").addClass("active")
+    @box.one "shown", =>
+      @box.find('*[name="story[description]"]').select()
 
   storyFields: [
     "description",
