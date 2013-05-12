@@ -11,14 +11,6 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :tr, tag: 'td', error_class: 'error' do |b|
-    b.use :html5
-    b.wrapper tag: 'div' do |ba|
-      ba.use :input
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
-    end
-  end
-
   config.wrappers :prepend, tag: 'div', class: "control-group", error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder
