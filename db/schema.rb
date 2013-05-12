@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 20130511181002) do
   add_index "accounts", ["password_reset_token"], name: "index_accounts_on_password_reset_token", unique: true, using: :btree
 
   create_table "stories", force: true do |t|
-    t.text     "description",        null: false
-    t.integer  "points",             null: false
-    t.integer  "row_order",          null: false
+    t.text     "description",        default: "As a role\nI can do something\nso I get a benefit", null: false
+    t.integer  "points",             default: 3,                                                   null: false
+    t.integer  "row_order",                                                                        null: false
     t.integer  "tech_lead_id"
     t.integer  "product_manager_id"
     t.string   "business_driver"
