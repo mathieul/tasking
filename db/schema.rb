@@ -48,7 +48,8 @@ ActiveRecord::Schema.define(version: 20130511181002) do
   add_index "stories", ["tech_lead_id"], name: "index_stories_on_tech_lead_id", using: :btree
 
   create_table "teammates", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",                    null: false
+    t.string   "roles",      default: [],              array: true
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"

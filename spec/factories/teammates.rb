@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :teammate do
     name "John"
+    roles ["engineer"]
     account
   end
 end

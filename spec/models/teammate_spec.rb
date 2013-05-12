@@ -12,6 +12,13 @@ describe Teammate do
       teammate.name = "Kirk"
       expect(teammate).to be_valid
     end
+
+    it "is not valid without at least one role" do
+      teammate = build(:teammate, roles: [])
+      expect(teammate).not_to be_valid
+      teammate.roles << "engineer"
+      expect(teammate).to be_valid
+    end
   end
 
   context "optional attributes" do
