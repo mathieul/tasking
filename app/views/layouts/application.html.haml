@@ -16,6 +16,8 @@
               - if current_account
                 = nav_link "Backlog", stories_path
                 %li.divider-vertical
+                = nav_link "Teammates", teammates_path
+                %li.divider-vertical
                 %li.dropdown
                   %a.dropdown-toggle(href data-toggle="dropdown")
                     = current_account.email
