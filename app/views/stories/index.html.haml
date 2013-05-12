@@ -1,5 +1,5 @@
 - content_for :javascript do
-  = javascript_tag "App.stories.init();"
+  = javascript_tag "App.stories.init({newStory: #{@new_story.to_json}});"
 
 %h2 Product Backlog
 %p The ordered list of "requirements" that is maintained for your product.
@@ -41,9 +41,9 @@
         = f.label :points
         .controls
           = f.hidden_field :points
-          .btn-group(data-toggle="buttons-radio")
+          #point-selector.btn-group(data-toggle="buttons-radio")
             - [0, 1, 2, 3, 5, 8, 13].each do |value|
-              %button.btn(type="button")= value
+              %button.btn{type: "button", :"data-value" => value}= value
       = f.association :tech_lead
       = f.association :product_manager
       = f.input :business_driver
