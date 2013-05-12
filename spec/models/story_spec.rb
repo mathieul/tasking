@@ -19,20 +19,6 @@ describe Story do
       story.points = 3
       expect(story).to be_valid
     end
-
-    it "is not valid without a row order" do
-      story = build(:story, row_order: nil)
-      expect(story).not_to be_valid
-      story.row_order = 3
-      expect(story).to be_valid
-    end
-
-    it "is not valid if the row order is not an integer number" do
-      story = build(:story, row_order: "blah")
-      expect(story).not_to be_valid
-      story.row_order = 12
-      expect(story).to be_valid
-    end
   end
 
   context "optional attributes" do
@@ -44,6 +30,11 @@ describe Story do
     it "can have a product manager" do
       story = build(:story, product_manager: product_manager = create(:teammate))
       expect(story.product_manager).to eq(product_manager)
+    end
+
+    it "can have a row order" do
+      story = build(:story, row_order: 7)
+      expect(story.row_order).to eq(7)
     end
 
     it "can have a business driver" do

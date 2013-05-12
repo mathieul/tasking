@@ -4,5 +4,4 @@ class Story < ActiveRecord::Base
 
   validates :points, presence: true
   validates :description, presence: true
-  validates :sort, presence: true, numericality: {greater_than_or_equal_to: 0}
 end
