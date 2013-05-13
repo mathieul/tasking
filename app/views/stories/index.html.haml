@@ -44,8 +44,8 @@
           #point-selector.btn-group(data-toggle="buttons-radio")
             - [0, 1, 2, 3, 5, 8, 13].each do |value|
               %button.btn{type: "button", :"data-value" => value}= value
-      = f.association :tech_lead
-      = f.association :product_manager
+      = f.association :tech_lead, collection: Teammate.tech_leads.all
+      = f.association :product_manager, collection: Teammate.product_managers.all
       = f.input :business_driver
       = f.input :spec_link
   .modal-footer
