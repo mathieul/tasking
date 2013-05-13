@@ -29,13 +29,11 @@
           %a.btn.btn-mini.btn-primary#new-story-button(href) Create first story
 
 #edit-story-modal.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="edit-story-label" aria-hidden="true")
-  .modal-header
-    %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
-    %h3#edit-story-label New user story
-  .modal-body
-    = simple_form_for @new_story,
-        html: {class: "form-horizontal"},
-        defaults: {input_html: {class: "input-xlarge"}} do |f|
+  = simple_form_for @new_story, html: {class: "form-horizontal"}, defaults: {input_html: {class: "input-xlarge"}} do |f|
+    .modal-header
+      %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
+      %h3#edit-story-label New user story
+    .modal-body
       = f.input :description, input_html: {rows: 5}
       .control-group.radio_buttons.required
         = f.label :points
@@ -48,6 +46,6 @@
       = f.association :product_manager, collection: Teammate.product_managers.all
       = f.input :business_driver
       = f.input :spec_link
-  .modal-footer
-    %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-    %button.btn.btn-primary Save changes
+    .modal-footer
+      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+      = f.button :submit, class: "btn btn-primary"
