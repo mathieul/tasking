@@ -6,5 +6,6 @@ class CreateTeammates < ActiveRecord::Migration
       t.references :account, index: true
       t.timestamps
     end
+    add_index :teammates, :name, unique: true
   end
 end

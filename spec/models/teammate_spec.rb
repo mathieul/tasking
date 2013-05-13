@@ -13,6 +13,14 @@ describe Teammate do
       expect(teammate).to be_valid
     end
 
+    it "has a unique name" do
+      create(:teammate, name: "Unique Name")
+      teammate = build(:teammate, name: "Unique Name")
+      expect(teammate).not_to be_valid
+      teammate.name += " #2"
+      expect(teammate).to be_valid
+    end
+
     it "is not valid without at least one role" do
       teammate = build(:teammate, roles: [])
       expect(teammate).not_to be_valid
