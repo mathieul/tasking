@@ -35,6 +35,8 @@ gem 'turbolinks', '~> 1.1.1'
 
 gem 'simple_form', github: 'plataformatec/simple_form', ref: 'ee5d6be669df9a5587c53f1212cde91af227a8d1'
 
+gem 'ranked-model', '~> 0.2.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
