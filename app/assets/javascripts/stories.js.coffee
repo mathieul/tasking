@@ -10,6 +10,13 @@ newStoryAttributes = null
     $("#new-story-button").click (event) ->
       event.preventDefault()
       editor.newStory(newStoryAttributes)
+    # setup edit buttons
+    $("table.hidden-commands .command").on "click", "a", (event) ->
+      event.preventDefault()
+      target = $(event.currentTarget)
+      action = target.data("action")
+      content = target.closest(".command").data("content")
+      console.log "Execute action #{action} on", content
 
 class StoryEditor
   constructor: (selector) ->

@@ -3,7 +3,7 @@
 
 %h2 Product Backlog
 %p The ordered list of "requirements" that is maintained for your product.
-%table.table.table-bordered.table-stripped
+%table.table.table-bordered.table-stripped.table-hover.hidden-commands
   %colgroup
     %col.span1
     %col.span1
@@ -14,9 +14,9 @@
     %col.span1
   %thead.table
     %tr
+      %th Id
       %th Tech lead
       %th Product manager
-      %th Id
       %th Business driver
       %th User story
       %th Story points
@@ -27,25 +27,16 @@
         %td(colspan="7")
           There are not stories yet -
           %a.btn.btn-mini.btn-primary#new-story-button(href) Create first story
+    - @stories.each do |story|
+      %tr
+        %td
+          = render "edit_button", target: story
+          = story.id
+        %td= story.product_manager_name
+        %td= story.tech_lead_name
+        %td= story.business_driver
+        %td= story.description
+        %td= story.points
+        %td= story.spec_link
 
-#edit-story-modal.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="edit-story-label" aria-hidden="true")
-  = simple_form_for @new_story, html: {class: "form-horizontal"}, defaults: {input_html: {class: "input-xlarge"}} do |f|
-    .modal-header
-      %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
-      %h3#edit-story-label New user story
-    .modal-body
-      = f.input :description, input_html: {rows: 5}
-      .control-group.radio_buttons.required
-        = f.label :points
-        .controls
-          = f.hidden_field :points
-          #point-selector.btn-group(data-toggle="buttons-radio")
-            - [0, 1, 2, 3, 5, 8, 13].each do |value|
-              %button.btn{type: "button", :"data-value" => value}= value
-      = f.association :tech_lead, collection: Teammate.tech_leads.all
-      = f.association :product_manager, collection: Teammate.product_managers.all
-      = f.input :business_driver
-      = f.input :spec_link
-    .modal-footer
-      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-      = f.button :submit, class: "btn btn-primary"
+= render "editor", story: @new_story

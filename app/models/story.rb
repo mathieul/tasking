@@ -7,4 +7,7 @@ class Story < ActiveRecord::Base
 
   validates :points, presence: true
   validates :description, presence: true
+
+  delegate :name, to: :tech_lead, prefix: true, allow_nil: true
+  delegate :name, to: :product_manager, prefix: true, allow_nil: true
 end

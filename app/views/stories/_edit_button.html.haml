@@ -1,0 +1,23 @@
+.command.btn-group{:"data-content" => target.to_json}
+  %a.btn.btn-mini(href data-action="edit")
+    %i.icon-pencil
+  %button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown")
+    %span.caret
+  %ul.dropdown-menu
+    %li
+      %a(href data-action="edit")
+        %i.icon-pencil
+        Edit Story
+    %li
+      %a(href data-action="insert-above")
+        %i.icon-arrow-up
+        Insert Story Above
+    %li
+      %a(href data-action="insert-below")
+        %i.icon-arrow-down
+        Insert Story Below
+    %li.divider
+    %li
+      %a(href data-action="delete")
+        %i.icon-minus-sign
+        Delete Story

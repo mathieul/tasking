@@ -4,6 +4,7 @@
 @import animate/animations/attention-seekers
 
 body
+  min-width: 1080px
   padding-top: 40px
   background: transparent image-url("subtle_white_feathers.png") repeat
 
@@ -12,3 +13,16 @@ header.title
   padding: 15px 0
   background: transparent image-url("mochaGrunge.png") repeat
   color: white
+
+table.hidden-commands
+  td > .command
+    position: absolute
+    margin-left: -65px
+    +opacity(0)
+    +transition-property(opacity)
+    +transition-duration(0.25s)
+    +transition-timing-function(ease-in-out)
+    +transition-delay(0.5s)
+
+  tr:hover td > .command
+    +opacity(1)
