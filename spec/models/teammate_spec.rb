@@ -40,7 +40,7 @@ describe Teammate do
     it "scopes to teammates with role using #with_role" do
       create(:teammate, name: "pig", roles: ["tech_lead"])
       create(:teammate, name: "chicken", roles: ["stakeholder"])
-      tech_leads = Teammate.with_role("tech_lead").all
+      tech_leads = Teammate.with_role("tech_lead")
       expect(tech_leads.map(&:name)).to eq(["pig"])
     end
   end
