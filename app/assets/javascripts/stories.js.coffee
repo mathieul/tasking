@@ -16,24 +16,52 @@ newStoryAttributes = null
       target = $(event.currentTarget)
       action = target.data("action")
       content = target.closest(".command").data("content")
-      console.log "Execute action #{action} on", content
+      if action is "edit"
+        editor.editStory(content)
+      else
+        console.log "TODO: execute action #{action} on", content
 
 class StoryEditor
   constructor: (selector) ->
     @box = $(selector)
-    @points = @box.find("#point-selector")
+    @setupPointSelector("#point-selector")
+
+  setupPointSelector: (selector) ->
+    @points = @box.find(selector)
+    @points.on "click", ".btn", (event) ->
+      target = $(event.currentTarget)
+      $("#story_points").val(target.data("value"))
 
   newStory: (attributes) ->
-    @initializeForm(attributes)
+    @initializeForm("create")
+    @initializeFields(attributes)
+    @initializeSubmit("create")
     @box.modal("show")
 
-  initializeForm: (story) ->
+  editStory: (attributes) ->
+    @initializeForm("update", attributes.id)
+    @initializeFields(attributes)
+    @initializeSubmit("update")
+    @box.modal("show")
+
+  initializeForm: (method, id = null) ->
+    form = @box.find("form")
+    url = form.data(method).replace /__id__/, id
+    form.prop("action", url)
+    method = form.find("input[name=_method]")
+    method.val(if method is "create" then "post" else "patch")
+
+  initializeFields: (story) ->
     for field in @storyFields
       @box.find("*[name=\"story[#{field}]\"]").val(story[field])
     @points.find("button").removeClass("active")
     @points.find("button[data-value=#{story.points}]").addClass("active")
     @box.one "shown", =>
       @box.find('*[name="story[description]"]').select()
+
+  initializeSubmit: (method) ->
+    submit = @box.find(".btn-primary")
+    submit.val(submit.data(method))
 
   storyFields: [
     "description",

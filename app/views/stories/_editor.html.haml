@@ -1,5 +1,9 @@
 #edit-story-modal.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="edit-story-label" aria-hidden="true")
-  = simple_form_for story, html: {class: "form-horizontal"}, defaults: {input_html: {class: "input-xlarge"}} do |f|
+  = simple_form_for story,
+      html: {class: "form-horizontal", id: nil},
+      defaults: {input_html: {class: "input-xlarge"}},
+      data: {create: story_path(story), update: story_path(id: "__id__")} do |f|
+    = hidden_field_tag "_method", "post", id: nil
     .modal-header
       %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
       %h3#edit-story-label New user story
@@ -10,7 +14,7 @@
         .controls
           = f.hidden_field :points
           #point-selector.btn-group(data-toggle="buttons-radio")
-            - [0, 1, 2, 3, 5, 8, 13].each do |value|
+            - Story::VALID_POINTS.each do |value|
               %button.btn{type: "button", :"data-value" => value}= value
       = f.association :tech_lead, collection: Teammate.tech_leads.all
       = f.association :product_manager, collection: Teammate.product_managers.all
@@ -18,4 +22,6 @@
       = f.input :spec_link
     .modal-footer
       %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-      = f.button :submit, class: "btn btn-primary"
+      = f.button :submit, class: "btn-primary",
+        data: {create: t("helpers.submit.create", model: "story"),
+               update: t("helpers.submit.update", model: "story")}

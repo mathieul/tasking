@@ -7,9 +7,18 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(story_params)
     if @story.save
-      redirect_to stories_url, notice: "new story was created successfully."
+      redirect_to stories_url, notice: "New story was created."
     else
-      render :new
+      redirect_to stories_url, alert: "Could not create new story (TODO: handle error)"
+    end
+  end
+
+  def update
+    @story = Story.find(params.require(:id))
+    if @story.update(story_params)
+      redirect_to stories_url, notice: "Story ##{@story.id} was updated."
+    else
+      redirect_to stories_url, alert: "Could update story ##{@story.id} (TODO: handle error)"
     end
   end
 
