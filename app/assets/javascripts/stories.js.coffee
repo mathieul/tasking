@@ -35,21 +35,21 @@ class StoryEditor
   newStory: (attributes) ->
     @initializeForm("create")
     @initializeFields(attributes)
-    @initializeSubmit("create")
+    @initializeLabels("create")
     @box.modal("show")
 
   editStory: (attributes) ->
     @initializeForm("update", attributes.id)
     @initializeFields(attributes)
-    @initializeSubmit("update")
+    @initializeLabels("update")
     @box.modal("show")
 
   initializeForm: (method, id = null) ->
     form = @box.find("form")
     url = form.data(method).replace /__id__/, id
     form.prop("action", url)
-    method = form.find("input[name=_method]")
-    method.val(if method is "create" then "post" else "patch")
+    verb = form.find("input[name=_method]")
+    verb.val(if method is "create" then "post" else "patch")
 
   initializeFields: (story) ->
     for field in @storyFields
@@ -59,9 +59,11 @@ class StoryEditor
     @box.one "shown", =>
       @box.find('*[name="story[description]"]').select()
 
-  initializeSubmit: (method) ->
+  initializeLabels: (method) ->
     submit = @box.find(".btn-primary")
     submit.val(submit.data(method))
+    title = @box.find(".title")
+    title.text(title.data(method))
 
   storyFields: [
     "description",

@@ -6,7 +6,7 @@
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
       %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
-      %h3#edit-story-label New user story
+      %h3.title(data-create="New user story" data-update="Edit user story")
     .modal-body
       = f.input :description, input_html: {rows: 5}
       .control-group.radio_buttons.required
