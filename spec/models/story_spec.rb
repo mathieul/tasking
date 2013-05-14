@@ -13,9 +13,13 @@ describe Story do
       expect(story).to be_valid
     end
 
-    it "is not valid without a points value" do
+    it "is not valid without a valid points value" do
       story = build(:story, points: nil)
       expect(story).not_to be_valid
+      [-1, 6, 22, 50].each do |value|
+        story.points = value
+        expect(story).not_to be_valid
+      end
       story.points = 3
       expect(story).to be_valid
     end
