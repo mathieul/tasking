@@ -34,7 +34,7 @@ gem 'jquery-rails', '~> 2.2.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 1.1.1'
 
-gem 'simple_form', github: 'plataformatec/simple_form', ref: 'ee5d6be669df9a5587c53f1212cde91af227a8d1'
+gem 'simple_form', '~> 3.0.0.rc'
 
 gem 'ranked-model', '~> 0.2.0'
 
@@ -52,7 +52,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-email', github: 'dockyard/capybara-email', ref: '34de34568e033889fd78d05d46e333e341ab398c'
+  gem 'capybara-email', '~> 2.1.0'
   gem 'simplecov'
 end
 
