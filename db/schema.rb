@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20130513024437) do
   end
 
   add_index "teammates", ["account_id"], name: "index_teammates_on_account_id", using: :btree
+  add_index "teammates", ["name"], name: "index_teammates_on_name", unique: true, using: :btree
   add_index "teammates", ["roles"], name: "teammates_roles", using: :gin
 
 end
