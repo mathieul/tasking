@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       flash.now.alert = "This account hasn't yet been confirmed. Please follow instructions emailed."
       render :new
     else
-      flash.now.alert = "Email or password is invalid."
+      flash.now[:error] = "Email or password is invalid."
       render :new
     end
   end
