@@ -52,6 +52,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.4)
+    animate-sass (0.1.1)
+      compass (>= 0.11.5)
     arel (4.0.0)
     atomic (1.1.9)
     bcrypt-ruby (3.0.1)
@@ -227,6 +229,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  animate-sass (~> 0.1.1)
   bcrypt-ruby (~> 3.0.0)
   bootstrap-sass (~> 2.3.1.0)
   bootstrap_helper (~> 4.2.2.1)
