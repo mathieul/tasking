@@ -24,6 +24,12 @@ class StoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @story = Story.find(params.require(:id))
+    @story.destroy
+    redirect_to stories_url, notice: "Story ##{@story.id} was deleted."
+  end
+
   private
 
   def story_params
