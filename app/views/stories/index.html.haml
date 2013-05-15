@@ -3,40 +3,45 @@
 
 %h2 Product Backlog
 %p The ordered list of "requirements" that is maintained for your product.
-%table.table.table-bordered.table-stripped.table-hover.hidden-commands
-  %colgroup
-    %col(width="30px")
-    %col(span="2" width="75px")
-    %col(width="60px")
-    %col(width="360px")
-    %col(width="30px")
-    %col(width="90px")
-  %thead.table
-    %tr
-      %th Id
-      %th Tech lead
-      %th PM
-      %th Driver
-      %th User story
-      %th Points
-      %th Spec
-  %tbody.table#stories-table-body
-    - if @stories.empty?
-      %tr#elem-no-story-row
-        %td(colspan="7")
-          There are not stories yet -
-          %a.btn.btn-mini.btn-primary#new-story-button(href) Create first story
-    - @stories.each.with_index do |story, index|
+- if @stories.empty?
+  %table.table.table-bordered
+    %tbody.table
       %tr
         %td
-          = render "edit_button", target: story, position: index
-          = story.id
-        %td= story.product_manager_name
-        %td= story.tech_lead_name
-        %td= story.business_driver
-        %td= story.description
-        %td= story.points
-        %td= story.spec_link
+          %p
+            There are no stories in the backlog yet.
+            &nbsp;
+            %a.btn.btn-primary#new-story-button(href) Create first story
+- else
+  %table.table.table-stripped.table-hover.hidden-commands
+    %colgroup
+      %col(width="30px")
+      %col(span="2" width="75px")
+      %col(width="60px")
+      %col(width="360px")
+      %col(width="30px")
+      %col(width="90px")
+    %thead.table
+      %tr
+        %th Id
+        %th Tech lead
+        %th PM
+        %th Driver
+        %th User story
+        %th Points
+        %th Spec
+    %tbody.table
+      - @stories.each.with_index do |story, index|
+        %tr
+          %td
+            = render "edit_button", target: story, position: index
+            = story.id
+          %td= story.product_manager_name
+          %td= story.tech_lead_name
+          %td= story.business_driver
+          %td= story.description
+          %td= story.points
+          %td= story.spec_link
 
 = render "editor", id: "new-story-editor", story: @new_story
 - if @story.present?
