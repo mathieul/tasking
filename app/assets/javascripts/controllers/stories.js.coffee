@@ -10,6 +10,7 @@ class StoriesController
     @editor = new App.StoryEditor("#new-story-editor")
     @options.newStoryAttributes ?= {}
     @setupBehaviors()
+    @showNowIfPresent()
 
   setupBehaviors: ->
     @setupNewStoryButton()
@@ -30,3 +31,6 @@ class StoriesController
         @editor.editResource(content)
       else
         console.log "TODO: execute action #{action} on", content
+
+  showNowIfPresent: ->
+    $("#show-now").modal("show")

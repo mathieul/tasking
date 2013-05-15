@@ -9,7 +9,8 @@ class StoriesController < ApplicationController
     if @story.save
       redirect_to stories_url, notice: "New story was created."
     else
-      redirect_to stories_url, error: "Could not create new story (TODO: handle error)"
+      index
+      render "index"
     end
   end
 
@@ -18,7 +19,8 @@ class StoriesController < ApplicationController
     if @story.update(story_params)
       redirect_to stories_url, notice: "Story ##{@story.id} was updated."
     else
-      redirect_to stories_url, error: "Could update story ##{@story.id} (TODO: handle error)"
+      index
+      render "index"
     end
   end
 

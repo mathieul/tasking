@@ -38,4 +38,6 @@
         %td= story.points
         %td= story.spec_link
 
-= render "editor", story: @new_story
+= render "editor", id: "new-story-editor", story: @new_story
+- if @story.present?
+  = render "editor", id: "show-now", story: @story

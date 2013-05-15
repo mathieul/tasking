@@ -2,7 +2,7 @@
 
 class @App.StoryEditor extends @App.ModalEditor
   postConstructor: ->
-    @points = @box.find("#point-selector")
+    @points = @box.find(".point-selector")
     @points.on "click", ".btn", (event) ->
       target = $(event.currentTarget)
       $("#story_points").val(target.data("value"))

@@ -1,19 +1,27 @@
-#new-story-editor.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="edit-story-label" aria-hidden="true")
+.modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
   = simple_form_for story,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
       data: {create: story_path(story), update: story_path(id: "__id__")} do |f|
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
-      %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
-      %h3.title(data-create="New user story" data-update="Edit user story")
+      %button.close(type="button" data-dismiss="modal") x
+      %h3.title(data-create="New user story" data-update="Edit user story") Edit user story
     .modal-body
+      - if story.errors.present?
+        .alert.alert-error
+          %button.close(type="button" data-dismiss="alert") &times;
+          %strong
+            Can't
+            = story.persisted? ? "update" : "create"
+            story.
+          Please fix the errors below.
       = f.input :description, input_html: {rows: 5}
       .control-group.radio_buttons.required
         = f.label :points
         .controls
           = f.hidden_field :points
-          #point-selector.btn-group(data-toggle="buttons-radio")
+          .point-selector.btn-group(data-toggle="buttons-radio")
             - Story::VALID_POINTS.each do |value|
               %button.btn{type: "button", :"data-value" => value}= value
       = f.association :tech_lead, collection: Teammate.tech_leads.all
@@ -21,7 +29,7 @@
       = f.input :business_driver
       = f.input :spec_link
     .modal-footer
-      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+      %button.btn(data-dismiss="modal") Cancel
       = f.button :submit, class: "btn-primary",
         data: {create: t("helpers.submit.create", model: "story"),
                update: t("helpers.submit.update", model: "story")}
