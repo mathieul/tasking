@@ -18,4 +18,7 @@
 //= require bootstrap-modal
 //= require bootstrap-dropdown
 //= require bootstrap-button
-//= require_tree .
+//= require_self
+//= require_tree ./controllers
+
+window.App = {}

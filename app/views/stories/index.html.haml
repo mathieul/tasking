@@ -1,25 +1,24 @@
 - content_for :javascript do
-  = javascript_tag "App.stories.init({newStory: #{@new_story.to_json}});"
+  = javascript_tag "App.initStories({newStoryAttributes: #{@new_story.to_json}});"
 
 %h2 Product Backlog
 %p The ordered list of "requirements" that is maintained for your product.
 %table.table.table-bordered.table-stripped.table-hover.hidden-commands
   %colgroup
-    %col.span1
-    %col.span1
-    %col.span1
-    %col.span1
-    %col.span1
-    %col.span1
-    %col.span1
+    %col(width="30px")
+    %col(span="2" width="75px")
+    %col(width="60px")
+    %col(width="360px")
+    %col(width="30px")
+    %col(width="90px")
   %thead.table
     %tr
       %th Id
       %th Tech lead
-      %th Product manager
-      %th Business driver
+      %th PM
+      %th Driver
       %th User story
-      %th Story points
+      %th Points
       %th Spec
   %tbody.table#stories-table-body
     - if @stories.empty?
