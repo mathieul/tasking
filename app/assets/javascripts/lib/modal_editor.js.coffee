@@ -1,6 +1,5 @@
 class @App.ModalEditor
   resource: "override .resource!"
-  resourceFields: "override .resourceFields!"
 
   constructor: (selector) ->
     @box = $(selector)
@@ -26,10 +25,10 @@ class @App.ModalEditor
     verb.val(if method is "create" then "post" else "patch")
 
   initializeFields: (attributes) ->
-    for field in @resourceFields
-      @box.find("*[name=\"#{@resource}[#{field}]\"]").val(attributes[field])
+    for field, value of attributes
+      @box.find("*[name=\"#{@resource}[#{field}]\"]").val(value)
     @box.one "shown", =>
-      @box.find('*[name="#{@resource}[description]"]').select()
+      @box.find('form :input:not(button):visible:first').select()
     @postInitializeFields?(attributes)
 
   initializeLabels: (method) ->

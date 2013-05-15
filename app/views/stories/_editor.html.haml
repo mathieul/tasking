@@ -4,6 +4,7 @@
       defaults: {input_html: {class: "input-xlarge"}},
       data: {create: story_path(story), update: story_path(id: "__id__")} do |f|
     = hidden_field_tag "_method", "post", id: nil
+    = f.hidden_field :row_order_position
     .modal-header
       %button.close(type="button" data-dismiss="modal") x
       %h3.title(data-create="New user story" data-update="Edit user story") Edit user story

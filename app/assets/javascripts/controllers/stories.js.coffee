@@ -19,18 +19,31 @@ class StoriesController
   setupNewStoryButton: ->
     $("#new-story-button").click (event) =>
       event.preventDefault()
-      @editor.newResource(newStory)
+      @editor.newResource(@newStory())
 
   setupEditStoryButtons: ->
     $("table.hidden-commands .command").on "click", "a", (event) =>
       event.preventDefault()
       target = $(event.currentTarget)
       action = target.data("action")
-      content = target.closest(".command").data("content")
-      if action is "edit"
-        @editor.editResource(content)
-      else
-        console.log "TODO: execute action #{action} on", content
+      data = target.closest(".command").data()
+      @executeAction(action, data)
+
+  executeAction: (action, data) ->
+    switch action
+      when "edit"
+        @editor.editResource(data.content)
+      when "insert-above"
+        position = @newStory(row_order_position: data.position)
+        @editor.newResource(position)
+      when "insert-below"
+        position = @newStory(row_order_position: data.position + 1)
+        @editor.newResource(position)
+      when "delete"
+        alert "delete story is not yet implemented."
 
   showNowIfPresent: ->
     $("#show-now").modal("show")
+
+  newStory: (updates = {}) ->
+    $.extend({}, @options.newStoryAttributes, updates)

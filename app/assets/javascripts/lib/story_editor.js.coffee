@@ -12,12 +12,3 @@ class @App.StoryEditor extends @App.ModalEditor
     @points.find("button[data-value=#{story.points}]").addClass("active")
 
   resource: "story"
-
-  resourceFields: [
-    "description",
-    "tech_lead_id",
-    "product_manager_id",
-    "business_driver",
-    "spec_link",
-    "points"
-  ]

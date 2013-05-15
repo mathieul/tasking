@@ -26,10 +26,10 @@
         %td(colspan="7")
           There are not stories yet -
           %a.btn.btn-mini.btn-primary#new-story-button(href) Create first story
-    - @stories.each do |story|
+    - @stories.each.with_index do |story, index|
       %tr
         %td
-          = render "edit_button", target: story
+          = render "edit_button", target: story, position: index
           = story.id
         %td= story.product_manager_name
         %td= story.tech_lead_name
