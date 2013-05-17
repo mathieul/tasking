@@ -49,6 +49,7 @@ group :development do
   gem 'guard-rspec'
   gem 'letter_opener'
   gem 'spring'
+  gem 'quiet_assets'
 end
 
 group :test do
