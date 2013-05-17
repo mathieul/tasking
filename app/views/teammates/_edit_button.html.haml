@@ -1,0 +1,15 @@
+.command.btn-group{:"data-content" => target.to_json, :"data-position" => position}
+  %a.btn.btn-mini(href data-action="edit")
+    %i.icon-pencil
+  %button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown")
+    %span.caret
+  %ul.dropdown-menu
+    %li
+      %a(href data-action="edit")
+        %i.icon-pencil
+        Edit Teammate
+    %li.divider
+    %li
+      = link_to target, method: :delete do
+        %i.icon-minus-sign
+        Delete Teammate

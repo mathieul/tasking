@@ -1,4 +1,6 @@
 class Teammate < ActiveRecord::Base
+  ROLES = ["tech_lead", "product_manager"]
+
   belongs_to :account
 
   validates :name, presence: true, uniqueness: true

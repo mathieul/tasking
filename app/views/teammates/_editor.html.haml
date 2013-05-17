@@ -1,0 +1,26 @@
+.modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
+  = simple_form_for teammate,
+      html: {class: "form-horizontal", id: nil},
+      defaults: {input_html: {class: "input-xlarge"}},
+      data: {create: teammate_path(teammate), update: teammate_path(id: "__id__")} do |f|
+    = hidden_field_tag "_method", "post", id: nil
+    .modal-header
+      %button.close(type="button" data-dismiss="modal") x
+      %h3.title(data-create="New teammate" data-update="Edit teammate") Edit teammate
+    .modal-body
+      - if teammate.errors.present?
+        .alert.alert-error
+          %button.close(type="button" data-dismiss="alert") &times;
+          %strong
+            Can't
+            = teammate.persisted? ? "update" : "create"
+            teammate.
+          Please fix the errors below.
+      = f.input :name
+      = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
+      = f.association :account, label_method: :email
+    .modal-footer
+      %button.btn(data-dismiss="modal") Cancel
+      = f.button :submit, class: "btn-primary",
+        data: {create: t("helpers.submit.create", model: "teammate"),
+               update: t("helpers.submit.update", model: "teammate")}
