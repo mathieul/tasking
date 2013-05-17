@@ -26,7 +26,12 @@ class @App.ModalEditor
 
   initializeFields: (attributes) ->
     for field, value of attributes
-      @box.find("*[name=\"#{@resource}[#{field}]\"]").val(value)
+      if $.isArray(value)
+        @box.find("*[name=\"#{@resource}[#{field}][]\"]").prop("checked", false)
+        for item in value
+          @box.find("*[name=\"#{@resource}[#{field}][]\"][value=\"#{item}\"]").prop("checked", true)
+      else
+        @box.find("*[name=\"#{@resource}[#{field}]\"]").val(value)
     @box.one "shown", =>
       @box.find('form :input:not(button):visible:first').select()
       @postInitializeFields?(attributes)
