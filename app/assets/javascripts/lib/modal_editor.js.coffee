@@ -29,7 +29,7 @@ class @App.ModalEditor
       @box.find("*[name=\"#{@resource}[#{field}]\"]").val(value)
     @box.one "shown", =>
       @box.find('form :input:not(button):visible:first').select()
-    @postInitializeFields?(attributes)
+      @postInitializeFields?(attributes)
 
   initializeLabels: (method) ->
     submit = @box.find(".btn-primary")
