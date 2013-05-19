@@ -39,6 +39,8 @@ gem 'simple_form', '~> 3.0.0.rc'
 
 gem 'ranked-model', '~> 0.2.0'
 
+gem 'dalli', '~> 2.6.3'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

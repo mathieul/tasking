@@ -68,6 +68,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    dalli (2.6.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -229,6 +230,7 @@ DEPENDENCIES
   capybara-email (~> 2.1.0)
   coffee-rails (~> 4.0.0)
   compass-rails!
+  dalli (~> 2.6.3)
   factory_girl_rails (~> 4.2.0)
   guard
   guard-rspec
