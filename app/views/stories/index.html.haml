@@ -38,16 +38,7 @@
       %tbody.table
         - @stories.each.with_index do |story, index|
           - cache story do
-            %tr
-              %td
-                = render "edit_button", target: story, position: index
-                = story.id
-              %td= story.product_manager_name
-              %td= story.tech_lead_name
-              %td= story.business_driver
-              %td= story.description
-              %td= story.points
-              %td= story.spec_link
+            = render "story_row", story: story, index: index
   = render "editor", id: "new-story-editor", story: @new_story
 
 - if @story.present?
