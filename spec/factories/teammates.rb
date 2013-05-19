@@ -1,9 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :teammate do
-    name "John"
+    sequence :name do |n|
+      "John#{n}"
+    end
     roles ["engineer"]
-    account
+    team
   end
 end

@@ -1,8 +1,11 @@
 class Account < ActiveRecord::Base
   has_secure_password
 
-  validates :email, presence: true, uniqueness: true
+  belongs_to :team
+
+  validates :email,    presence: true, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}, presence: {on: :create}
+  validates :team,     presence: true
 
   before_create :generate_auth_token
   before_create :generate_activation_token

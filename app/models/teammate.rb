@@ -1,10 +1,12 @@
 class Teammate < ActiveRecord::Base
   ROLES = ["tech_lead", "product_manager"]
 
+  belongs_to :team
   belongs_to :account
 
-  validates :name, presence: true, uniqueness: true
+  validates :name,  presence: true, uniqueness: true
   validates :roles, presence: {message: "can't be empty"}
+  validates :team,  presence: true
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }
   scope :tech_leads, -> { with_role("tech_lead").order("name") }

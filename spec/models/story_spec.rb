@@ -51,4 +51,14 @@ describe Story do
       expect(story.spec_link).to eq("www.google.com")
     end
   end
+
+  context "associations" do
+    it "must belong to a team" do
+      story = build(:story, team: team = create(:team))
+      expect(story.team).to eq(team)
+      expect(story).to be_valid
+      story.team = nil
+      expect(story).not_to be_valid
+    end
+  end
 end

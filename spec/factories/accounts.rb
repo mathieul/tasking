@@ -4,5 +4,6 @@ FactoryGirl.define do
       "blah-#{n}@example.com"
     end
     password 'secret'
+    team
   end
 end

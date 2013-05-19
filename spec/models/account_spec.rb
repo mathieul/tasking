@@ -15,23 +15,30 @@ describe Account do
 
     it "is not valid without an email" do
       account = build(:account, email: nil)
-      account.valid?
       expect(account).to have(1).error_on(:email)
     end
 
     it "is not valid without a unique email" do
       create(:account, email: "onlyyou@example.com")
       account = build(:account, email: "onlyyou@example.com")
-      account.valid?
       expect(account).to have(1).error_on(:email)
     end
 
     it "is not valid with an invalid password" do
       account = build(:account, password: "12345")
-      account.valid?
       expect(account).to have(1).error_on(:password)
       account.password = "123456"
       expect(account).to be_valid
+    end
+  end
+
+  context "associations" do
+    it "must belong to a team" do
+      account = build(:account, team: team = create(:team))
+      expect(account.team).to eq(team)
+      expect(account).to be_valid
+      account.team = nil
+      expect(account).not_to be_valid
     end
   end
 

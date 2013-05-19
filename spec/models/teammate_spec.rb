@@ -8,31 +8,35 @@ describe Teammate do
 
     it "is not valid without a name" do
       teammate = build(:teammate, name: nil)
-      expect(teammate).not_to be_valid
-      teammate.name = "Kirk"
-      expect(teammate).to be_valid
+      expect(teammate).to have(1).error_on(:name)
     end
 
     it "has a unique name" do
       create(:teammate, name: "Unique Name")
       teammate = build(:teammate, name: "Unique Name")
-      expect(teammate).not_to be_valid
-      teammate.name += " #2"
-      expect(teammate).to be_valid
+      expect(teammate).to have(1).error_on(:name)
     end
 
     it "is not valid without at least one role" do
       teammate = build(:teammate, roles: [])
-      expect(teammate).not_to be_valid
+      expect(teammate).to have(1).error_on(:roles)
       teammate.roles << "engineer"
       expect(teammate).to be_valid
     end
   end
 
-  context "optional attributes" do
-    it "can have an account" do
+  context "associations" do
+    it "belongs to an account" do
       teammate = build(:teammate, account: account = create(:account))
       expect(teammate.account).to eq(account)
+    end
+
+    it "must belong to a team" do
+      teammate = build(:teammate, team: team = create(:team))
+      expect(teammate.team).to eq(team)
+      expect(teammate).to be_valid
+      teammate.team = nil
+      expect(teammate).not_to be_valid
     end
   end
 

@@ -4,11 +4,13 @@ class Story < ActiveRecord::Base
   include RankedModel
   ranks :row_order
 
+  belongs_to :team
   belongs_to :tech_lead, class_name: "Teammate"
   belongs_to :product_manager, class_name: "Teammate"
 
-  validates :points, presence: true, inclusion: VALID_POINTS
+  validates :points,      presence: true, inclusion: VALID_POINTS
   validates :description, presence: true
+  validates :team,        presence: true
 
   delegate :name, to: :tech_lead, prefix: true, allow_nil: true
   delegate :name, to: :product_manager, prefix: true, allow_nil: true

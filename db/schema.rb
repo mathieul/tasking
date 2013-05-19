@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130513024437) do
+ActiveRecord::Schema.define(version: 20130519183211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,11 +26,13 @@ ActiveRecord::Schema.define(version: 20130513024437) do
     t.datetime "password_reset_sent_at"
     t.string   "activation_token"
     t.datetime "activated_at"
+    t.integer  "team_id"
   end
 
   add_index "accounts", ["activation_token"], name: "index_accounts_on_activation_token", unique: true, using: :btree
   add_index "accounts", ["auth_token"], name: "index_accounts_on_auth_token", unique: true, using: :btree
   add_index "accounts", ["password_reset_token"], name: "index_accounts_on_password_reset_token", unique: true, using: :btree
+  add_index "accounts", ["team_id"], name: "index_accounts_on_team_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.text     "description",        default: "As a role\nI can do something\nso I get a benefit", null: false
@@ -42,9 +44,11 @@ ActiveRecord::Schema.define(version: 20130513024437) do
     t.string   "spec_link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id"
   end
 
   add_index "stories", ["product_manager_id"], name: "index_stories_on_product_manager_id", using: :btree
+  add_index "stories", ["team_id"], name: "index_stories_on_team_id", using: :btree
   add_index "stories", ["tech_lead_id"], name: "index_stories_on_tech_lead_id", using: :btree
 
   create_table "teammates", force: true do |t|
@@ -53,10 +57,19 @@ ActiveRecord::Schema.define(version: 20130513024437) do
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id"
   end
 
   add_index "teammates", ["account_id"], name: "index_teammates_on_account_id", using: :btree
   add_index "teammates", ["name"], name: "index_teammates_on_name", unique: true, using: :btree
   add_index "teammates", ["roles"], name: "teammates_roles", using: :gin
+  add_index "teammates", ["team_id"], name: "index_teammates_on_team_id", using: :btree
+
+  create_table "teams", force: true do |t|
+    t.string   "name"
+    t.integer  "projected_velocity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
