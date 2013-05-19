@@ -3,6 +3,7 @@
 - cache @stories do
   %h2 Product Backlog
   %p The ordered list of "requirements" that is maintained for your product.
+
   - if @stories.empty?
     %table.table.table-bordered
       %tbody.table
@@ -11,8 +12,12 @@
             %p
               There are no stories in the backlog yet.
               &nbsp;
-              %a.btn.btn-primary#new-story-button(href) Create first story
+              %a.btn.btn-primary.new-story-button(href) Create first story
   - else
+    %p
+      You can mouse over a story to reveal a story management button or &nbsp;
+      %a.btn.btn-mini.btn-primary.new-story-button(href)> Create a story
+      \.
     %table.table.table-stripped.table-hover.hidden-commands
       %colgroup
         %col(width="30px")

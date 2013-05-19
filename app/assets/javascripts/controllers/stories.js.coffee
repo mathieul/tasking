@@ -8,7 +8,7 @@ controller = null
   controller.run()
 
 class StoriesController extends App.ModalEditorController
-  newButtonSelector: "#new-story-button"
+  newButtonSelector: ".new-story-button"
 
   postConstructor: ->
     @editor = new App.StoryEditor("#new-story-editor")
