@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery.turbolinks
+//= require turbolinks
 //= require jquery_ujs
 //= require bootstrap-alert
 //= require bootstrap-transition
@@ -20,6 +21,5 @@
 //= require bootstrap-button
 //= require_self
 //= require_tree ./controllers
-//= require turbolinks
 
 window.App = {}
