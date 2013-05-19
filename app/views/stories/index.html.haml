@@ -23,9 +23,9 @@
         %col(width="30px")
         %col(span="2" width="75px")
         %col(width="60px")
-        %col(width="360px")
+        %col(width="300px")
         %col(width="30px")
-        %col(width="90px")
+        %col(width="150px")
       %thead.table
         %tr
           %th Id
@@ -39,6 +39,14 @@
         - @stories.each.with_index do |story, index|
           - cache story do
             = render "story_row", story: story, index: index
+          - if @velocity.index == index + 1
+            %tr.error
+              %td &nbsp;
+              %td(colspan="4")
+                %strong This is where we wish the line to be:
+              %td
+                %strong= @velocity.sum
+              %td &nbsp;
   = render "editor", id: "new-story-editor", story: @new_story
 
 - if @story.present?

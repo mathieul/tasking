@@ -2,6 +2,7 @@ class StoriesController < ApplicationController
   def index
     @new_story = Story.new
     @stories = Story.rank(:row_order)
+    @velocity = VelocityService.new(12, @stories)
   end
 
   def create
