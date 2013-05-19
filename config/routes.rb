@@ -13,7 +13,11 @@ Tasking::Application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   # backlog
-  resources :stories
+  resources :stories do
+    collection do
+      post "update_velocity"
+    end
+  end
 
   # config
   resources :teammates

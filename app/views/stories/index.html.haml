@@ -46,7 +46,10 @@
                 %strong This is where we wish the line to be:
               %td
                 %strong= @velocity.sum
-              %td &nbsp;
+              %td
+                = form_tag update_velocity_stories_path, class: "form-inline-row" do
+                  = text_field_tag :velocity, @velocity.value, class: "input-micro"
+                  = submit_tag "Update", class: "btn btn-small btn-inverse"
   = render "editor", id: "new-story-editor", story: @new_story
 
 - if @story.present?

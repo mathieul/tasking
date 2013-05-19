@@ -31,6 +31,10 @@ class StoriesController < ApplicationController
     redirect_to stories_url, notice: "Story ##{@story.id} was deleted."
   end
 
+  def update_velocity
+    raise "velocity is #{params[:velocity]}"
+  end
+
   private
 
   def story_params
