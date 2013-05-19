@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
   def index
     @new_story = Story.new
-    @stories = Story.rank(:row_order).all
+    @stories = Story.rank(:row_order)
   end
 
   def create
@@ -33,9 +33,11 @@ class StoriesController < ApplicationController
   private
 
   def story_params
-    params
+    extracted = params
       .require(:story)
       .permit(:description, :points, :tech_lead_id, :product_manager_id,
               :business_driver, :spec_link, :row_order_position)
+    extracted.delete(:row_order_position) if extracted[:row_order_position].blank?
+    extracted
   end
 end
