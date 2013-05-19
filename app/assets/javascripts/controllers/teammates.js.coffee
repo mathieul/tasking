@@ -5,6 +5,7 @@ controller = null
 
 @App.initTeammates = (options) ->
   controller = new TeammatesController(options)
+  controller.run()
 
 class TeammatesController extends App.ModalEditorController
   newButtonSelector: "#new-teammate-button"

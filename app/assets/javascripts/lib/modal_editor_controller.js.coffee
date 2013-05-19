@@ -2,6 +2,8 @@ class @App.ModalEditorController
   constructor: (@options = {}) ->
     @options.newAttributes ?= {}
     @postConstructor?()
+
+  run: ->
     @setupBehaviors()
     @showNowIfPresent()
 

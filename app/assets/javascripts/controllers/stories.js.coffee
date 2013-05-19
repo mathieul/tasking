@@ -5,6 +5,7 @@ controller = null
 
 @App.initStories = (options) ->
   controller = new StoriesController(options)
+  controller.run()
 
 class StoriesController extends App.ModalEditorController
   newButtonSelector: "#new-story-button"
