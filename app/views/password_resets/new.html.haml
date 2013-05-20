@@ -1,7 +1,7 @@
 %h2 Reset
 
 %br
-= simple_form_for @password_reset, method: :post do |f|
+= simple_form_for @password_reset, method: :post, defaults: {input_html: {autocomplete: "off"}} do |f|
   %fieldset
     %legend Reset forgotten password
     = f.error_notification

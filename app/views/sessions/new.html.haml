@@ -1,7 +1,7 @@
 %h2 Sign In
 
 %br
-= simple_form_for @session, url: sessions_path do |f|
+= simple_form_for @session, url: sessions_path, defaults: {input_html: {autocomplete: "off"}} do |f|
   %fieldset
     %legend Welcome back
     = f.error_notification

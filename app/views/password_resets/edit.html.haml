@@ -1,7 +1,7 @@
 %h2 Reset Password
 
 %br
-= simple_form_for @account, url: password_reset_path(@token) do |f|
+= simple_form_for @account, url: password_reset_path(@token), defaults: {input_html: {autocomplete: "off"}} do |f|
   %fieldset
     = f.error_notification
 

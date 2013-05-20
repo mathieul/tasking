@@ -1,7 +1,7 @@
 %h2 Sign Up
 
 %br
-= simple_form_for @account do |f|
+= simple_form_for @account, defaults: {input_html: {autocomplete: "off"}} do |f|
   %fieldset
     %legend Fill up below to sign up
     = f.error_notification
