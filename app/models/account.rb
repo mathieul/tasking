@@ -10,6 +10,8 @@ class Account < ActiveRecord::Base
   before_create :generate_auth_token
   before_create :generate_activation_token
 
+  accepts_nested_attributes_for :team
+
   def generate_token(field)
     begin
       write_attribute(field, SecureRandom.urlsafe_base64)

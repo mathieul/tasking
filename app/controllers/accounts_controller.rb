@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
   def account_params
     params
       .require(:account)
-      .permit(:email, :password)
+      .permit(:email, :password, team_attributes: [:name])
   end
 
   def activation_token_params
