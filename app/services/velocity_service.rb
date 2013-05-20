@@ -9,6 +9,10 @@ class VelocityService
     @index ||= find_index_and_calculate_sum
   end
 
+  def cache_key
+    "velocity-#{value}-#{sum}"
+  end
+
   private
 
   def find_index_and_calculate_sum
