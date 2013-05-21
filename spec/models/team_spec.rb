@@ -16,6 +16,13 @@ describe Team do
       team = build(:team, name: "Uniquely Yours")
       expect(team).to have(1).error_on(:name)
     end
+
+    it "is not valid without a projected velocity" do
+      team = build(:team, projected_velocity: nil)
+      expect(team).to have(1).error_on(:projected_velocity)
+      team.projected_velocity = "blah"
+      expect(team).to have(1).error_on(:projected_velocity)
+    end
   end
 
   context "associations" do

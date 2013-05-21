@@ -6,7 +6,7 @@ class StoriesController < ApplicationController
   def index
     @new_story = Story.new
     @stories = @team.stories.rank(:row_order)
-    @velocity = VelocityService.new(12, @stories)
+    @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
 
   def create
@@ -34,7 +34,9 @@ class StoriesController < ApplicationController
   end
 
   def update_velocity
-    raise "velocity is #{params[:velocity]}"
+    velocity = params.require(:velocity)
+    @team.update(projected_velocity: velocity)
+    redirect_to stories_url, notice: "Team velocity is now #{velocity}"
   end
 
   private

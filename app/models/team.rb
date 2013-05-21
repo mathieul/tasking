@@ -4,4 +4,6 @@ class Team < ActiveRecord::Base
   has_many :stories, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
+  validates :projected_velocity, presence: true,
+                                 numericality: {only_integer: true, allow_nil: true}
 end
