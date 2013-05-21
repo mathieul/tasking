@@ -6,4 +6,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   add_flash_types :error
+
+  protected
+
+  def authorize_and_find_team
+    authorize
+    @team = Team.find(current_account.team)
+  end
 end

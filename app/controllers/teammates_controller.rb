@@ -1,11 +1,14 @@
 class TeammatesController < ApplicationController
+  before_action :authorize_and_find_team
+  before_action :find_teammate, only: [:update, :destroy]
+
   def index
-    @teammates = Teammate.all
     @new_teammate = Teammate.new
+    @teammates = @team.teammates
   end
 
   def create
-    @teammate = Teammate.new(teammate_params)
+    @teammate = @team.teammates.build(teammate_params)
     if @teammate.save
       redirect_to teammates_url, notice: "New teammate was created."
     else
@@ -15,7 +18,6 @@ class TeammatesController < ApplicationController
   end
 
   def update
-    @teammate = Teammate.find(params.require(:id))
     if @teammate.update(teammate_params)
       redirect_to teammates_url, notice: "Teammate ##{@teammate.id} was updated."
     else
@@ -25,7 +27,6 @@ class TeammatesController < ApplicationController
   end
 
   def destroy
-    @teammate = Teammate.find(params.require(:id))
     @teammate.destroy
     redirect_to teammates_url, notice: "Teammate ##{@teammate.id} was deleted."
   end
@@ -36,5 +37,10 @@ class TeammatesController < ApplicationController
     params
       .require(:teammate)
       .permit(:name, {:roles => []}, :account_id)
+      .tap { |p| p[:roles].reject!(&:blank?) }
+  end
+
+  def find_teammate
+    @teammate = @team.teammates.find(params.require(:id))
   end
 end

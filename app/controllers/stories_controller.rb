@@ -1,12 +1,15 @@
 class StoriesController < ApplicationController
+  before_action :authorize_and_find_team
+  before_action :find_story, only: [:update, :destroy]
+
   def index
     @new_story = Story.new
-    @stories = Story.rank(:row_order)
+    @stories = @team.stories.rank(:row_order)
     @velocity = VelocityService.new(12, @stories)
   end
 
   def create
-    @story = Story.new(story_params)
+    @story = @team.stories.build(story_params)
     if @story.save
       redirect_to stories_url, notice: "New story was created."
     else
@@ -16,7 +19,6 @@ class StoriesController < ApplicationController
   end
 
   def update
-    @story = Story.find(params.require(:id))
     if @story.update(story_params)
       redirect_to stories_url, notice: "Story ##{@story.id} was updated."
     else
@@ -26,7 +28,6 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    @story = Story.find(params.require(:id))
     @story.destroy
     redirect_to stories_url, notice: "Story ##{@story.id} was deleted."
   end
@@ -37,6 +38,11 @@ class StoriesController < ApplicationController
 
   private
 
+  def authorize_and_find_team
+    authorize
+    @team = Team.find(current_account.team)
+  end
+
   def story_params
     extracted = params
       .require(:story)
@@ -44,5 +50,9 @@ class StoriesController < ApplicationController
               :business_driver, :spec_link, :row_order_position)
     extracted.delete(:row_order_position) if extracted[:row_order_position].blank?
     extracted
+  end
+
+  def find_story
+    @story = @team.stories.find(params.require(:id))
   end
 end
