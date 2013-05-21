@@ -9,23 +9,24 @@ feature "Account management" do
     visit "/"
     click_link "Sign Up"
 
-    fill_in "Email", with: "user@example.com"
+    fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "123"
     click_button "Sign Up"
     expect(page).to have_content "Please review the problems below:"
     expect(page).to have_content "is too short (minimum is 6 characters)"
 
-    fill_in "Password", with: "verysecret"
+    fill_in "Team name", with: "Ze Team"
+    fill_in "Password",  with: "verysecret"
     click_button "Sign Up"
-    expect(current_path).to eq("/")
     expect(page).to have_content "Thank you for signing up!"
+    expect(current_path).to eq("/")
   end
 
   scenario "Signing in" do
     visit "/"
     click_link "Sign In"
 
-    fill_in "Email", with: "john@zorn.com"
+    fill_in "Email",    with: "john@zorn.com"
     fill_in "Password", with: "wrong"
     click_button "Sign In"
     expect(page).to have_content "Email or password is invalid."
@@ -39,7 +40,7 @@ feature "Account management" do
 
   scenario "Signing out" do
     visit "/sign_in"
-    fill_in "Email", with: "john@zorn.com"
+    fill_in "Email",    with: "john@zorn.com"
     fill_in "Password", with: "secret0"
     click_button "Sign In"
 
@@ -67,7 +68,7 @@ feature "Account management" do
     click_link "Sign Out"
 
     click_link "Sign In"
-    fill_in "Email", with: "john@zorn.com"
+    fill_in "Email",    with: "john@zorn.com"
     fill_in "Password", with: "verysecret1"
     click_button "Sign In"
     expect(page).to have_content "Welcome back!"
@@ -76,13 +77,14 @@ feature "Account management" do
   scenario "Confirm account" do
     clear_emails
     visit "/sign_up"
-    fill_in "Email", with: "user@example.com"
-    fill_in "Password", with: "verysecret"
+    fill_in "Team name", with: "Ze Team"
+    fill_in "Email",     with: "user@example.com"
+    fill_in "Password",  with: "verysecret"
     click_button "Sign Up"
     click_link "Sign Out"
 
     click_link "Sign In"
-    fill_in "Email", with: "user@example.com"
+    fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "verysecret"
     click_button "Sign In"
     expect(page).to have_content "This account hasn't yet been confirmed. Please follow instructions emailed."
@@ -94,7 +96,7 @@ feature "Account management" do
 
     visit "/"
     click_link "Sign In"
-    fill_in "Email", with: "user@example.com"
+    fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "verysecret"
     click_button "Sign In"
     expect(page).to have_content "Welcome back!"
