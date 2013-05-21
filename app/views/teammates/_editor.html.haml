@@ -18,7 +18,7 @@
           Please fix the errors below.
       = f.input :name
       = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
-      = f.association :account, label_method: :email
+      = f.association :account, collection: @team.accounts, label_method: :email
     .modal-footer
       %button.btn(data-dismiss="modal") Cancel
       = f.button :submit, class: "btn-primary",
