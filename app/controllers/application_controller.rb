@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def authorize_and_find_team
-    authorize
+  def find_team
     @team = Team.find(current_account.team)
   end
 end

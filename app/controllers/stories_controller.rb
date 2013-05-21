@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
-  before_action :authorize_and_find_team
+  before_action :authorize
+  before_action :find_team
   before_action :find_story, only: [:update, :destroy]
 
   def index
