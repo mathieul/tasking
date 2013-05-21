@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20130519183211) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
-    t.integer  "projected_velocity"
+    t.integer  "projected_velocity", default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
