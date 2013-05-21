@@ -36,7 +36,7 @@ class StoriesController < ApplicationController
   def update_velocity
     velocity = params.require(:velocity)
     @team.update(projected_velocity: velocity)
-    redirect_to stories_url, notice: "Team velocity is now #{velocity}"
+    redirect_to stories_url, notice: "The team velocity is now #{velocity}."
   end
 
   private
