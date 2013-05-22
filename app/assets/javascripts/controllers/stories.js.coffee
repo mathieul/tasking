@@ -32,22 +32,16 @@ class StoriesController extends App.ModalEditorController
     $("#stories")
       .disableSelection()
       .sortable
-        item:         "> tr.story-row"
+        items:        "> tr.story-row"
         axis:         "y"
-        placeholder: "ui-state-highlight"
+        placeholder: "story-placeholder"
         helper: (event, element) ->
-          height = element.outerHeight()
+          [width, height] = [element.outerWidth(), element.outerHeight()]
           $("<div/>")
             .text(element.find("td:nth(4)").text())
-            .css
-              position: "absolute"
-              width: element.outerWidth()
-              height: "#{height}px"
-              "line-height": "#{height}px"
-              color: "blue"
-              "text-align": "center"
-              "font-weight": "bold"
-              "background-color": "lightgray"
-              "border-radius": "5px"
-              "opacity": 0.6
-              border: "2px darkgray solid"
+            .addClass("story-helper")
+            .css(width: width, height: height, lineHeight: "#{height}px")
+        stop: (event, ui) ->
+          newPosition = ui.item.prev().data("position") or 0
+          id = ui.item.data("id")
+          alert "New position #{newPosition} for id #{id}."

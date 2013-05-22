@@ -1,4 +1,4 @@
-%tr.story-row
+%tr.story-row{:"data-id" => story.id, :"data-position" => index}
   %td
     = render "edit_button", target: story, position: index
     = story.id
