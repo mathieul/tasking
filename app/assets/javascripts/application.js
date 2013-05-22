@@ -19,6 +19,10 @@
 //= require bootstrap-modal
 //= require bootstrap-dropdown
 //= require bootstrap-button
+//= require jquery-ui/jquery.ui.core
+//= require jquery-ui/jquery.ui.widget
+//= require jquery-ui/jquery.ui.mouse
+//= require jquery-ui/jquery.ui.sortable
 //= require_self
 //= require_tree ./controllers
 
