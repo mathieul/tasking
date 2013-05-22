@@ -35,7 +35,7 @@
           %th User story
           %th Points
           %th Spec
-      %tbody.table
+      %tbody#stories.table
         - @stories.each.with_index do |story, index|
           = render "velocity_bar", velocity: @velocity if index == 0 && @velocity.index == 0
           - cache story do
