@@ -17,6 +17,9 @@ Tasking::Application.routes.draw do
     collection do
       post "update_velocity"
     end
+    member do
+      post "update_position"
+    end
   end
 
   # config

@@ -11,11 +11,20 @@
     %li
       %a(href data-action="insert-above")
         %i.icon-arrow-up
-        Insert Story Above
+        Add New Story Above
     %li
       %a(href data-action="insert-below")
         %i.icon-arrow-down
-        Insert Story Below
+        Add New Story Below
+    %li.divider
+    %li
+      = link_to update_position_story_path(target, position: :first), method: :post do
+        %i.icon-circle-arrow-up
+        Move to TOP
+    %li
+      = link_to update_position_story_path(target, position: :last), method: :post do
+        %i.icon-circle-arrow-down
+        Move to BOTTOM
     %li.divider
     %li
       = link_to target, method: :delete do

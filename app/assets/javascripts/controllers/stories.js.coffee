@@ -13,6 +13,7 @@ class StoriesController extends App.ModalEditorController
   run: ->
     super()
     @makeStoriesStortable()
+    @highlight()
 
   postConstructor: ->
     @editor = new App.StoryEditor("#new-story-editor")
@@ -43,5 +44,11 @@ class StoriesController extends App.ModalEditorController
             .css(width: width, height: height, lineHeight: "#{height}px")
         stop: (event, ui) ->
           newPosition = ui.item.prev().data("position") or 0
-          id = ui.item.data("id")
-          alert "New position #{newPosition} for id #{id}."
+          ui.item.find("form")
+            .find("input[name=position]")
+              .val(newPosition)
+              .end()
+            .submit()
+
+  highlight: ->
+    $(".trigger-highlight").effect(effect: "highlight", duration: 2000)

@@ -1,5 +1,11 @@
-%tr.story-row{:"data-id" => story.id, :"data-position" => index}
+%tr.story-row{:"data-id" => story.id,
+              :"data-position" => index,
+              :"data-position-url" => update_position_story_path(story),
+              :class => @highlight_id == story.id ? "trigger-highlight" : ""}
   %td
+    %div(style="display: none")
+      = form_tag update_position_story_path(story), method: :post do
+        = hidden_field_tag :position, nil, id: nil
     = render "edit_button", target: story, position: index
     = story.id
   %td= story.product_manager_name

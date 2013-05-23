@@ -23,6 +23,8 @@
 //= require jquery-ui/jquery.ui.widget
 //= require jquery-ui/jquery.ui.mouse
 //= require jquery-ui/jquery.ui.sortable
+//= require jquery-ui/jquery.ui.effect
+//= require jquery-ui/jquery.ui.effect-highlight
 //= require_self
 //= require_tree ./controllers
 
