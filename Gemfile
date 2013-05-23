@@ -37,7 +37,7 @@ gem 'jquery-turbolinks', '~> 1.0.0'
 
 gem 'simple_form', '~> 3.0.0.rc'
 
-gem 'ranked-model', '~> 0.2.0'
+gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.3'
 
