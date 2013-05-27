@@ -13,6 +13,7 @@ class TeammatesController < ApplicationController
     if @teammate.save
       redirect_to teammates_url, notice: "New teammate was created."
     else
+      @team.teammates.reload
       index
       render "index"
     end
