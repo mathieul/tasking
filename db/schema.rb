@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130519183211) do
+ActiveRecord::Schema.define(version: 20130527230202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +26,26 @@ ActiveRecord::Schema.define(version: 20130519183211) do
     t.datetime "password_reset_sent_at"
     t.string   "activation_token"
     t.datetime "activated_at"
-    t.integer  "team_id"
+    t.integer  "team_id",                null: false
   end
 
   add_index "accounts", ["activation_token"], name: "index_accounts_on_activation_token", unique: true, using: :btree
   add_index "accounts", ["auth_token"], name: "index_accounts_on_auth_token", unique: true, using: :btree
   add_index "accounts", ["password_reset_token"], name: "index_accounts_on_password_reset_token", unique: true, using: :btree
   add_index "accounts", ["team_id"], name: "index_accounts_on_team_id", using: :btree
+
+  create_table "sprints", force: true do |t|
+    t.integer  "projected_velocity",                   null: false
+    t.integer  "measured_velocity"
+    t.string   "status",             default: "draft", null: false
+    t.date     "start_on"
+    t.date     "end_on"
+    t.integer  "team_id",                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sprints", ["team_id"], name: "index_sprints_on_team_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.text     "description",        default: "As a role\nI can do something\nso I get a benefit", null: false
@@ -44,10 +57,12 @@ ActiveRecord::Schema.define(version: 20130519183211) do
     t.string   "spec_link"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "team_id"
+    t.integer  "team_id",                                                                          null: false
+    t.integer  "sprint_id"
   end
 
   add_index "stories", ["product_manager_id"], name: "index_stories_on_product_manager_id", using: :btree
+  add_index "stories", ["sprint_id"], name: "index_stories_on_sprint_id", using: :btree
   add_index "stories", ["team_id"], name: "index_stories_on_team_id", using: :btree
   add_index "stories", ["tech_lead_id"], name: "index_stories_on_tech_lead_id", using: :btree
 
@@ -57,7 +72,7 @@ ActiveRecord::Schema.define(version: 20130519183211) do
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "team_id"
+    t.integer  "team_id",                 null: false
   end
 
   add_index "teammates", ["account_id"], name: "index_teammates_on_account_id", using: :btree

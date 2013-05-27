@@ -60,5 +60,10 @@ describe Story do
       story.team = nil
       expect(story).not_to be_valid
     end
+
+    it "can belong to a sprint" do
+      story = build(:story, sprint: sprint = create(:sprint))
+      expect(story.sprint).to eq(sprint)
+    end
   end
 end

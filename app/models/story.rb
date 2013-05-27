@@ -7,6 +7,7 @@ class Story < ActiveRecord::Base
   belongs_to :team
   belongs_to :tech_lead, class_name: "Teammate"
   belongs_to :product_manager, class_name: "Teammate"
+  belongs_to :sprint
 
   validates :points,      presence: true, inclusion: VALID_POINTS
   validates :description, presence: true
