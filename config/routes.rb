@@ -18,7 +18,7 @@ Tasking::Application.routes.draw do
       match "update_velocity", via: [:get, :post]
     end
     member do
-      post "update_position"
+      match "update_position", via: [:get, :post]
     end
   end
 
