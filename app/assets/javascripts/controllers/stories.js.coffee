@@ -11,6 +11,7 @@ class StoriesController extends App.ModalEditorController
   newButtonSelector: ".new-story-button"
 
   run: ->
+    window.wiselinks ?= new Wiselinks($('body'), html4: false)
     super()
     @makeStoriesStortable()
     @highlight()
