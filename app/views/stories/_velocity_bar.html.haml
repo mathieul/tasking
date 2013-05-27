@@ -2,7 +2,8 @@
   %td &nbsp;
   %td(colspan="4")
     %p.text-center
-      %strong This is where we wish the line to be
+      %strong This is where we wish the line to be... &nbsp;
+      %button.btn.btn-success Create New Sprint
   %td
     %strong= velocity.sum
   %td
@@ -13,4 +14,4 @@
                                   class: "input-micro",
                                   autocomplete: "off",
                                   onchange: "$(this).addClass('changed')"
-      = submit_tag "Update", class: "btn btn-small btn-inverse"
+      = submit_tag "Update", class: "btn btn-inverse"
