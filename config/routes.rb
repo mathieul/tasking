@@ -15,7 +15,7 @@ Tasking::Application.routes.draw do
   # backlog
   resources :stories do
     collection do
-      post "update_velocity"
+      match "update_velocity", via: [:get, :post]
     end
     member do
       post "update_position"

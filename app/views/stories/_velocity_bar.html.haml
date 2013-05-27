@@ -6,7 +6,9 @@
   %td
     %strong= velocity.sum
   %td
-    = form_tag update_velocity_stories_path, class: "form-inline-row" do
+    = form_tag update_velocity_stories_path,
+               class: "form-inline-row",
+               data: {replace: true, target: "body"} do
       = text_field_tag :velocity, velocity.value, class: "input-micro",
                                                   autocomplete: "off",
                                                   onchange: "$(this).addClass('changed')"
