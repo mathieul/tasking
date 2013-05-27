@@ -13,7 +13,8 @@ class StoriesController < ApplicationController
   def create
     @story = @team.stories.build(story_params)
     if @story.save
-      redirect_to stories_url, notice: "New story was created."
+      session[:highlight_id] = @story.id
+      redirect_to stories_url
     else
       index
       render "index"
@@ -22,7 +23,8 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      redirect_to stories_url, notice: "Story ##{@story.id} was updated."
+      session[:highlight_id] = @story.id
+      redirect_to stories_url
     else
       index
       render "index"
@@ -32,18 +34,18 @@ class StoriesController < ApplicationController
   def update_position
     @story.update(row_order_position: params.require(:position))
     session[:highlight_id] = @story.id
-    redirect_to stories_url, notice: "Story ##{@story.id} was moved successfully."
+    redirect_to stories_url
   end
 
   def destroy
     @story.destroy
-    redirect_to stories_url, notice: "Story ##{@story.id} was deleted."
+    redirect_to stories_url, notice: "Story #{@story.description.inspect} was deleted."
   end
 
   def update_velocity
     velocity = params.require(:velocity)
     @team.update(projected_velocity: velocity)
-    redirect_to stories_url, notice: "The team velocity is now #{velocity}."
+    redirect_to stories_url
   end
 
   private

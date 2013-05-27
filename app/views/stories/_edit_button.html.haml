@@ -34,6 +34,6 @@
         Move to BOTTOM
     %li.divider
     %li
-      = link_to target, method: :delete do
+      = link_to destroy_story_path(target), data: {replace: true} do
         %i.icon-minus-sign
         Delete Story

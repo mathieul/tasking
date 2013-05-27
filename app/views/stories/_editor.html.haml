@@ -2,7 +2,9 @@
   = simple_form_for story,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
-      data: {create: story_path(story), update: story_path(id: "__id__")} do |f|
+      data: {create: create_stories_path,
+             update: update_story_path(id: "__id__"),
+             replace: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     = f.hidden_field :row_order_position
     .modal-header

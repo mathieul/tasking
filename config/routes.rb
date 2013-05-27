@@ -16,9 +16,12 @@ Tasking::Application.routes.draw do
   resources :stories do
     collection do
       match "update_velocity", via: [:get, :post]
+      get "create", as: "create"
     end
     member do
       match "update_position", via: [:get, :post]
+      get "update", as: "update"
+      get "destroy", as: "destroy"
     end
   end
 
