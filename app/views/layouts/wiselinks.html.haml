@@ -2,11 +2,10 @@
   .navbar.navbar-fixed-top
     .navbar-inner
       .container
-        = link_to "Tasking", root_path, class: "brand", data: {push: true}
+        - brand_path = current_account ? stories_path : root_path
+        = link_to "Tasking", brand_path, class: "brand", data: {push: true}
         .nav-collapse.collapse
           %ul.nav
-            = nav_link "Home", root_path, data: {push: true}
-            %li.divider-vertical
             - if current_account
               = nav_link "Backlog", stories_path, data: {push: true}
               %li.divider-vertical
