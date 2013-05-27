@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     case status
     when :activated
       set_current_account(account, permanent: @session.remember_me)
-      redirect_to root_url, notice: "Welcome back!"
+      redirect_to stories_url, notice: "Welcome back!"
     when :not_activated
       flash.now.alert = "This account hasn't yet been confirmed. Please follow instructions emailed."
       render :new
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
   def destroy
     clear_current_account
-    redirect_to root_url, notice: "Logged out successfully."
+    redirect_to sign_in_url, notice: "Logged out successfully."
   end
 
   private
