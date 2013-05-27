@@ -28,5 +28,10 @@ module Tasking
 
     # Add custom paths to the load path
     config.autoload_paths.concat(%W[#{config.root}/app/services])
+
+    # Setup generators
+    config.generators do |g|
+      g.helper false
+    end
   end
 end
