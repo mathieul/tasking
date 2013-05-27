@@ -4,6 +4,7 @@
 controller = null
 
 @App.initTeammates = (options) ->
+  window.wiselinks ?= new Wiselinks($('body'), html4: false)
   controller = new TeammatesController(options)
   controller.run()
 

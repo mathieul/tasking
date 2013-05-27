@@ -2,7 +2,9 @@
   = simple_form_for teammate,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
-      data: {create: teammate_path(teammate), update: teammate_path(id: "__id__")} do |f|
+      data: {create: create_teammates_path(teammate),
+             update: update_teammate_path(id: "__id__"),
+             replace: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
       %button.close(type="button" data-dismiss="modal") x

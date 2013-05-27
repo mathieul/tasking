@@ -1,9 +1,19 @@
 Tasking::Application.routes.draw do
+  # allow get for use with wiselinks
+  concern :wiselinkable do
+    collection do
+      get "create", as: "create"
+    end
+    member do
+      get "update", as: "update"
+      get "destroy", as: "destroy"
+    end
+  end
+
+  # sign-up/in/out links
   get "sign_up"  => "accounts#new", as: :sign_up
   get "sign_in"  => "sessions#new", as: :sign_in
   get "sign_out" => "sessions#destroy", as: :sign_out
-
-  get "edit_stuff" => "home#edit", as: :edit_stuff
 
   # authentication
   resources :accounts, only: [:new, :create] do
@@ -13,20 +23,17 @@ Tasking::Application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   # backlog
-  resources :stories do
+  resources :stories, concerns: :wiselinkable do
     collection do
       match "update_velocity", via: [:get, :post]
-      get "create", as: "create"
     end
     member do
       match "update_position", via: [:get, :post]
-      get "update", as: "update"
-      get "destroy", as: "destroy"
     end
   end
 
   # config
-  resources :teammates
+  resources :teammates, concerns: :wiselinkable
 
   root "home#index"
 

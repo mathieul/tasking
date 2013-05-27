@@ -13,9 +13,7 @@ class TeammatesController < ApplicationController
     if @teammate.save
       redirect_to teammates_url, notice: "New teammate was created."
     else
-      @team.teammates.reload
-      index
-      render "index"
+      render_index_action
     end
   end
 
@@ -23,8 +21,7 @@ class TeammatesController < ApplicationController
     if @teammate.update(teammate_params)
       redirect_to teammates_url, notice: "Teammate ##{@teammate.id} was updated."
     else
-      index
-      render "index"
+      render_index_action
     end
   end
 
@@ -35,11 +32,20 @@ class TeammatesController < ApplicationController
 
   private
 
+  def render_index_action
+    @team.teammates.reload
+    index
+    render "index"
+  end
+
   def teammate_params
-    params
+    secured = params
       .require(:teammate)
-      .permit(:name, {:roles => []}, :account_id)
-      .tap { |p| p[:roles].reject!(&:blank?) }
+      .permit(:name, :account_id, :roles, roles: [])
+    secured[:roles] ||= []
+    secured[:roles] = secured[:roles].split(",") if secured[:roles].is_a?(String)
+    secured[:roles].reject!(&:blank?)
+    secured
   end
 
   def find_teammate
