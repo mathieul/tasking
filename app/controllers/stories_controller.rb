@@ -6,7 +6,7 @@ class StoriesController < ApplicationController
   def index
     @new_story = Story.new
     @stories = @team.stories.rank(:row_order)
-    @highlight_id = params.permit(:highlight).try(:[], :highlight).try(:to_i)
+    @highlight_id = session.delete(:highlight_id) if session[:highlight_id].present?
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
 
@@ -31,7 +31,8 @@ class StoriesController < ApplicationController
 
   def update_position
     @story.update(row_order_position: params.require(:position))
-    redirect_to stories_url(highlight: @story.id), notice: "Story ##{@story.id} was moved successfully."
+    session[:highlight_id] = @story.id
+    redirect_to stories_url, notice: "Story ##{@story.id} was moved successfully."
   end
 
   def destroy
