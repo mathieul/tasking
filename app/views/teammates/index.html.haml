@@ -1,38 +1,42 @@
 - content_for :javascript do
   = javascript_tag "App.initTeammates({newAttributes: #{@new_teammate.to_json}});"
 
-%h2 Teammates
-%p Manage the list of teammates to use.
-%p
-  %a.btn.btn-primary#new-teammate-button(href) Create teammate
+- cache @teammates do
+  %h2 Teammates
+  %p Manage the list of teammates to use.
+  %p
+    %a.btn.btn-primary#new-teammate-button(href) Create teammate
 
-- if @teammates.empty?
-  %table.table.table-bordered
-    %tbody.table
-      %tr
-        %td
-          %p
-            There are no teammates yet.
-- else
-  %table.table.table-stripped.table-hover.hidden-commands
-    %thead.table
-      %tr
-        %th Name
-        %th Roles
-        %th Account
-        %th Updated
-    %tbody.table
-      - @teammates.each.with_index do |teammate, index|
+  - if @teammates.empty?
+    %table.table.table-bordered
+      %tbody.table
         %tr
           %td
-            = render "edit_button", target: teammate, position: index
-            = teammate.name
-          %td= teammate.roles.join(", ")
-          %td= teammate.account && teammate.account.email
-          %td
-            = time_ago_in_words(teammate.updated_at)
-            ago
+            %p
+              There are no teammates yet.
+  - else
+    %table.table.table-stripped.table-hover.hidden-commands
+      %thead.table
+        %tr
+          %th Name
+          %th Roles
+          %th Account
+          %th Updated
+      %tbody.table
+        - @teammates.each.with_index do |teammate, index|
+          - cache [teammate, index] do
+            %tr
+              %td
+                = render "edit_button", target: teammate, position: index
+                = teammate.name
+              %td= teammate.roles.join(", ")
+              %td= teammate.account && teammate.account.email
+              %td
+                = time_ago_in_words(teammate.updated_at)
+                ago
 
-= render "editor", id: "new-teammate-editor", teammate: @new_teammate
+  = render "editor", id: "new-teammate-editor", teammate: @new_teammate
+
 - if @teammate.present?
-  = render "editor", id: "show-now", teammate: @teammate
+  - cache @teammate do
+    = render "editor", id: "show-now", teammate: @teammate
