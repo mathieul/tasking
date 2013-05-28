@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
   VALID_POINTS = [0, 1, 2, 3, 5, 8, 13, 21]
 
   include RankedModel
-  ranks :row_order
+  ranks :row_order, with_same: "team_id"
 
   belongs_to :team
   belongs_to :tech_lead, class_name: "Teammate"
@@ -15,4 +15,8 @@ class Story < ActiveRecord::Base
 
   delegate :name, to: :tech_lead, prefix: true, allow_nil: true
   delegate :name, to: :product_manager, prefix: true, allow_nil: true
+
+  scope :ranked, -> { rank(:row_order) }
+  scope :backlogged, -> { where(sprint_id: nil) }
+  scope :sprinted, ->(sprint) { where(sprint_id: sprint.respond_to?(:id) ? sprint.id : sprint) }
 end

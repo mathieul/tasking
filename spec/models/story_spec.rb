@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'set'
 
 describe Story do
   context "validation" do
@@ -64,6 +65,30 @@ describe Story do
     it "can belong to a sprint" do
       story = build(:story, sprint: sprint = create(:sprint))
       expect(story.sprint).to eq(sprint)
+    end
+  end
+
+  context "querying" do
+    context "ranking" do
+      let(:team1)    { create(:team, name: "team1") }
+      let(:team2)    { create(:team, name: "team2") }
+      let(:sprint1)  { create(:sprint, team: team1) }
+      let!(:t1s2p)   { create(:story, team: team1) }
+      let!(:t1s1p)   { create(:story, team: team1, row_order_position: :first) }
+      let!(:t2s2p)   { create(:story, team: team2) }
+      let!(:t2s1p)   { create(:story, team: team2, row_order_position: :first) }
+      let!(:t1s2sp1) { create(:story, team: team1, sprint: sprint1) }
+      let!(:t1s1sp1) { create(:story, team: team1, sprint: sprint1, row_order_position: :first) }
+
+      it "can query backlogged stories of a team in order" do
+        stories = team1.stories.ranked.backlogged
+        expect(stories).to eq([t1s1p, t1s2p])
+      end
+
+      it "can query stories of a sprint in order" do
+        stories = team1.stories.ranked.sprinted(sprint1)
+        expect(stories).to eq([t1s1sp1, t1s2sp1])
+      end
     end
   end
 end

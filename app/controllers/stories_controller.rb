@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
 
   def index
     @new_story = Story.new
-    @stories = @team.stories.rank(:row_order)
+    @stories = @team.stories.ranked.backlogged
     @highlight_id = session.delete(:highlight_id) if session[:highlight_id].present?
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
