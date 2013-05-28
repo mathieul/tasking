@@ -44,7 +44,8 @@ class StoriesController extends App.ModalEditorController
             .addClass("story-helper")
             .css(width: width, height: height, lineHeight: "#{height}px")
         stop: (event, ui) ->
-          newPosition = ui.item.prev().data("position") or 0
+          prevPosition = ui.item.prev().data("position")
+          newPosition = if prevPosition? then prevPosition + 1 else  0
           ui.item.find("form")
             .find("input[name=position]")
               .val(newPosition)
