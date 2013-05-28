@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  include Effectable
+
   before_action :authorize
   before_action :find_team
   before_action :find_story, only: [:update, :update_position, :destroy]
@@ -6,34 +8,31 @@ class StoriesController < ApplicationController
   def index
     @new_story = Story.new
     @stories = @team.stories.ranked.backlogged
-    @highlight_id = session.delete(:highlight_id) if session[:highlight_id].present?
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
 
   def create
     @story = @team.stories.build(story_params)
     if @story.save
-      session[:highlight_id] = @story.id
+      trigger_effect!(highlight: @story)
       redirect_to stories_url
     else
-      index
-      render "index"
+      render_index_action
     end
   end
 
   def update
     if @story.update(story_params)
-      session[:highlight_id] = @story.id
+      trigger_effect!(highlight: @story)
       redirect_to stories_url
     else
-      index
-      render "index"
+      render_index_action
     end
   end
 
   def update_position
     @story.update(row_order_position: params.require(:position))
-    session[:highlight_id] = @story.id
+    trigger_effect!(highlight: @story)
     redirect_to stories_url
   end
 
@@ -49,6 +48,11 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def render_index_action
+      index
+      render "index"
+  end
 
   def authorize_and_find_team
     authorize
