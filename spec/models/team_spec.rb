@@ -43,5 +43,11 @@ describe Team do
       story = create(:story, team: team)
       expect(Team.find_by(name: "dev").stories.to_a).to eq([story])
     end
+
+    it "has many sprints" do
+      team = create(:team, name: "dev")
+      sprint = create(:sprint, team: team)
+      expect(Team.find_by(name: "dev").sprints.to_a).to eq([sprint])
+    end
   end
 end
