@@ -32,6 +32,9 @@ Tasking::Application.routes.draw do
     end
   end
 
+  # sprints
+  resources :sprints, only: [:new, :create]
+
   # config
   resources :teammates, concerns: :wiselinkable
 

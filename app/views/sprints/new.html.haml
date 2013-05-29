@@ -1,0 +1,20 @@
+- cache @sprint do
+  %h2 New Sprint
+  = simple_form_for @sprint,
+      html: {class: "form-horizontal", id: nil},
+      defaults: {input_html: {class: "input-xlarge"}},
+      data: {replace: true} do |f|
+
+    - if @sprint.errors.present?
+      .alert.alert-error
+        %button.close(type="button" data-dismiss="alert") &times;
+        %strong Can't create sprint.
+        Please fix the errors below.
+    = f.input :projected_velocity
+    = f.input :start_on
+    = f.input :end_on
+
+    .actions
+      = f.button :submit, class: "btn-primary"
+      or
+      = link_to "Cancel", stories_path, class: "btn", data: {push: true}
