@@ -44,6 +44,7 @@ class StoriesController < ApplicationController
   def update_velocity
     velocity = params.require(:velocity)
     @team.update(projected_velocity: velocity)
+    trigger_effect!(highlight: "velocity")
     redirect_to stories_url
   end
 
