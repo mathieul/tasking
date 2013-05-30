@@ -7,11 +7,11 @@ module ApplicationHelper
 
   def badge_for_number(number)
     class_name = case number
-                 when 1 then "badge-success"
-                 when 2 then "badge-warning"
-                 when 3 then "badge-important"
-                 when 5 then "badge-info"
-                 when 8, 13, 21 then "badge-inverse"
+                 when 0 then "badge-inverse"
+                 when 3, 5 then "badge-success"
+                 when 8 then "badge-info"
+                 when 13 then "badge-warning"
+                 when 21 then "badge-important"
                  else ""
                  end
     content_tag :span, number, class: "badge #{class_name}"
