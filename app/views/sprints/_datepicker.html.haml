@@ -1,0 +1,4 @@
+= f.input name, wrapper: :append do
+  = f.input_field name, as: :string, data: {format: "yyyy-MM-dd"}, class: "input-small"
+  = content_tag :span, class: "add-on" do
+    = content_tag :i, nil, data: {:"time-icon" => "icon-time", :"date-icon" => "icon-calendar"}

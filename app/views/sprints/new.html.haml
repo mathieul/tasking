@@ -1,5 +1,10 @@
+- content_for :javascript do
+  = javascript_tag "App.initSprints({});"
+
 - cache @sprint do
   %h2 New Sprint
+  %br
+
   = simple_form_for @sprint,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
@@ -10,9 +15,12 @@
         %button.close(type="button" data-dismiss="alert") &times;
         %strong Can't create sprint.
         Please fix the errors below.
-    = f.input :projected_velocity
-    = f.input :start_on
-    = f.input :end_on
+    = f.input :projected_velocity, wrapper: :append do
+      = f.input_field :projected_velocity, type: "number", class: "input-small"
+      = content_tag :span, class: "add-on" do
+        = content_tag :i, nil, class: "icon-tasks"
+    = render "datepicker", f: f, name: :start_on
+    = render "datepicker", f: f, name: :end_on
 
     .actions
       = f.button :submit, class: "btn-primary"
