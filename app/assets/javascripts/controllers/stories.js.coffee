@@ -17,6 +17,7 @@ class StoriesController extends App.ModalEditorController
   run: ->
     super()
     @makeStoriesStortable()
+    @updateVelocityOnChange()
     @highlight()
 
   executeAction: (action, data) ->
@@ -57,6 +58,13 @@ class StoriesController extends App.ModalEditorController
       prevPosition
     else
       prevPosition + 1
+
+  updateVelocityOnChange: ->
+    $("#velocity").change (event) ->
+      $("#btn-new-sprint")
+        .attr("disabled", true)
+        .click (event) -> event.preventDefault()
+      $(event.target).closest("form").submit()
 
   highlight: ->
     for id in (@options.effects?["highlight"] || [])

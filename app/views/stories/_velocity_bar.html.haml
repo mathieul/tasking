@@ -3,18 +3,19 @@
   %td(colspan="4")
     %p.text-center
       %strong This is where we wish the line to be... &nbsp;
-      = link_to "Create New Sprint",
-        new_sprint_path(story_ids: velocity.included_stories.map(&:id)),
-        class: "btn btn-success",
-        data: {push: true}
+      - if velocity.sum > 0
+        = link_to "Create New Sprint",
+          new_sprint_path(story_ids: velocity.included_stories.map(&:id)),
+          class: "btn btn-success",
+          id: "btn-new-sprint",
+          data: {push: true}
   %td
     %strong= velocity.sum
   %td
     = form_tag update_velocity_stories_path,
                class: "form-inline-row",
                data: {replace: true} do
-      = text_field_tag :velocity, velocity.value,
-                                  class: "input-micro",
-                                  autocomplete: "off",
-                                  onchange: "$(this).addClass('changed')"
-      = submit_tag "Update", class: "btn btn-inverse"
+      = number_field_tag :velocity, velocity.value,
+                                    min: 1,
+                                    class: "input-micro",
+                                    autocomplete: "off"
