@@ -39,6 +39,8 @@ gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.3'
 
+gem 'puma'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
