@@ -7,4 +7,8 @@ class Team < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :projected_velocity, presence: true,
                                  numericality: {only_integer: true, allow_nil: true}
+
+  def sprint_duration
+    14.days
+  end
 end

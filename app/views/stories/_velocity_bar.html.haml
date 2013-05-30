@@ -3,7 +3,10 @@
   %td(colspan="4")
     %p.text-center
       %strong This is where we wish the line to be... &nbsp;
-      = link_to "Create New Sprint", new_sprint_path, class: "btn btn-success", data: {push: true}
+      = link_to "Create New Sprint",
+        new_sprint_path(story_ids: velocity.included_stories.map(&:id)),
+        class: "btn btn-success",
+        data: {push: true}
   %td
     %strong= velocity.sum
   %td

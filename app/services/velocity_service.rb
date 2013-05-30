@@ -9,6 +9,10 @@ class VelocityService
     @index ||= find_index_and_calculate_sum
   end
 
+  def included_stories
+    stories[0...index]
+  end
+
   def cache_key
     "velocity-#{value}-#{sum}"
   end

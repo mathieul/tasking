@@ -2,27 +2,46 @@
   = javascript_tag "App.initSprints({});"
 
 - cache @sprint do
-  %h2 New Sprint
-  %br
+  .row
+    %h2 New Sprint
+    %br
 
-  = simple_form_for @sprint,
-      html: {class: "form-horizontal", id: nil},
-      defaults: {input_html: {class: "input-xlarge"}},
-      data: {replace: true} do |f|
+  .row
+    = simple_form_for @sprint,
+        html: {class: "form-horizontal", id: nil},
+        defaults: {input_html: {class: "input-xlarge"}},
+        data: {replace: true} do |f|
 
-    - if @sprint.errors.present?
-      .alert.alert-error
-        %button.close(type="button" data-dismiss="alert") &times;
-        %strong Can't create sprint.
-        Please fix the errors below.
-    = f.input :projected_velocity, wrapper: :append do
-      = f.input_field :projected_velocity, type: "number", class: "input-small"
-      = content_tag :span, class: "add-on" do
-        = content_tag :i, nil, class: "icon-tasks"
-    = render "datepicker", f: f, name: :start_on
-    = render "datepicker", f: f, name: :end_on
+      - if @sprint.errors.present?
+        .alert.alert-error
+          %button.close(type="button" data-dismiss="alert") &times;
+          %strong Can't create sprint.
+          Please fix the errors below.
 
-    .actions
-      = f.button :submit, class: "btn-primary"
-      or
-      = link_to "Cancel", stories_path, class: "btn", data: {push: true}
+      .span5
+        = f.input :projected_velocity, wrapper: :append do
+          = f.input_field :projected_velocity, disabled: true, class: "input-small"
+          = content_tag :span, class: "add-on" do
+            = content_tag :i, nil, class: "icon-tasks"
+        = render "datepicker", f: f, name: :start_on
+        = render "datepicker", f: f, name: :end_on
+
+      .span7
+        %table.table.table-bordered.table-striped
+          %thead.table
+            %tr
+              %th Id
+              %th User story
+              %th Points
+          %tbody.table
+            - @stories.each do |story|
+              %tr
+                %td= story.id
+                %td= story.description
+                %td= badge_for_number story.points
+
+      .span12
+        .form-actions
+          = f.button :submit, class: "btn-primary"
+          or
+          = link_to "Cancel", stories_path, class: "btn", data: {push: true}
