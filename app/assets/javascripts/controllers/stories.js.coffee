@@ -43,14 +43,20 @@ class StoriesController extends App.ModalEditorController
             .text(element.find("td:nth(4)").text())
             .addClass("story-helper")
             .css(width: width, height: height, lineHeight: "#{height}px")
-        stop: (event, ui) ->
-          prevPosition = ui.item.prev().data("position")
-          newPosition = if prevPosition? then prevPosition + 1 else  0
+        stop: (event, ui) =>
           ui.item.find("form")
             .find("input[name=position]")
-              .val(newPosition)
+              .val(@newPositionFor(ui.item))
               .end()
             .submit()
+
+  newPositionFor: (item) ->
+    prevPosition = item.prev().data("position")
+    return 0 unless prevPosition?
+    if prevPosition > item.data("position")
+      prevPosition
+    else
+      prevPosition + 1
 
   highlight: ->
     for id in (@options.effects?["highlight"] || [])
