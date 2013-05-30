@@ -18,6 +18,7 @@
 //= require bootstrap-modal
 //= require bootstrap-dropdown
 //= require bootstrap-button
+//= require bootstrap-datetimepicker.min
 //= require jquery-ui/jquery.ui.core
 //= require jquery-ui/jquery.ui.widget
 //= require jquery-ui/jquery.ui.mouse
