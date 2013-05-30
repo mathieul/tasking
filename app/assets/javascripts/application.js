@@ -24,6 +24,7 @@
 //= require jquery-ui/jquery.ui.sortable
 //= require jquery-ui/jquery.ui.effect
 //= require jquery-ui/jquery.ui.effect-highlight
+//= require moment
 //= require_self
 //= require_tree ./controllers
 
