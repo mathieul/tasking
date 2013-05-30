@@ -13,3 +13,12 @@ class TeammatesController extends App.ModalEditorController
 
   postConstructor: ->
     @editor = new App.TeammateEditor("#new-teammate-editor")
+
+  run: ->
+    super()
+    @labelTimeTags()
+
+  labelTimeTags: ->
+    $('time').each ->
+      time = $(this)
+      time.text moment(time.attr("datetime")).fromNow()

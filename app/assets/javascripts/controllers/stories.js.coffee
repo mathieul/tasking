@@ -11,13 +11,13 @@ controller = null
 class StoriesController extends App.ModalEditorController
   newButtonSelector: ".new-story-button"
 
+  postConstructor: ->
+    @editor = new App.StoryEditor("#new-story-editor")
+
   run: ->
     super()
     @makeStoriesStortable()
     @highlight()
-
-  postConstructor: ->
-    @editor = new App.StoryEditor("#new-story-editor")
 
   executeAction: (action, data) ->
     switch action

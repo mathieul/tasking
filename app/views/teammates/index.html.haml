@@ -32,9 +32,7 @@
                 = teammate.name
               %td= teammate.roles.join(", ")
               %td= teammate.account && teammate.account.email
-              %td
-                = time_ago_in_words(teammate.updated_at)
-                ago
+              %td= time_tag teammate.updated_at
 
   = render "editor", id: "new-teammate-editor", teammate: @new_teammate
 
