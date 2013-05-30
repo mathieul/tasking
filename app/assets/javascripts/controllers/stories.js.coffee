@@ -53,4 +53,5 @@ class StoriesController extends App.ModalEditorController
             .submit()
 
   highlight: ->
-    $(".trigger-highlight").effect(effect: "highlight", duration: 2000)
+    for id in (@options.effects?["highlight"] || [])
+      $("##{id}").effect(effect: "highlight", duration: 2000)

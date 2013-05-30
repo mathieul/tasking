@@ -1,7 +1,7 @@
 %tr.story-row{:"data-id" => story.id,
               :"data-position" => index,
               :"data-position-url" => update_position_story_path(story),
-              :class => classy_effects_for(story)}
+              :id => dom_id(story)}
   %td
     %div(style="display: none")
       = form_tag update_position_story_path(story),

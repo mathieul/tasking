@@ -11,7 +11,7 @@
                class: "form-inline-row",
                data: {replace: true} do
       = text_field_tag :velocity, velocity.value,
-                                  class: "input-micro #{classy_effects_for("velocity")}",
+                                  class: "input-micro",
                                   autocomplete: "off",
                                   onchange: "$(this).addClass('changed')"
       = submit_tag "Update", class: "btn btn-inverse"
