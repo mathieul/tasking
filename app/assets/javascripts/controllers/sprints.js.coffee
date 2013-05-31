@@ -1,7 +1,9 @@
+#= require ../lib/wiselinks_manager
+
 controller = null
 
 @App.initSprints = (options) ->
-  window.wiselinks ?= new Wiselinks($('body'), html4: false)
+  App.WiselinksManager.setup()
   controller = new SprintsController(options)
   controller.run()
 

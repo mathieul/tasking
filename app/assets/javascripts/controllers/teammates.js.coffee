@@ -1,10 +1,11 @@
 #= require ../lib/teammate_editor
 #= require ../lib/modal_editor_controller
+#= require ../lib/wiselinks_manager
 
 controller = null
 
 @App.initTeammates = (options) ->
-  window.wiselinks ?= new Wiselinks($('body'), html4: false)
+  App.WiselinksManager.setup()
   controller = new TeammatesController(options)
   controller.run()
 
