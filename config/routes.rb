@@ -6,6 +6,10 @@ Tasking::Application.routes.draw do
     end
     member do
       get "update", as: "update"
+    end
+  end
+  concern :wiselinkable_destroy do
+    member do
       get "destroy", as: "destroy"
     end
   end
@@ -23,7 +27,7 @@ Tasking::Application.routes.draw do
   get "sign_out" => "sessions#destroy", as: :sign_out
 
   # backlog
-  resources :stories, concerns: :wiselinkable do
+  resources :stories, concerns: [:wiselinkable, :wiselinkable_destroy] do
     collection do
       match "update_velocity", via: [:get, :post]
     end
@@ -33,10 +37,10 @@ Tasking::Application.routes.draw do
   end
 
   # sprints
-  resources :sprints, only: [:new, :create]
+  resources :sprints, only: [:new, :create, :edit, :update], concerns: :wiselinkable
 
   # config
-  resources :teammates, concerns: :wiselinkable
+  resources :teammates, concerns: [:wiselinkable, :wiselinkable_destroy]
 
   root to: redirect("/sign_in")
 end
