@@ -6,6 +6,13 @@ GIT
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
 
+GIT
+  remote: git://github.com/thoughtbot/factory_girl.git
+  revision: 47c4d11afb241e87cc52873fa7075b042154f3c2
+  specs:
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,8 +90,6 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (4.2.0)
-      activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
@@ -243,6 +248,7 @@ DEPENDENCIES
   compass-rails!
   dalli (~> 2.6.3)
   draper (~> 1.2.1)
+  factory_girl!
   factory_girl_rails (~> 4.2.0)
   guard
   guard-rspec

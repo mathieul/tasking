@@ -65,9 +65,12 @@ group :test do
   gem 'simplecov'
 end
 
-gem 'pry-nav', group: [:test, :development]
-gem 'rspec-rails', '~> 2.0', group: [:test, :development]
-gem 'factory_girl_rails', '~> 4.2.0', group: [:test, :development]
+group :test, :development do
+  gem 'pry-nav'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl', github: 'thoughtbot/factory_girl'
+  gem 'factory_girl_rails', '~> 4.2.0'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
