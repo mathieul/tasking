@@ -1,26 +1,5 @@
 %body
-  .navbar.navbar-fixed-top
-    .navbar-inner
-      .container
-        - brand_path = current_account ? stories_path : root_path
-        = link_to "Tasking", brand_path, class: "brand", data: {push: true}
-        .nav-collapse.collapse
-          %ul.nav
-            - if current_account
-              = nav_link "Backlog", stories_path, data: {push: true}
-              %li.divider-vertical
-              = nav_link "Teammates", teammates_path, data: {push: true}
-              %li.divider-vertical
-              %li.dropdown
-                %a.dropdown-toggle(href data-toggle="dropdown")
-                  = current_account.email
-                  %b.caret
-                %ul.dropdown-menu
-                  %li= link_to "Sign Out", sign_out_path, data: {push: true}
-            - else
-              = nav_link "Sign Up", sign_up_path, data: {push: true}
-              %li.divider-vertical
-              = nav_link "Sign In", sign_in_path, data: {push: true}
+  = render "layouts/navigation_bar"
   %header.title
     .container
       .row

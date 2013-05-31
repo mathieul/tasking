@@ -37,7 +37,13 @@ Tasking::Application.routes.draw do
   end
 
   # sprints
-  resources :sprints, only: [:new, :create, :edit, :update], concerns: :wiselinkable
+  resources :sprints, only: [:index, :new, :create, :edit, :update] do
+    concerns :wiselinkable
+    collection do
+      get "current"
+      get "previous"
+    end
+  end
 
   # config
   resources :teammates, concerns: [:wiselinkable, :wiselinkable_destroy]

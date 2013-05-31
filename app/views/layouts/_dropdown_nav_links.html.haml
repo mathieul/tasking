@@ -1,0 +1,6 @@
+- active = nil unless defined?(active)
+%li.dropdown{:class => controller_name == active ? "active" : ""}
+  %a.dropdown-toggle(href data-toggle="dropdown")
+    = label
+    %b.caret
+  %ul.dropdown-menu= yield

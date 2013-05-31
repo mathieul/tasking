@@ -1,0 +1,25 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      - brand_path = current_account ? stories_path : root_path
+      = link_to "Tasking", brand_path, class: "brand", data: {push: true}
+      .nav-collapse.collapse
+        %ul.nav
+          %li.divider-vertical
+          - if current_account
+            = render layout: "layouts/dropdown_nav_links", locals: {label: "Sprints", active: "sprints"} do
+              %li= link_to "Current Sprint", current_sprints_path, data: {push: true}
+              %li.divider
+              %li= link_to "Previous Sprint", previous_sprints_path, data: {push: true}
+              %li= link_to "All Sprints...", sprints_path, data: {push: true}
+            %li.divider-vertical
+            = render "layouts/nav_link", label: "Backlog", url: stories_path
+            %li.divider-vertical
+            = render "layouts/nav_link", label: "Teammates", url: teammates_path
+            %li.divider-vertical
+            = render layout: "layouts/dropdown_nav_links", locals: {label: current_account.email} do
+              %li= link_to "Sign Out", sign_out_path, data: {push: true}
+          - else
+            = render "layouts/nav_link", label: "Sign Up", url: sign_up_path
+            %li.divider-vertical
+            = render "layouts/nav_link", label: "Sign In", url: sign_in_path
