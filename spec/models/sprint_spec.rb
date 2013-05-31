@@ -51,12 +51,21 @@ describe Sprint do
   end
 
   context "associations" do
+    let(:team) { create(:team) }
+
     it "must belong to a team" do
-      sprint = build(:sprint, team: team = create(:team))
+      sprint = build(:sprint, team: team)
       expect(sprint.team).to eq(team)
       expect(sprint).to be_valid
       sprint.team = nil
       expect(sprint).not_to be_valid
+    end
+
+    it "must have many stories" do
+      sprint = build(:sprint, sprints_count: 0, team: team)
+      expect(sprint).not_to be_valid
+      sprint.stories << create(:story, team: team)
+      expect(sprint).to be_valid
     end
   end
 end
