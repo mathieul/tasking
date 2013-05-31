@@ -18,6 +18,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 SimpleCov.start 'rails'
+Draper::ViewContext.test_strategy :fast
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

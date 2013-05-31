@@ -35,11 +35,13 @@ gem 'wiselinks', '~> 0.5.6'
 
 gem 'simple_form', '~> 3.0.0.rc'
 
+gem 'draper', '~> 1.2.1'
+
 gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.3'
 
-gem 'puma'
+gem 'puma', '~> 2.0.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
