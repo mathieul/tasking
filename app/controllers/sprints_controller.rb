@@ -9,7 +9,7 @@ class SprintsController < ApplicationController
       start_on: tomorrow,
       end_on: tomorrow + @team.sprint_duration
     )
-    @stories = @team.stories.where(id: story_ids_params)
+    @stories = @team.stories.where(id: story_ids_params).decorate
   end
 
   private

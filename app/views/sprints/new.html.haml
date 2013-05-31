@@ -21,22 +21,8 @@
             Please fix the errors below.
 
         .span7
-          %table.table.table-bordered.table-striped
-            %colgroup
-              %col(width="10%")
-              %col(width="80%")
-              %col(width="10%")
-            %thead.table
-              %tr
-                %th Id
-                %th User story
-                %th Points
-            %tbody.table
-              - @stories.each do |story|
-                %tr
-                  %td= story.id
-                  %td= story.description
-                  %td= badge_for_number story.points
+          - cache @stories do
+            = render "stories/list_summary", stories: @stories
 
         .span5
           = f.input :projected_velocity, wrapper: :append do

@@ -7,7 +7,7 @@ class StoriesController < ApplicationController
 
   def index
     @new_story = Story.new
-    @stories = @team.stories.ranked.backlogged
+    @stories = @team.stories.ranked.backlogged.decorate
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
 

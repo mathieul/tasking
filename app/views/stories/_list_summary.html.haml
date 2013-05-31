@@ -1,0 +1,16 @@
+%table.table.table-bordered.table-striped
+  %colgroup
+    %col(width="10%")
+    %col(width="80%")
+    %col(width="10%")
+  %thead.table
+    %tr
+      %th Id
+      %th User story
+      %th Points
+  %tbody.table
+    - stories.each do |story|
+      %tr
+        %td= story.id
+        %td= story.description
+        %td= story.badged_points
