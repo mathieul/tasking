@@ -15,7 +15,7 @@ class Sprint < ActiveRecord::Base
   validates :stories, presence: true
 
   def story_ids=(ids)
-    found = team.stories.find(ids)
+    found = Story.find(ids).reject { |story| story.team_id != team_id }
     if found.any? { |story| story.sprint_id.present? }
       errors.add(:stories, "Can't already be assigned to another sprint.")
     else

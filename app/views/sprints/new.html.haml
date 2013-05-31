@@ -15,6 +15,9 @@
           defaults: {input_html: {class: "input-xlarge"}},
           data: {replace: true} do |f|
 
+        - @sprint.stories.each do |story|
+          = hidden_field_tag "sprint[story_ids][]", story.id, id: nil
+
         - if @sprint.errors.present?
           .alert.alert-error
             %button.close(type="button" data-dismiss="alert") &times;
