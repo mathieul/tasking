@@ -13,4 +13,13 @@ class Sprint < ActiveRecord::Base
   validates :end_on, presence: true
   validates :team, presence: true
   validates :stories, presence: true
+
+  def story_ids=(ids)
+    found = team.stories.find(ids)
+    if found.any? { |story| story.sprint_id.present? }
+      errors.add(:stories, "Can't already be assigned to another sprint.")
+    else
+      found.each { |story| self.stories << story }
+    end
+  end
 end

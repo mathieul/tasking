@@ -12,9 +12,8 @@ FactoryGirl.define do
 
     after :build do |sprint, evaluator|
       evaluator.sprints_count.times do
-        sprint.stories << build(:story)
+        sprint.stories << build(:story, team: sprint.team)
       end
-      # FactoryGirl.build_list(:story, evaluator.sprints_count, sprint: sprint)
     end
   end
 end
