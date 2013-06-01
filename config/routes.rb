@@ -48,5 +48,5 @@ Tasking::Application.routes.draw do
   # config
   resources :teammates, concerns: [:wiselinkable, :wiselinkable_destroy]
 
-  root to: redirect("/sign_in")
+  root to: "home#redirect"
 end
