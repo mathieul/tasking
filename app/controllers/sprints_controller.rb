@@ -23,7 +23,7 @@ class SprintsController < ApplicationController
   end
 
   def edit
-    @sprint = @team.sprints.find_from_label_or_id(params.require[:id])
+    @sprint = @team.sprints.find_from_kind_or_id(params.require(:id))
   end
 
   private
