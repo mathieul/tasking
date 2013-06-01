@@ -81,4 +81,35 @@ describe Sprint do
       expect(sprint).not_to be_valid
     end
   end
+
+  context "querying" do
+    context ".find_from_kind_or_id" do
+      let!(:old_sprint)     { create(:sprint, start_on: 3.months.ago,     end_on: 2.months.ago) }
+      let!(:last_sprint)    { create(:sprint, start_on: 3.weeks.ago,      end_on: 1.week.ago)}
+      let!(:current_sprint) { create(:sprint, start_on: 6.days.ago,       end_on: 6.days.from_now)}
+      let!(:next_sprint)    { create(:sprint, start_on: 1.week.from_now,  end_on: 3.weeks.from_now)}
+      let!(:future_sprint)  { create(:sprint, start_on: 1.month.from_now, end_on: 2.months.from_now)}
+
+      it "finds the last sprint with :last" do
+        expect(Sprint.find_from_kind_or_id(:last)).to eq(last_sprint)
+      end
+
+      it "finds the current sprint with :current" do
+        expect(Sprint.find_from_kind_or_id(:current)).to eq(current_sprint)
+      end
+
+      it "finds the next sprint with :next" do
+        expect(Sprint.find_from_kind_or_id(:next)).to eq(next_sprint)
+      end
+
+      it "finds the sprint by id if none of :last, :current or :next" do
+        expect(Sprint.find_from_kind_or_id(future_sprint.id)).to eq(future_sprint)
+      end
+
+      it "returns nil if none is found" do
+        current_sprint.destroy
+        expect(Sprint.find_from_kind_or_id(:current)).to be_nil
+      end
+    end
+  end
 end
