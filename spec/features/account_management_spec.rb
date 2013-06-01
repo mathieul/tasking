@@ -19,7 +19,7 @@ feature "Account management" do
     fill_in "Password",  with: "verysecret"
     click_button "Sign Up"
     expect(page).to have_content "Thank you for signing up!"
-    expect(current_path).to eq("/sign_in")
+    expect(current_path).to eq("/stories")
   end
 
   scenario "Signing in" do

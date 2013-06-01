@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authorize
-
   def redirect
-    redirect_to stories_url
+    redirect_to current_account.present? ? stories_url : sign_in_url
   end
 end
