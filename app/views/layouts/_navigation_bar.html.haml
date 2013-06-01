@@ -8,9 +8,9 @@
           %li.divider-vertical
           - if current_account
             = render "layouts/dropdown_menu", label: "Sprints", active: "sprints",
-              entries: [{label: "Current Sprint",  url: sprint_path(:current)},
+              entries: [{label: "Current Sprint",  url: edit_sprint_path(:current)},
                         {divider: true},
-                        {label: "Previous Sprint", url: sprint_path(:previous)},
+                        {label: "Previous Sprint", url: edit_sprint_path(:previous)},
                         {label: "All Sprints...",  url: sprints_path}]
             %li.divider-vertical
             = render "layouts/nav_link", label: "Backlog", url: stories_path
