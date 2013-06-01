@@ -1,14 +1,13 @@
+- wiselinks_title page_title
 %body
   = render "layouts/navigation_bar"
   %header.title
     .container
       .row
-        .span3
-          %h1 Tasking
-        .span9
-          %p.lead
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.
+        .span4
+          %h1= page_title
+        .span8
+          %p.lead= yield(:page_description)
 
   .container
     %br
