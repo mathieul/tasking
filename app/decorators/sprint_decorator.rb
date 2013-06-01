@@ -5,11 +5,15 @@ class SprintDecorator < Draper::Decorator
     "##{object.id}"
   end
 
-  def start_date
+  def start_on
     object.start_on.to_s(:long)
   end
 
-  def end_date
+  def end_on
     object.end_on.to_s(:long)
+  end
+
+  def status
+    object.status ? object.status.humanize : ""
   end
 end

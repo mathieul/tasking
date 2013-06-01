@@ -1,20 +1,6 @@
 - page_title "Sprint Tasking"
 - page_description do
-  %table.table.table-bordered.table-condensed
-    %thead
-      %tr
-        %th Number
-        %th From
-        %th To
-        %th Velocity
-        %th Status
-    %tbody
-      %tr
-        %td= @sprint.label
-        %td= @sprint.start_date
-        %td= @sprint.end_date
-        %td= @sprint.projected_velocity
-        %td= @sprint.status
+  = render "sprint_summary", sprint: @sprint
 
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
