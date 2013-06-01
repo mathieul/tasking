@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: sprints
+#
+#  id                 :integer          not null, primary key
+#  projected_velocity :integer          not null
+#  measured_velocity  :integer
+#  status             :string(255)      default("draft"), not null
+#  start_on           :date
+#  end_on             :date
+#  team_id            :integer          not null
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class Sprint < ActiveRecord::Base
   VALID_STATUSES = %w[draft planned in_progress canceled completed]
   belongs_to :team

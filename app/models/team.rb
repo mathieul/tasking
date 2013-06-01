@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  projected_velocity :integer          default(1)
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class Team < ActiveRecord::Base
   has_many :accounts, dependent: :destroy
   has_many :teammates, dependent: :destroy
