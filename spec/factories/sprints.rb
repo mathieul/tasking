@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :sprint do
     ignore do
-      sprints_count 3
+      stories_count 3
     end
 
     projected_velocity 10
@@ -11,7 +11,7 @@ FactoryGirl.define do
     team
 
     after :build do |sprint, evaluator|
-      evaluator.sprints_count.times do
+      evaluator.stories_count.times do
         sprint.stories << build(:story, team: sprint.team)
       end
     end

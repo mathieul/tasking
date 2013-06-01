@@ -72,7 +72,7 @@ describe Story do
     context "ranking" do
       let(:team1)    { create(:team, name: "team1") }
       let(:team2)    { create(:team, name: "team2") }
-      let(:sprint1)  { create(:sprint, team: team1, sprints_count: 0, stories: [t1s1sp1, t1s2sp1]) }
+      let(:sprint1)  { create(:sprint, team: team1, stories_count: 0, stories: [t1s1sp1, t1s2sp1]) }
       let!(:t1s2p)   { create(:story, team: team1) }
       let!(:t1s1p)   { create(:story, team: team1, row_order_position: :first) }
       let!(:t2s2p)   { create(:story, team: team2) }

@@ -62,7 +62,7 @@ describe Sprint do
     end
 
     it "must have many stories" do
-      sprint = build(:sprint, sprints_count: 0, team: team)
+      sprint = build(:sprint, stories_count: 0, team: team)
       expect(sprint).not_to be_valid
       sprint.stories << create(:story, team: team)
       expect(sprint).to be_valid
@@ -70,14 +70,14 @@ describe Sprint do
 
     it "can assign backlog stories using #story_ids=" do
       story = create(:story, team: team)
-      sprint = create(:sprint, sprints_count: 0, team: team, story_ids: [story.id])
+      sprint = create(:sprint, stories_count: 0, team: team, story_ids: [story.id])
       expect(sprint.stories).to eq([story])
     end
 
     it "can't assign stories already assigned with #story_ids" do
       previous = create(:sprint, team: team)
       story = previous.stories.first
-      sprint = build(:sprint, sprints_count: 0, team: team, story_ids: [story.id])
+      sprint = build(:sprint, stories_count: 0, team: team, story_ids: [story.id])
       expect(sprint).not_to be_valid
     end
   end
