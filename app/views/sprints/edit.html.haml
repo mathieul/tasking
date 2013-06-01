@@ -1,11 +1,20 @@
 - page_title "Sprint Tasking"
 - page_description do
-  %p<
-    Sprint #
-    = @sprint.id
-  %p
-    Projected velocity is
-    %em= @sprint.projected_velocity
+  %table.table.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Number
+        %th From
+        %th To
+        %th Velocity
+        %th Status
+    %tbody
+      %tr
+        %td= @sprint.label
+        %td= @sprint.start_date
+        %td= @sprint.end_date
+        %td= @sprint.projected_velocity
+        %td= @sprint.status
 
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"

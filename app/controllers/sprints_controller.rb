@@ -23,11 +23,12 @@ class SprintsController < ApplicationController
   end
 
   def edit
-    @sprint = @team.sprints.find_from_kind_or_id(sprint_id)
-    if @sprint.nil?
+    sprint = @team.sprints.find_from_kind_or_id(sprint_id)
+    if sprint.nil?
       sprint_label = sprint_id.to_i == 0 ? "#{sprint_id} sprint" : "sprint ##{sprint_id}"
       redirect_to stories_path, error: "There is no #{sprint_label}."
     end
+    @sprint = sprint.decorate
   end
 
   private
