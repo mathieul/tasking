@@ -23,13 +23,23 @@ class SprintsController < ApplicationController
   end
 
   def edit
-    @sprint = @team.sprints.find_from_kind_or_id(params.require(:id))
+    @sprint = @team.sprints.find_from_kind_or_id(sprint_id)
+    if @sprint.nil?
+      sprint_label = sprint_id.to_i == 0 ? "#{sprint_id} sprint" : "sprint ##{sprint_id}"
+      redirect_to stories_path, error: "There is no #{sprint_label}."
+    end
   end
 
   private
 
+  def sprint_id
+    @sprint_id ||= params.require(:id)
+  end
+
   def story_ids_params
-    params.require(:story_ids)
+    params
+      .require(:sprint)
+      .require(:story_ids)
   end
 
   def sprint_params

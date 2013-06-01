@@ -5,7 +5,7 @@
       %strong This is where we wish the line to be... &nbsp;
       - if velocity.sum > 0
         = link_to "Create New Sprint",
-          new_sprint_path(story_ids: velocity.included_stories.map(&:id)),
+          new_sprint_path(sprint: {story_ids: velocity.included_story_ids}),
           class: "btn btn-success",
           id: "btn-new-sprint",
           data: {push: true}

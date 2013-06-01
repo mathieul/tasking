@@ -1,5 +1,13 @@
+- page_title "Sprint Tasking"
+- page_description do
+  %p<
+    Sprint #
+    = @sprint.id
+  %p
+    Projected velocity is
+    %em= @sprint.projected_velocity
+
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
-%h2 Sprint Tasking
 %p TODO

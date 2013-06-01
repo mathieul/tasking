@@ -9,8 +9,8 @@ class VelocityService
     @index ||= find_index_and_calculate_sum
   end
 
-  def included_stories
-    stories[0...index]
+  def included_story_ids
+    stories[0...index].map(&:id)
   end
 
   def cache_key

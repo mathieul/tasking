@@ -30,10 +30,10 @@ class Sprint < ActiveRecord::Base
   validates :stories, presence: true
 
   def self.find_from_kind_or_id(kind_or_id)
-    case kind_or_id
-    when :last    then find_last_sprint
-    when :current then find_current_sprint
-    when :next    then find_next_sprint
+    case kind_or_id.to_s
+    when "last"    then find_last_sprint
+    when "current" then find_current_sprint
+    when "next"    then find_next_sprint
     else
       where(id: kind_or_id).take
     end
@@ -53,7 +53,11 @@ class Sprint < ActiveRecord::Base
   end
 
   def story_ids=(ids)
-    found = Story.find(ids).reject { |story| story.team_id != team_id }
+    # found = Story.find(ids).reject do |story|
+    #   current_id = story.team_id ? story.team_id : story.team.try(:id)
+    #   current_id != team_id
+    # end
+    found = Story.find(ids)
     if found.any? { |story| story.sprint_id.present? }
       errors.add(:stories, "Can't already be assigned to another sprint.")
     else
