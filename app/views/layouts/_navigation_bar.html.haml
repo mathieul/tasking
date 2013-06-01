@@ -7,18 +7,18 @@
         %ul.nav
           %li.divider-vertical
           - if current_account
-            = render layout: "layouts/dropdown_nav_links", locals: {label: "Sprints", active: "sprints"} do
-              %li= link_to "Current Sprint", current_sprints_path, data: {push: true}
-              %li.divider
-              %li= link_to "Previous Sprint", previous_sprints_path, data: {push: true}
-              %li= link_to "All Sprints...", sprints_path, data: {push: true}
+            = render "layouts/dropdown_menu", label: "Sprints", active: "sprints",
+              entries: [{label: "Current Sprint",  url: sprint_path(:current)},
+                        {divider: true},
+                        {label: "Previous Sprint", url: sprint_path(:previous)},
+                        {label: "All Sprints...",  url: sprints_path}]
             %li.divider-vertical
             = render "layouts/nav_link", label: "Backlog", url: stories_path
             %li.divider-vertical
             = render "layouts/nav_link", label: "Teammates", url: teammates_path
             %li.divider-vertical
-            = render layout: "layouts/dropdown_nav_links", locals: {label: current_account.email} do
-              %li= link_to "Sign Out", sign_out_path, data: {push: true}
+            = render "layouts/dropdown_menu", label: current_account.email,
+              entries: [{label: "Sign Out", url: sign_out_path}]
           - else
             = render "layouts/nav_link", label: "Sign Up", url: sign_up_path
             %li.divider-vertical
