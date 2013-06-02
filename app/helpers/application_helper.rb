@@ -8,8 +8,9 @@ module ApplicationHelper
     content_for(:page_description, content, &block)
   end
 
-  def layout_type(type = nil)
-    @layout_type = type unless type.nil?
-    "container#{"-" if @layout_type}#{@layout_type}"
+  def page_container(klass = nil)
+    @page_container ||= {class: "container"}
+    @page_container[:class] = klass unless klass.nil?
+    @page_container
   end
 end
