@@ -6,6 +6,12 @@
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
+%h2 Team
+.btn-group
+  - @teammates.each do |teammate|
+    .btn{style: "color: #{teammate.color}"}= teammate.name
+
+%h2 Tasks
 %div{style: "overflow-x: scroll;"}
   %table.table.table-bordered.tasks{style: "width: #{43+216+31+67+148*3+145*5*3}px;"}
     %thead.table
