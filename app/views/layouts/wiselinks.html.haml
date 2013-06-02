@@ -2,18 +2,16 @@
 %body
   = render "layouts/navigation_bar"
   %header.title
-    .container
+    .summary-bar.container
       .row
         %div{page_width(:title)}
           %h1= page_title
         %div{page_width(:description)}
+          = flash_messages
           = yield(:page_description)
 
-  %div{page_container}
+  .main-content{page_container}
     %br
-
-    = flash_messages
-
     = yield
 
   = yield :javascript
