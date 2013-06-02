@@ -1,20 +1,46 @@
 - page_title "Sprint Tasking"
 - page_description do
   = render "sprint_summary", sprint: @sprint
-- layout_type :fluid
+- page_container "container-fluid"
 
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
-%table.table.table-bordered
-  %thead.table
-    %tr
-      %td Story
-      - @columns.times do
-        %th &nbsp;
-  %tbody.table
-    - @sprint.stories.each do |story|
+:sass
+  table.tasks
+    .border-left
+      border-left: 3px solid #999
+
+%div{style: "overflow-x: scroll;"}
+  %table.table.table-bordered.tasks{style: "width: #{43+216+31+67+148*3+145*5*3}px;"}
+    %thead.table
       %tr
-        %td= story.description
-        - @columns.times do
-          %td &nbsp;
+        %th(style="width: 43px") Id
+        %th(style="width: 216px") Story
+        %th(style="width: 31px") Pts
+        %th(style="width: 67px") Spec
+        %th.border-left(style="width: 145px") Todo
+        - 5.times do
+          %th(style="width: 145px") &nbsp;
+        %th.border-left(style="width: 145px") In progress
+        - 5.times do
+          %th(style="width: 145px") &nbsp;
+        %th.border-left(style="width: 145px") Done
+        - 5.times do
+          %th(style="width: 145px") &nbsp;
+    %tbody.table
+      - @sprint.stories.each do |story|
+        %tr
+          %td= story.id
+          %td= story.description
+          %td= story.points
+          %td= story.spec_link
+          %td.border-left &nbsp;
+          - 5.times do
+            %td &nbsp;
+          %td.border-left &nbsp;
+          - 5.times do
+            %td &nbsp;
+          %td.border-left &nbsp;
+          - 5.times do
+            %td &nbsp;
