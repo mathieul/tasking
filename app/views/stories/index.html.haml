@@ -1,6 +1,5 @@
 - page_title "Product Backlog", size: "span5"
-- page_description size: "span7" do
-  %p test
+- page_description size: "span7"
 
 - content_for :javascript do
   = javascript_tag "App.initStories({newAttributes: #{@new_story.to_json}, effects: #{effects.to_json}});"

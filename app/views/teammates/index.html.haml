@@ -1,13 +1,13 @@
+- page_title "Teammates"
+- page_description do
+  %p Manage the list of teammates to use.
+  %p
+    %a.btn.btn-primary#new-teammate-button(href) Create teammate
+
 - content_for :javascript do
   = javascript_tag "App.initTeammates({newAttributes: #{@new_teammate.to_json}});"
 
 - cache @teammates do
-  %h2 Teammates
-  %p Manage the list of teammates to use.
-  %p
-    %a.btn.btn-primary#new-teammate-button(href) Create teammate
-  %br
-
   - if @teammates.empty?
     %table.table.table-bordered
       %tbody.table

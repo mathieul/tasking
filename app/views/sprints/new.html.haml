@@ -1,14 +1,15 @@
+- page_title "New Sprint"
+- page_description do
+  %p
+    A sprint is the basic unit of development in Scrum. The sprint is a "timeboxed" effort, i.e. it is restricted to a specific duration.
+    The duration is fixed in advance for each sprint and is normally between one week and one month.
+
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
 - cache @sprint do
   .row
     %section
-      .page-header
-        %h1 New Sprint
-      %p
-        A sprint is the basic unit of development in Scrum. The sprint is a "timeboxed" effort, i.e. it is restricted to a specific duration. The duration is fixed in advance for each sprint and is normally between one week and one month.
-
       = simple_form_for @sprint,
           url: create_sprints_path,
           html: {class: "form-horizontal", id: nil},
