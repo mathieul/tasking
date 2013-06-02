@@ -9,16 +9,18 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  team_id    :integer          not null
+#  color      :string(255)
 #
 
 class Teammate < ActiveRecord::Base
-  ROLES = ["tech_lead", "product_manager"]
+  ROLES = ["admin", "teammate", "tech_lead", "product_manager"]
 
   belongs_to :team
   belongs_to :account
 
   validates :name,  presence: true, uniqueness: true
   validates :roles, presence: {message: "can't be empty"}
+  validates :color, presence: true
   validates :team,  presence: true
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }

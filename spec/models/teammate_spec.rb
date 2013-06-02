@@ -23,6 +23,11 @@ describe Teammate do
       teammate.roles << "engineer"
       expect(teammate).to be_valid
     end
+
+    it "is not valid without a color" do
+      teammate = build(:teammate, color: nil)
+      expect(teammate).to have(1).error_on(:color)
+    end
   end
 
   context "associations" do
