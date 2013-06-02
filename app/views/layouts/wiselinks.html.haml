@@ -8,7 +8,7 @@
           %h1= page_title
         .span8= yield(:page_description)
 
-  .container
+  %div{:class => layout_type}
     %br
 
     = notice_message
