@@ -4,14 +4,15 @@
   %header.title
     .container
       .row
-        .span4
+        %div{page_width(:title)}
           %h1= page_title
-        .span8= yield(:page_description)
+        %div{page_width(:description)}
+          = yield(:page_description)
 
   %div{page_container}
     %br
 
-    = notice_message
+    = flash_messages
 
     = yield
 

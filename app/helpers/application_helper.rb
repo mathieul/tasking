@@ -1,11 +1,19 @@
 module ApplicationHelper
-  def page_title(title = nil)
+  def page_title(title = nil, size: nil)
+    page_width(:title, size)
     @title = title unless title.nil?
     @title || "Tasking"
   end
 
-  def page_description(content = nil, &block)
+  def page_description(content = nil, size: nil, &block)
+    page_width(:description, size)
     content_for(:page_description, content, &block)
+  end
+
+  def page_width(kind, value = nil)
+    @page_width ||= {title: {class: "span3"}, description: {class: "span9"}}
+    @page_width[kind][:class] = value unless value.nil?
+    @page_width[kind]
   end
 
   def page_container(klass = nil)
