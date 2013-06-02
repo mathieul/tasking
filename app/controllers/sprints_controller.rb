@@ -29,6 +29,7 @@ class SprintsController < ApplicationController
       redirect_to stories_path, error: "There is no #{sprint_label}."
     end
     @sprint = sprint.decorate
+    @columns = 15
   end
 
   private

@@ -1,8 +1,20 @@
 - page_title "Sprint Tasking"
 - page_description do
   = render "sprint_summary", sprint: @sprint
+- layout_type :fluid
 
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
-%p TODO
+%table.table.table-bordered
+  %thead.table
+    %tr
+      %td Story
+      - @columns.times do
+        %th &nbsp;
+  %tbody.table
+    - @sprint.stories.each do |story|
+      %tr
+        %td= story.description
+        - @columns.times do
+          %td &nbsp;
