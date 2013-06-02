@@ -28,6 +28,15 @@ describe Teammate do
       teammate = build(:teammate, color: nil)
       expect(teammate).to have(1).error_on(:color)
     end
+
+    it "is not valid without initials" do
+      teammate = build(:teammate, initials: nil)
+      expect(teammate).to have(1).error_on(:initials)
+    end
+
+    it "has unique initials in the team" do
+      raise "TODO"
+    end
   end
 
   context "associations" do

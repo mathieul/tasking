@@ -27,9 +27,12 @@
         - @teammates.each.with_index do |teammate, index|
           - cache [teammate, index] do
             %tr
-              %td
+              %td<
                 = render "edit_button", target: teammate, position: index
                 = teammate.name
+                (
+                = teammate.initials
+                )
               %td= teammate.roles.join(", ")
               %td= teammate.account && teammate.account.email
               %td= time_tag teammate.updated_at

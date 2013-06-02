@@ -26,60 +26,73 @@ Story.create! description: "SPEC: As a CSR setting a valid status, I am required
               team: team
 
 Teammate.create! name: "Admin",
+                 initials: "adm",
                  roles: ["admin"],
                  color: "red",
                  account: account,
                  team: team
 Teammate.create! name: "Chris",
+                 initials: "ce",
                  roles: ["tech_lead", "teammate"],
                  color: "#334a14",
                  team: team
 Teammate.create! name: "Pat",
+                 initials: "pw",
                  roles: ["tech_lead", "teammate"],
                  color: "#efa4ce",
                  team: team
 Teammate.create! name: "Steve",
+                 initials: "sf",
                  roles: ["tech_lead", "teammate", "product_manager"],
                  color: "black",
                  team: team
 Teammate.create! name: "Krys",
+                 initials: "kt",
                  roles: ["teammate", "product_manager"],
                  color: "#f29c33",
                  team: team
 Teammate.create! name: "Tim",
+                 initials: "ts",
                  roles: ["teammate", "product_manager"],
                  color: "#508de5",
                  team: team
 Teammate.create! name: "Taurus",
+                 initials: "tc",
                  roles: ["teammate", "tech_lead"],
                  color: "#f8cc9e",
                  team: team
 Teammate.create! name: "Craig",
+                 initials: "cm",
                  roles: ["teammate", "tech_lead"],
                  color: "#fff733",
                  team: team
 Teammate.create! name: "Mathieu",
+                 initials: "ml",
                  roles: ["teammate", "tech_lead"],
                  color: "#b0abd5",
                  team: team
 Teammate.create! name: "Anand",
+                 initials: "aa",
                  roles: ["teammate", "product_manager"],
                  color: "#b782a1",
                  team: team
 Teammate.create! name: "Denise",
+                 initials: "dd",
                  roles: ["teammate"],
                  color: "#722c80",
                  team: team
 Teammate.create! name: "Kate",
+                 initials: "kb",
                  roles: ["teammate"],
                  color: "#aea54b",
                  team: team
 Teammate.create! name: "Andy",
+                 initials: "ac",
                  roles: ["product_manager"],
                  color: "#093764",
                  team: team
 Teammate.create! name: "Ben",
+                 initials: "bb",
                  roles: ["product_manager"],
                  color: "#80f200",
                  team: team
-

@@ -29,7 +29,7 @@ class SprintsController < ApplicationController
       redirect_to stories_path, error: "There is no #{sprint_label}."
     else
       @sprint = sprint.decorate
-      @teammates = @team.teammates
+      @teammates = @team.teammates.with_role("teammate")
     end
   end
 
