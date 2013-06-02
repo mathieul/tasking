@@ -15,6 +15,12 @@ header.title
   background: transparent image-url("mochaGrunge.png") repeat
   color: white
 
+  table.table-condensed
+    margin-bottom: 0
+
+  th
+    background-color: rgba(white, 0.3)
+
 table.hidden-commands
   td > .command
     position: absolute
@@ -27,6 +33,21 @@ table.hidden-commands
 
   tr:hover td > .command
     +opacity(1)
+
+table.tasks
+  $tasks-outer-border-color: #999
+
+  .border-left
+    border-left: 3px solid $tasks-outer-border-color
+
+  &.table-bordered
+    border-color: $tasks-outer-border-color
+
+  th
+    background-color: rgba(black, 0.05)
+
+  td:first-child, th:first-child
+    border-left: 1px solid $tasks-outer-border-color
 
 form.form-inline-row
   margin: 0

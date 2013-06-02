@@ -6,11 +6,6 @@
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
-:sass
-  table.tasks
-    .border-left
-      border-left: 3px solid #999
-
 %div{style: "overflow-x: scroll;"}
   %table.table.table-bordered.tasks{style: "width: #{43+216+31+67+148*3+145*5*3}px;"}
     %thead.table
