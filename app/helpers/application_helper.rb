@@ -13,4 +13,14 @@ module ApplicationHelper
     @page_container[:class] = klass unless klass.nil?
     @page_container
   end
+
+  def flash_messages
+    flash.each.with_object([]) do |(type, message), notices|
+      next unless message
+      type = :success if type == :notice
+      notices << content_tag(:div, class: "alert fade in alert-#{type}") do
+        link_to("x", "javascript:void(0)", class: "close", "data-dismiss" => "alert") + message
+      end
+    end.join("\n").html_safe
+  end
 end

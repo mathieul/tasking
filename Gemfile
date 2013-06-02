@@ -13,7 +13,6 @@ gem 'pg', '~> 0.15.1'
 gem 'sass-rails', '~> 4.0.0.rc1'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
-gem 'bootstrap_helper', '~> 4.2.2.1'
 gem 'animate-sass', '~> 0.1.1'
 
 # Use HAML templates
