@@ -27,8 +27,9 @@ class SprintsController < ApplicationController
     if sprint.nil?
       sprint_label = sprint_id.to_i == 0 ? "#{sprint_id} sprint" : "sprint ##{sprint_id}"
       redirect_to stories_path, error: "There is no #{sprint_label}."
+    else
+      @sprint = sprint.decorate
     end
-    @sprint = sprint.decorate
   end
 
   private
