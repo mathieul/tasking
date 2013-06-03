@@ -39,7 +39,7 @@ describe TaskableStory do
       expect(taskable_story).to have(1).error_on(:team)
     end
 
-    it "can have many tasks" do
+    it "has many tasks" do
       taskable_story = build(:taskable_story, team: team = create(:team))
       taskable_story.tasks << create(:task, team: team)
       expect(taskable_story).to be_valid
