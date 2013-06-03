@@ -3,7 +3,7 @@
 # Table name: taskable_stories
 #
 #  id         :integer          not null, primary key
-#  status     :string(255)      not null
+#  status     :string(255)      default("draft"), not null
 #  row_order  :integer          not null
 #  story_id   :integer          not null
 #  sprint_id  :integer          not null
