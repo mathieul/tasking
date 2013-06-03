@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20130603010306) do
 
   create_table "taskable_stories", force: true do |t|
     t.string   "status",     null: false
+    t.integer  "row_order",  null: false
     t.integer  "story_id",   null: false
     t.integer  "sprint_id",  null: false
     t.integer  "team_id",    null: false
@@ -87,7 +88,7 @@ ActiveRecord::Schema.define(version: 20130603010306) do
     t.datetime "updated_at"
     t.integer  "team_id",                 null: false
     t.string   "color",                   null: false
-    t.string   "initials"
+    t.string   "initials",                null: false
   end
 
   add_index "teammates", ["account_id"], name: "index_teammates_on_account_id", using: :btree

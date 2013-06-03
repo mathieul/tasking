@@ -16,7 +16,9 @@ class TaskableStory < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :team
 
-  validates :story,  presence: true
-  validates :sprint, presence: true
-  validates :team,   presence: true
+  validates :status,    presence: true
+  validates :row_order, presence: true
+  validates :story,     presence: true
+  validates :sprint,    presence: true
+  validates :team,      presence: true
 end
