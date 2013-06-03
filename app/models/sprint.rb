@@ -16,7 +16,7 @@
 class Sprint < ActiveRecord::Base
   VALID_STATUSES = %w[draft planned in_progress canceled completed]
   belongs_to :team
-  has_many :taskable_stories, dependent: :nullify
+  has_many :taskable_stories, dependent: :destroy
 
   validates :projected_velocity, presence: true,
                                  numericality: {only_integer: true,
@@ -27,6 +27,8 @@ class Sprint < ActiveRecord::Base
   validates :start_on, presence: true
   validates :end_on, presence: true
   validates :team, presence: true
+
+  after_create :create_taskable_stories
 
   def self.find_from_kind_or_id(kind_or_id)
     case kind_or_id.to_s
@@ -52,12 +54,29 @@ class Sprint < ActiveRecord::Base
   end
 
   def story_ids=(ids)
-    # found = Story.find(ids).reject do |story|
-    #   current_id = story.team_id ? story.team_id : story.team.try(:id)
-    #   current_id != team_id
+    @story_ids = ids
+    # # found = Story.find(ids).reject do |story|
+    # #   current_id = story.team_id ? story.team_id : story.team.try(:id)
+    # #   current_id != team_id
+    # # end
+    # Story.find(ids).each do |story|
+    #   taskable_stories.build(story: story, team: team)
     # end
-    Story.find(ids).each do |story|
-      taskable_stories.build(story: story, team: team)
+  end
+
+  private
+
+  def create_taskable_stories
+    stories_to_task.each.with_index do |story, index|
+      taskable_stories.create!(story: story, team: team, row_order: index)
+    end
+  end
+
+  def stories_to_task
+    return [] if @story_ids.nil?
+    Story.find(@story_ids).reject do |story|
+      current_id = story.team_id ? story.team_id : story.team.try(:id)
+      current_id != team_id
     end
   end
 end

@@ -61,17 +61,16 @@ describe Sprint do
       expect(sprint).not_to be_valid
     end
 
-    it "must have many stories" do
-      sprint = build(:sprint, stories_count: 0, team: team)
-      expect(sprint).not_to be_valid
-      sprint.stories << create(:story, team: team)
-      expect(sprint).to be_valid
+    it "can have many taskable stories" do
+      sprint = create(:sprint, stories_count: 0, team: team)
+      taskable_story = create(:taskable_story, sprint: sprint, team: team)
+      expect(sprint.reload.taskable_stories).to eq([taskable_story])
     end
 
-    it "can create trackable stories using #story_ids=" do
+    it "can create taskable stories using #story_ids=" do
       story = create(:story, team: team)
       sprint = create(:sprint, stories_count: 0, team: team, story_ids: [story.id])
-      expect(sprint.stories).to eq([story])
+      expect(sprint.taskable_stories.map(&:story)).to eq([story])
     end
   end
 

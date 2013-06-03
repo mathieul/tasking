@@ -13,12 +13,15 @@
 #
 
 class TaskableStory < ActiveRecord::Base
+  VALID_STATUSES = %w[draft tasked completed accepted]
+
   belongs_to :story
   belongs_to :sprint
   belongs_to :team
   has_many   :tasks, -> { ranked }
 
-  validates :status,    presence: true
+  validates :status,    presence: true,
+                        inclusion: {in: VALID_STATUSES, allow_nil: true}
   validates :row_order, presence: true
   validates :story,     presence: true
   validates :sprint,    presence: true
