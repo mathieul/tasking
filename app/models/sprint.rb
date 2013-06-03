@@ -17,6 +17,7 @@ class Sprint < ActiveRecord::Base
   VALID_STATUSES = %w[draft planned in_progress canceled completed]
   belongs_to :team
   has_many :taskable_stories, dependent: :destroy
+  has_many :stories, through: :taskable_stories
 
   validates :projected_velocity, presence: true,
                                  numericality: {only_integer: true,

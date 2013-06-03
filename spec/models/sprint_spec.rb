@@ -62,8 +62,8 @@ describe Sprint do
     end
 
     it "can have many taskable stories" do
-      sprint = create(:sprint, stories_count: 0, team: team)
-      taskable_story = create(:taskable_story, sprint: sprint, team: team)
+      sprint = create(:sprint, stories_count: 0)
+      taskable_story = create(:taskable_story, sprint: sprint)
       expect(sprint.reload.taskable_stories).to eq([taskable_story])
     end
 
@@ -71,6 +71,13 @@ describe Sprint do
       story = create(:story, team: team)
       sprint = create(:sprint, stories_count: 0, team: team, story_ids: [story.id])
       expect(sprint.taskable_stories.map(&:story)).to eq([story])
+    end
+
+    it "has many stories through taskable stories" do
+      sprint = create(:sprint, stories_count: 0)
+      story = create(:story)
+      taskable_story = create(:taskable_story, sprint: sprint, story: story)
+      expect(sprint.stories).to eq([story])
     end
   end
 

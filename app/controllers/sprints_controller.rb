@@ -8,7 +8,7 @@ class SprintsController < ApplicationController
       projected_velocity: @team.projected_velocity,
       start_on: tomorrow,
       end_on: tomorrow + @team.sprint_duration,
-      stories: @stories
+      story_ids: @stories.map(&:id)
     )
   end
 
