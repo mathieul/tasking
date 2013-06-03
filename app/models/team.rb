@@ -11,7 +11,7 @@
 
 class Team < ActiveRecord::Base
   has_many :accounts, dependent: :destroy
-  has_many :teammates, dependent: :destroy, order: {name: :asc}
+  has_many :teammates, -> { order(name: :asc) }, dependent: :destroy
   has_many :stories, dependent: :destroy
   has_many :sprints, dependent: :destroy
 
