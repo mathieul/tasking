@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130603010306) do
+ActiveRecord::Schema.define(version: 20130603021815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,20 @@ ActiveRecord::Schema.define(version: 20130603010306) do
   add_index "taskable_stories", ["sprint_id"], name: "index_taskable_stories_on_sprint_id", using: :btree
   add_index "taskable_stories", ["story_id"], name: "index_taskable_stories_on_story_id", using: :btree
   add_index "taskable_stories", ["team_id"], name: "index_taskable_stories_on_team_id", using: :btree
+
+  create_table "tasks", force: true do |t|
+    t.string   "description",       null: false
+    t.string   "hours",             null: false
+    t.string   "status",            null: false
+    t.integer  "row_order",         null: false
+    t.integer  "taskable_story_id", null: false
+    t.integer  "team_id",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["taskable_story_id"], name: "index_tasks_on_taskable_story_id", using: :btree
+  add_index "tasks", ["team_id"], name: "index_tasks_on_team_id", using: :btree
 
   create_table "teammates", force: true do |t|
     t.string   "name",                    null: false
