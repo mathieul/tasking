@@ -58,11 +58,9 @@ ActiveRecord::Schema.define(version: 20130603030746) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "team_id",                                                                          null: false
-    t.integer  "sprint_id"
   end
 
   add_index "stories", ["product_manager_id"], name: "index_stories_on_product_manager_id", using: :btree
-  add_index "stories", ["sprint_id"], name: "index_stories_on_sprint_id", using: :btree
   add_index "stories", ["team_id"], name: "index_stories_on_team_id", using: :btree
   add_index "stories", ["tech_lead_id"], name: "index_stories_on_tech_lead_id", using: :btree
 

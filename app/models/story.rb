@@ -13,7 +13,6 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  team_id            :integer          not null
-#  sprint_id          :integer
 #
 
 class Story < ActiveRecord::Base
@@ -25,7 +24,7 @@ class Story < ActiveRecord::Base
   belongs_to :team
   belongs_to :tech_lead, class_name: "Teammate"
   belongs_to :product_manager, class_name: "Teammate"
-  belongs_to :sprint
+  has_many   :taskable_stories
 
   validates :points,      presence: true, inclusion: VALID_POINTS
   validates :description, presence: true
@@ -35,6 +34,11 @@ class Story < ActiveRecord::Base
   delegate :name, to: :product_manager, prefix: true, allow_nil: true
 
   scope :ranked, -> { rank(:row_order) }
-  scope :backlogged, -> { where(sprint_id: nil) }
-  scope :sprinted, ->(sprint) { where(sprint_id: sprint.respond_to?(:id) ? sprint.id : sprint) }
+  scope :backlogged, -> {
+    joins <<-EOQ
+      LEFT JOIN taskable_stories
+           ON (taskable_stories.story_id = stories.id
+               AND taskable_stories.story_id IS NULL)
+    EOQ
+  }
 end

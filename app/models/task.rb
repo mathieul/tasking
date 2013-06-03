@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id                :integer          not null, primary key
+#  description       :string(255)      not null
+#  hours             :string(255)      not null
+#  status            :string(255)      not null
+#  row_order         :integer          not null
+#  taskable_story_id :integer          not null
+#  team_id           :integer          not null
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class Task < ActiveRecord::Base
   include RankedModel
   ranks :row_order, with_same: "taskable_story_id"

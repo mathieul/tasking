@@ -10,9 +10,10 @@ FactoryGirl.define do
     end_on             { 15.days.from_now }
     team
 
-    after :build do |sprint, evaluator|
+    after :create do |sprint, evaluator|
       evaluator.stories_count.times do
-        sprint.stories << build(:story, team: sprint.team)
+        story = create(:story, team: sprint.team)
+        create(:taskable_story, sprint: sprint, story: story, team: sprint.team)
       end
     end
   end

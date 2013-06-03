@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #  team_id    :integer          not null
 #  color      :string(255)      not null
-#  initials   :string(255)
+#  initials   :string(255)      not null
 #
 
 class Teammate < ActiveRecord::Base

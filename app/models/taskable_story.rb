@@ -4,6 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  status     :string(255)      not null
+#  row_order  :integer          not null
 #  story_id   :integer          not null
 #  sprint_id  :integer          not null
 #  team_id    :integer          not null
