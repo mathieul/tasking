@@ -20,9 +20,9 @@ class Teammate < ActiveRecord::Base
   belongs_to :account
 
   validates :name,     presence: true, uniqueness: true
+  validates :initials, presence: true, uniqueness: true
   validates :roles,    presence: {message: "can't be empty"}
   validates :color,    presence: true
-  validates :initials, presence: true
   validates :team,     presence: true
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }

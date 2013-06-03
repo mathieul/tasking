@@ -35,7 +35,9 @@ describe Teammate do
     end
 
     it "has unique initials in the team" do
-      raise "TODO"
+      create(:teammate, initials: "MLA")
+      teammate = build(:teammate, initials: "MLA")
+      expect(teammate).to have(1).error_on(:initials)
     end
   end
 
