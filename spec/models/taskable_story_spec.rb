@@ -7,13 +7,22 @@ describe TaskableStory do
     end
 
     it "is not valid without a status" do
-      sprint = build(:taskable_story, status: nil)
-      expect(sprint).to have(1).error_on(:status)
+      taskable_story = build(:taskable_story, status: nil)
+      expect(taskable_story).to have(1).error_on(:status)
+    end
+
+    it "is not valid if the status is not supported" do
+      taskable_story = build(:taskable_story, status: "not_supported")
+      expect(taskable_story).to have(1).error_on(:status)
+      %w[draft tasked completed accepted].each do |status|
+        taskable_story.status = status
+        expect(taskable_story).to be_valid
+      end
     end
 
     it "is not valid without a row order" do
-      sprint = build(:taskable_story, row_order: nil)
-      expect(sprint).to have(1).error_on(:row_order)
+      taskable_story = build(:taskable_story, row_order: nil)
+      expect(taskable_story).to have(1).error_on(:row_order)
     end
   end
 
