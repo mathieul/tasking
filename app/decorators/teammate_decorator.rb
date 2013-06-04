@@ -1,4 +1,4 @@
-class TeammateDecorator < Draper::Decorator
+class TeammateDecorator < ApplicationDecorator
   delegate_all
 
   def role_labels

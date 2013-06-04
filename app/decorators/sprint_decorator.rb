@@ -1,4 +1,4 @@
-class SprintDecorator < Draper::Decorator
+class SprintDecorator < ApplicationDecorator
   delegate_all
 
   def label

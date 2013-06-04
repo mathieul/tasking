@@ -1,4 +1,4 @@
-class StoryDecorator < Draper::Decorator
+class StoryDecorator < ApplicationDecorator
   delegate_all
 
   def badged_points
