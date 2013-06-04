@@ -9,7 +9,7 @@
 %h3 Team
 .btn-group
   - @teammates.each do |teammate|
-    .btn{style: "color: #{teammate.color}"}= teammate.name
+    .btn{class: "btn-color-#{teammate.color}"}= teammate.name
 
 %br
 %br
