@@ -25,7 +25,7 @@ $color-pairs: baby-blue   #508de5 white,
     color: $foreground-color;
   }
 
-  .choose-color-#{$name} {
+  .show-color-#{$name} {
     background-color: $background-color;
     color: $foreground-color;
 

@@ -5,7 +5,7 @@ class TeammatesController < ApplicationController
 
   def index
     @new_teammate = Teammate.new
-    @teammates = @team.teammates
+    @teammates = @team.teammates.decorate
   end
 
   def create
