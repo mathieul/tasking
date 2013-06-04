@@ -21,19 +21,21 @@
         %tr
           %th Name
           %th Roles
+          %th Color
           %th Account
           %th Updated
       %tbody.table
         - @teammates.each.with_index do |teammate, index|
           - cache [teammate, index] do
             %tr
-              %td{class: "choose-color-#{teammate.color}"}<
+              %td<
                 = render "edit_button", target: teammate, position: index
                 = teammate.name
                 (
                 = teammate.initials
                 )
               %td= teammate.roles.join(", ")
+              %td{class: "choose-color-#{teammate.color}"}= teammate.color
               %td= teammate.account && teammate.account.email
               %td= time_tag teammate.updated_at
 

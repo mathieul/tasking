@@ -1,5 +1,6 @@
 .modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
   = simple_form_for teammate,
+      url: update_teammate_path(teammate),
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
       data: {create: create_teammates_path(teammate),
@@ -21,7 +22,7 @@
       = f.input :name
       = f.input :initials
       = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
-      = f.input :color, as: :radio_buttons, collection: Teammate::COLORS
+      = f.input :color, as: :select, collection: Teammate::COLORS
       = f.association :account, collection: @team.accounts, label_method: :email
     .modal-footer
       %button.btn(data-dismiss="modal") Cancel

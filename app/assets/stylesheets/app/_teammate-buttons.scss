@@ -1,17 +1,17 @@
-$color-pairs: dark-green  #334a14 white,
-              pink        #efa4ce white,
+$color-pairs: baby-blue   #508de5 white,
               black       #000000 white,
-              orange      #f29c33 white,
-              baby-blue   #508de5 white,
-              salmon      #f8cc9e black,
-              yellow      #fff733 black,
-              purple      #b0abd5 white,
-              old-pink    #b782a1 white,
-              dark-purple #722c80 white,
               dark-beige  #aea54b white,
               dark-blue   #093764 white,
+              dark-green  #334a14 white,
+              dark-purple #722c80 white,
               light-green #80f200 black,
-              red         #ff6666 white;
+              old-pink    #b782a1 white,
+              orange      #f29c33 white,
+              pink        #efa4ce white,
+              purple      #b0abd5 white,
+              red         #ff6666 white,
+              salmon      #f8cc9e black,
+              yellow      #fff733 black;
 
 @each $color in $color-pairs {
   $name: nth($color, 1);
@@ -29,9 +29,9 @@ $color-pairs: dark-green  #334a14 white,
     background-color: $background-color;
     color: $foreground-color;
 
-    &:hover {
-      background-color: $background-lighten !important;
-      color: $foreground-color !important;
+    .table-hover tr:hover > & {
+      background-color: $background-lighten;
+      color: $foreground-color;
     }
   }
 }

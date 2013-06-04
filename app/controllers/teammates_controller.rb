@@ -19,7 +19,7 @@ class TeammatesController < ApplicationController
 
   def update
     if @teammate.update(teammate_params)
-      redirect_to teammates_url, notice: "Teammate ##{@teammate.id} was updated."
+      redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was updated."
     else
       render_index_action
     end
@@ -27,7 +27,7 @@ class TeammatesController < ApplicationController
 
   def destroy
     @teammate.destroy
-    redirect_to teammates_url, notice: "Teammate ##{@teammate.id} was deleted."
+    redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was deleted."
   end
 
   private
@@ -41,7 +41,7 @@ class TeammatesController < ApplicationController
   def teammate_params
     secured = params
       .require(:teammate)
-      .permit(:name, :account_id, :roles, roles: [])
+      .permit(:name, :account_id, :initials, :color, :roles, roles: [])
     secured[:roles] ||= []
     secured[:roles] = secured[:roles].split(",") if secured[:roles].is_a?(String)
     secured[:roles].reject!(&:blank?)

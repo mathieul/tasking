@@ -15,8 +15,8 @@
 
 class Teammate < ActiveRecord::Base
   ROLES  = %w[admin teammate tech_lead product_manager]
-  COLORS = %w[dark-green pink black orange baby-blue salmon yellow purple
-              old-pink dark-purple dark-beige dark-blue light-green red]
+  COLORS = %w[baby-blue dark-beige dark-blue dark-green dark-purple light-green
+              old-pink orange pink black purple red salmon yellow]
 
   belongs_to :team
   belongs_to :account
