@@ -11,7 +11,7 @@ gem 'pg', '~> 0.15.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0.rc1'
-gem 'bootstrap-sass', '~> 2.3.1.0'
+gem 'bootstrap-sass', '~> 2.3.1.3'
 gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
 gem 'animate-sass', '~> 0.1.1'
 
@@ -28,9 +28,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 2.2.1'
+gem 'jquery-rails', '~> 3.0.0'
 
-gem 'wiselinks', '~> 0.5.6'
+gem 'wiselinks', '~> 0.6.2'
 
 gem 'simple_form', '~> 3.0.0.rc'
 
@@ -38,7 +38,7 @@ gem 'draper', '~> 1.2.1'
 
 gem 'ranked-model', '~> 0.2.1'
 
-gem 'dalli', '~> 2.6.3'
+gem 'dalli', '~> 2.6.4'
 
 gem 'puma', '~> 2.0.1'
 
