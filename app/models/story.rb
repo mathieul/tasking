@@ -35,10 +35,7 @@ class Story < ActiveRecord::Base
 
   scope :ranked, -> { rank(:row_order) }
   scope :backlogged, -> {
-    joins <<-EOQ
-      LEFT JOIN taskable_stories
-           ON (taskable_stories.story_id = stories.id
-               AND taskable_stories.story_id IS NULL)
-    EOQ
+    joins("LEFT JOIN taskable_stories ON (taskable_stories.story_id = stories.id)")
+    .where("taskable_stories.story_id IS NULL")
   }
 end

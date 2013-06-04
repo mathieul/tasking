@@ -82,8 +82,8 @@ describe Story do
       let(:t1s2sp1) { create(:story, team: team1) }
       let(:t1s1sp1) { create(:story, team: team1) }
 
-      it "can query backlogged stories of a team in order" do
-        stories = team1.stories.ranked.backlogged
+      it "can query stories of a team in order" do
+        stories = team1.stories.ranked
         expect(stories).to eq([t1s1p, t1s2p])
       end
     end

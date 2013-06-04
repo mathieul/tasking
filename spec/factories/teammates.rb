@@ -7,7 +7,7 @@ FactoryGirl.define do
       "j#{n}"
     end
     roles ["engineer"]
-    color "blue"
+    color "red"
     team
   end
 end
