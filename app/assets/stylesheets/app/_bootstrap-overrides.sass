@@ -1,0 +1,47 @@
+body
+  min-width: 1080px
+  padding-top: 40px
+  background: transparent image-url("subtle_white_feathers.png") repeat
+
+header.title
+  position: relative
+  padding: 15px 0
+  background: transparent image-url("mochaGrunge.png") repeat
+  color: white
+
+  table.table-condensed
+    margin-bottom: 0
+
+  th
+    background-color: rgba(white, 0.3)
+
+table.hidden-commands
+  td > .command
+    position: absolute
+    margin-left: -65px
+    +opacity(0)
+    +transition-property(opacity)
+    +transition-duration(0.25s)
+    +transition-timing-function(ease-in-out)
+    +transition-delay(0.5s)
+
+  tr:hover td > .command
+    +opacity(1)
+
+table.tasks
+  $tasks-outer-border-color: #999
+
+  .border-left
+    border-left: 3px solid $tasks-outer-border-color
+
+  &.table-bordered
+    border-color: $tasks-outer-border-color
+
+  th
+    background-color: rgba(black, 0.05)
+
+  td:first-child, th:first-child
+    border-left: 1px solid $tasks-outer-border-color
+
+.alert
+  margin-bottom: 22px

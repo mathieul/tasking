@@ -1,0 +1,30 @@
+$color-pairs: dark-green  #334a14 white,
+              pink        #efa4ce white,
+              black       #000000 white,
+              orange      #f29c33 white,
+              baby-blue   #508de5 white,
+              salmon      #f8cc9e black,
+              yellow      #fff733 black,
+              purple      #b0abd5 white,
+              old-pink    #b782a1 white,
+              dark-purple #722c80 white,
+              dark-beige  #aea54b white,
+              dark-blue   #093764 white,
+              light-green #80f200 black;
+
+@each $color in $color-pairs {
+  $name: nth($color, 1);
+  $background-color: nth($color, 2);
+  $foreground-color: nth($color, 3);
+
+  .btn-color-#{$name} {
+    @include buttonBackground($background-color, lighten($background-color, 15%), $foreground-color);
+    width: 60px;
+    color: $foreground-color;
+  }
+
+  .choose-color-#{$name} {
+    background-color: $background-color;
+    color: $foreground-color;
+  }
+}
