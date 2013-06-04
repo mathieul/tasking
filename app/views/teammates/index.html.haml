@@ -27,7 +27,7 @@
         - @teammates.each.with_index do |teammate, index|
           - cache [teammate, index] do
             %tr
-              %td<
+              %td{class: "choose-color-#{teammate.color}"}<
                 = render "edit_button", target: teammate, position: index
                 = teammate.name
                 (

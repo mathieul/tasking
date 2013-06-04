@@ -16,7 +16,7 @@
 class Teammate < ActiveRecord::Base
   ROLES  = %w[admin teammate tech_lead product_manager]
   COLORS = %w[dark-green pink black orange baby-blue salmon yellow purple
-              old-pink dark-purple dark-beige dark-blue light-green ]
+              old-pink dark-purple dark-beige dark-blue light-green red]
 
   belongs_to :team
   belongs_to :account
@@ -24,7 +24,8 @@ class Teammate < ActiveRecord::Base
   validates :name,     presence: true, uniqueness: true
   validates :initials, presence: true, uniqueness: true
   validates :roles,    presence: {message: "can't be empty"}
-  validates :color,    presence: true, inclusion: {in: COLORS, allow_nil: true}
+  validates :color,    presence: true,
+                       inclusion: {in: COLORS, allow_nil: true}
   validates :team,     presence: true
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }

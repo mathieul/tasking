@@ -10,15 +10,17 @@ $color-pairs: dark-green  #334a14 white,
               dark-purple #722c80 white,
               dark-beige  #aea54b white,
               dark-blue   #093764 white,
-              light-green #80f200 black;
+              light-green #80f200 black,
+              red         #ff6666 white;
 
 @each $color in $color-pairs {
   $name: nth($color, 1);
   $background-color: nth($color, 2);
+  $background-lighten: lighten($background-color, 15%);
   $foreground-color: nth($color, 3);
 
   .btn-color-#{$name} {
-    @include buttonBackground($background-color, lighten($background-color, 15%), $foreground-color);
+    @include buttonBackground($background-color, $background-lighten, $foreground-color);
     width: 60px;
     color: $foreground-color;
   }
@@ -26,5 +28,10 @@ $color-pairs: dark-green  #334a14 white,
   .choose-color-#{$name} {
     background-color: $background-color;
     color: $foreground-color;
+
+    &:hover {
+      background-color: $background-lighten !important;
+      color: $foreground-color !important;
+    }
   }
 }
