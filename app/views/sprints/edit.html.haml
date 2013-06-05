@@ -34,8 +34,4 @@
           %td= story.spec_link
           - %i[todo in_progress done].each do |kind|
             - tasks[kind].each.with_index do |task, index|
-              %td{class: index == 0 ? "border-left" : ""}
-                - if task.present?
-                  = task.description
-                - else
-                  &nbsp;
+              = render "task", task: task, first: index == 0, width: @task_table.col_width

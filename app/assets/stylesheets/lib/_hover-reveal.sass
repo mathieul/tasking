@@ -1,0 +1,12 @@
+@import compass/css3/opacity
+@import compass/css3/transition
+
+@mixin hover-reveal-hidden($delay: 0.5s, $duration: 0.25s)
+  +opacity(0)
+  +transition-property(opacity)
+  +transition-duration($duration)
+  +transition-timing-function(ease-in-out)
+  +transition-delay($delay)
+
+@mixin hover-reveal-shown
+  +opacity(1)

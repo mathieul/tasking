@@ -1,3 +1,5 @@
+@import lib/hover-reveal
+
 body
   min-width: 1080px
   padding-top: 40px
@@ -19,14 +21,10 @@ table.hidden-commands
   td > .command
     position: absolute
     margin-left: -65px
-    +opacity(0)
-    +transition-property(opacity)
-    +transition-duration(0.25s)
-    +transition-timing-function(ease-in-out)
-    +transition-delay(0.5s)
+    +hover-reveal-hidden(0.5s, 0.25s)
 
   tr:hover td > .command
-    +opacity(1)
+    +hover-reveal-shown
 
 table.tasks
   $tasks-outer-border-color: #999

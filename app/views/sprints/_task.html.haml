@@ -1,0 +1,11 @@
+%td.task{class: first ? "border-left" : "", style: "width: #{width}px"}
+  - if task.present?
+    .task-command{style: "width: #{width - 8 * 3 + 1}px"}
+      %button.btn.btn-mini.edit-task(type="button") Edit
+    .task-content= task.description
+    %textarea.task-input= task.description
+  - else
+    .task-command{style: "width: #{width - 8 * 3 + 1}px"}
+      %button.btn.btn-mini.add-task(type="button") Add
+    .task-content
+    %textarea.task-input do something 1h
