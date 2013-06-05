@@ -14,24 +14,4 @@
 %br
 %br
 %h3 Tasks
-%div{style: "overflow-x: scroll;"}
-  %table.table.table-bordered.tasks{@task_table.table_properties(43+216+31+67)}
-    %thead.table
-      %tr
-        %th(style="width: 43px") Id
-        %th(style="width: 216px") Story
-        %th(style="width: 31px") Pts
-        %th(style="width: 67px") Spec
-        = @task_table.render_header(:todo)
-        = @task_table.render_header(:in_progress)
-        = @task_table.render_header(:done)
-    %tbody.table
-      - @task_table.each_story_and_tasks do |story, tasks|
-        %tr
-          %td= story.id
-          %td= story.description
-          %td= story.points
-          %td= story.spec_link
-          - %i[todo in_progress done].each do |kind|
-            - tasks[kind].each.with_index do |task, index|
-              = render "task", task: task, first: index == 0, width: @task_table.col_width
+= render "task_table", task_table: @task_table

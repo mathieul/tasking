@@ -4,7 +4,7 @@ class TaskTableService
 
   def initialize(taskable_stories)
     @taskable_stories = taskable_stories
-    @cols = 3
+    @cols = 1
     @col_width = 145
   end
 
