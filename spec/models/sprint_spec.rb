@@ -69,8 +69,18 @@ describe Sprint do
 
     it "can create taskable stories using #story_ids=" do
       story = create(:story, team: team)
-      sprint = create(:sprint, stories_count: 0, team: team, story_ids: [story.id])
+      sprint = create(:sprint, stories_count: 0, story_ids: [story.id], team: team)
       expect(sprint.taskable_stories.map(&:story)).to eq([story])
+    end
+
+    it "preserves the order or stories in taskable stories" do
+      stories = [
+        create(:story, row_order: 5, team: team),
+        create(:story, row_order: 1, team: team),
+        create(:story, row_order: 9, team: team)
+      ]
+      sprint = create(:sprint, stories_count: 0, story_ids: stories.map(&:id), team: team)
+      expect(sprint.taskable_stories.map(&:story)).to eq(stories.sort_by(&:row_order))
     end
 
     it "has many stories through taskable stories" do

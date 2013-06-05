@@ -28,8 +28,8 @@ class SprintsController < ApplicationController
       sprint_label = sprint_id.to_i == 0 ? "#{sprint_id} sprint" : "sprint ##{sprint_id}"
       redirect_to stories_path, error: "There is no #{sprint_label}."
     else
+      @task_table = TaskTableService.new(sprint.taskable_stories.joins(:story))
       @sprint = sprint.decorate
-      @task_table = TaskTableService.new(@sprint.taskable_stories.joins(:story))
       @teammates = @team.teammates.with_role("teammate")
     end
   end

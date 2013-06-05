@@ -16,7 +16,7 @@
 class Sprint < ActiveRecord::Base
   VALID_STATUSES = %w[draft planned in_progress canceled completed]
   belongs_to :team
-  has_many :taskable_stories, dependent: :destroy
+  has_many :taskable_stories, -> { order(row_order: :asc) }, dependent: :destroy
   has_many :stories, through: :taskable_stories
 
   validates :projected_velocity, presence: true,
@@ -56,13 +56,6 @@ class Sprint < ActiveRecord::Base
 
   def story_ids=(ids)
     @story_ids = ids
-    # # found = Story.find(ids).reject do |story|
-    # #   current_id = story.team_id ? story.team_id : story.team.try(:id)
-    # #   current_id != team_id
-    # # end
-    # Story.find(ids).each do |story|
-    #   taskable_stories.build(story: story, team: team)
-    # end
   end
 
   private
@@ -75,7 +68,7 @@ class Sprint < ActiveRecord::Base
 
   def stories_to_task
     return [] if @story_ids.nil?
-    Story.find(@story_ids).reject do |story|
+    Story.find(@story_ids).sort_by(&:row_order).reject do |story|
       current_id = story.team_id ? story.team_id : story.team.try(:id)
       current_id != team_id
     end
