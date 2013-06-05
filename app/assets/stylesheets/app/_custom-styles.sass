@@ -28,32 +28,3 @@ form.form-inline-row
 
 .well
   background-color: $white
-
-.task-table-wrapper
-  overflow: scroll
-
-.task-command
-  position: absolute
-  padding: 4px 8px
-  background-color: #eee
-  border-bottom: 1px solid #ddd
-  +hover-reveal-hidden(0.2s)
-
-td.task
-  padding: 0
-
-  &:hover
-    .task-command
-      +hover-reveal-shown
-
-.task-input
-  display: none
-  margin: 0
-  border: none
-
-.task-content
-  padding: 8px
-
-.move-task
-  @extend .badge
-  cursor: move

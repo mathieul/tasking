@@ -9,11 +9,7 @@ class TaskTableService
   end
 
   def render_header(kind)
-    %Q{
-      <th colspan="#{cols}" class="border-left">
-      #{kind.to_s.humanize}
-      </th>
-      }.html_safe
+    %Q{<th colspan="#{cols}">#{kind.to_s.humanize}</th>}.html_safe
   end
 
   def each_story_and_tasks(&block)
@@ -27,8 +23,9 @@ class TaskTableService
     end
   end
 
-  def table_properties(existing_width)
-    width = existing_width + col_width * 3 * cols
+  def table_properties(*column_widths)
+    width = column_widths.map { |width| 1 + 8 + width + 8 }.sum
+    width += 3 * (5 + col_width * cols)
     {style: "width: #{width}px;"}
   end
 end

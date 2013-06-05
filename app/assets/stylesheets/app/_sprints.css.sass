@@ -1,0 +1,45 @@
+.task-table-wrapper
+  overflow: scroll
+
+table.tasks
+  $tasks-outer-border-color: #999
+
+  &.table-bordered
+    border-color: $tasks-outer-border-color
+
+  th
+    background-color: rgba(black, 0.05)
+
+  td:first-child, th:first-child
+    border-left: 1px solid $tasks-outer-border-color
+
+.task-command
+  position: absolute
+  padding: 4px 8px
+  background-color: #eee
+  border-bottom: 1px solid #ddd
+  +hover-reveal-hidden(0.2s)
+
+td.task
+  padding: 0
+
+  &:hover
+    .task-command
+      +hover-reveal-shown
+
+th.column-divider, td.column-divider
+  padding: 0
+  margin: 0
+  background-color: #eee
+
+.task-input
+  display: none
+  margin: 0
+  border: none
+
+.task-content
+  padding: 8px
+
+.move-task
+  @extend .badge
+  cursor: move

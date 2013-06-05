@@ -1,4 +1,4 @@
-%td.task{class: first ? "border-left" : "", style: "width: #{width}px"}
+%td.task{style: "width: #{width}px"}
   - if task.present?
     .task-command{style: "width: #{width - 8 * 3 + 1}px"}
       %button.btn.btn-mini.edit-task(type="button")
@@ -8,7 +8,7 @@
     .task-content= task.description
     %textarea.task-input= task.description
   - else
-    .task-command{style: "width: #{width - 8 * 3 + 1}px"}
+    .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.add-task(type="button")
         %i.icon-plus-sign
       %button.btn.btn-danger.btn-mini.delete-task(type="button")
