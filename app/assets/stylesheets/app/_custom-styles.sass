@@ -31,9 +31,9 @@ form.form-inline-row
 
 .task-command
   position: absolute
-  background-color: rgba(#000, 0.05)
-  margin-top: 8px
   padding: 4px 8px
+  background-color: #eee
+  border-bottom: 1px solid #ddd
   +hover-reveal-hidden(0.2s)
 
 td.task
@@ -50,3 +50,7 @@ td.task
 
 .task-content
   padding: 8px
+
+.move-task
+  @extend .badge
+  cursor: move

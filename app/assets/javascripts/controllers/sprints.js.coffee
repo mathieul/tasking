@@ -21,13 +21,13 @@ class SprintsController
     $("table.tasks")
     $(".add-task").click (event) ->
       task = $(event.target).closest("td.task")
-      [width, height] = [task.innerWidth(), task.innerHeight()]
+      [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
       task.find(".task-command").hide()
       task.find(".task-content").hide()
       task.find(".task-input")
         .show()
-        .width(width - 4)
-        .height(height - 6)
+        .width(width)
+        .height(height)
         .select()
     $(".task-input").blur (event) ->
       task = $(event.target).closest("td.task")
