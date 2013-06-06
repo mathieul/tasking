@@ -1,4 +1,5 @@
 #= require ../lib/wiselinks_manager
+#= require ../lib/task_table
 
 controller = null
 
@@ -12,27 +13,13 @@ class SprintsController
 
   run: ->
     @initDatePickers()
-    @initTaskTable()
+    @taskTable = new App.TaskTable
+      add:      ".add-task"
+      input:    ".task-input"
+      command:  ".task-command"
+      content:  ".task-content"
+      wrapper:  "td.task"
+    @taskTable.setup()
 
   initDatePickers: ->
     $(".date .input-append").datetimepicker(pickTime: false)
-
-  initTaskTable: ->
-    $("table.tasks")
-    $(".add-task").click (event) ->
-      task = $(event.target).closest("td.task")
-      [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
-      task.find(".task-command").hide()
-      task.find(".task-content").hide()
-      task.find(".task-input")
-        .show()
-        .width(width)
-        .height(height)
-        .select()
-    $(".task-input").blur (event) ->
-      task = $(event.target).closest("td.task")
-      input = task.find(".task-input").hide()
-      task.find(".task-command").show()
-      task.find(".task-content")
-        .show()
-        .text(input.val())
