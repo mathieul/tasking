@@ -1,11 +1,13 @@
 class TaskTableService
-  attr_reader :taskable_stories
-  attr_reader :cols, :col_width
+  attr_reader :sprint, :col_width
 
-  def initialize(taskable_stories)
-    @taskable_stories = taskable_stories
-    @cols = 1
+  def initialize(sprint)
+    @sprint = sprint
     @col_width = 145
+  end
+
+  def taskable_stories
+    @taskable_stories ||= sprint.taskable_stories.joins(:story, :tasks)
   end
 
   def render_header(kind)
@@ -27,5 +29,9 @@ class TaskTableService
     width = column_widths.map { |width| 1 + 8 + width + 8 }.sum
     width += 3 * (5 + col_width * cols)
     {style: "width: #{width}px;"}
+  end
+
+  def tasks_status_per_taskable_story
+    # => {taskable_story1: {todo: [task1, task2], in_progress: [], done: []}, ...}
   end
 end

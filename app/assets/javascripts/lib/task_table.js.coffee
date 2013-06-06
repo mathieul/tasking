@@ -38,6 +38,6 @@ class @App.TaskTable
           .val(0)
           .end()
         .find("#task_status")
-          .val("testing")
+          .val(task.data("status"))
           .end()
         .submit()
