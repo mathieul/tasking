@@ -15,4 +15,6 @@
 %br
 %h3 Tasks
 = render "task_table", task_table: @task_table
-= render "task_hidden_form", task: @new_task, sprint: @sprint
+= render "create_task_form", task: @new_task, sprint: @sprint
+= render "update_task_form", task: @new_task, sprint: @sprint
+= render "destroy_task_form", task: @new_task, sprint: @sprint

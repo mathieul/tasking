@@ -1,0 +1,7 @@
+= form_for task,
+    html: {id: "destroy-task-form"},
+    url: destroy_sprint_task_path(sprint, id: "__id__"),
+    data: {destroy: destroy_sprint_task_path(sprint, id: "__id__"),
+           replace: true} do |f|
+  = hidden_field_tag "_method", "delete", id: nil
+  = f.hidden_field :taskable_story_id

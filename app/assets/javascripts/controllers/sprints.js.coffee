@@ -14,12 +14,16 @@ class SprintsController
   run: ->
     @initDatePickers()
     @taskTable = new App.TaskTable
-      add:      ".add-task"
-      input:    ".task-input"
-      command:  ".task-command"
-      content:  ".task-content"
-      wrapper:  "td.task"
-    @taskTable.setup()
+      selectors:
+        add:      ".add-task"
+        input:    ".task-input"
+        command:  ".task-command"
+        content:  ".task-content"
+        wrapper:  "td.task"
+      forms:
+        create:   "#create-task-form"
+        update:   "#update-task-form"
+        destroy:  "#destroy-task-form"
 
   initDatePickers: ->
     $(".date .input-append").datetimepicker(pickTime: false)

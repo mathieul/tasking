@@ -1,5 +1,9 @@
 class @App.TaskTable
-  constructor: (@selectors) ->
+  constructor: (options) ->
+    @selectors = options.selectors
+    @forms = {}
+    @forms[kind] = $(selector) for kind, selector of options.forms
+    @setup()
 
   setup: ->
     @setupAddButtons()
