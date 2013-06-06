@@ -13,7 +13,7 @@
         %th.column-divider(style="width: 0") &nbsp;
         = task_table.render_header(:done)
     %tbody.table
-      - task_table.each_story_and_tasks do |story, tasks|
+      - task_table.each_story_and_tasks do |taskable_story, story, tasks|
         %tr
           %td= story.id
           %td= story.description
@@ -21,5 +21,5 @@
           %td= story.spec_link
           - %i[todo in_progress done].each do |kind|
             %td.column-divider &nbsp;
-            - tasks[kind].each.with_index do |task, index|
-              = render "task", task: task, first: index == 0, width: task_table.col_width
+            - tasks[kind].each do |task|
+              = render "task", task: task, taskable_story: taskable_story, width: task_table.col_width

@@ -1,11 +1,10 @@
 = form_for task,
     html: {id: "update-task-form"},
-    url: update_sprint_task_path(sprint, id: "__id__"),
-    data: {update: update_sprint_task_path(sprint, id: "__id__"),
+    url: "/",
+    data: {update: update_taskable_story_task_path(task.taskable_story_id,"__id__"),
            replace: true} do |f|
   = hidden_field_tag "_method", "patch", id: nil
   = f.hidden_field :row_order_position
-  = f.hidden_field :taskable_story_id
   = f.hidden_field :description
   = f.hidden_field :hours
   = f.hidden_field :status

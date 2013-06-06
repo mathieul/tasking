@@ -19,7 +19,7 @@ class TaskTableService
         in_progress: [nil] * cols,
         done: [nil] * cols
       }
-      block.call(taskable_story.story.decorate, tasks)
+      block.call(taskable_story, taskable_story.story.decorate, tasks)
     end
   end
 

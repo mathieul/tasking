@@ -26,7 +26,6 @@ class Task < ActiveRecord::Base
                                             greater_than_or_equal_to: 0,
                                             allow_nil: true}
   validates :status,         presence: true
-  validates :row_order,      presence: true
   validates :taskable_story, presence: true
   validates :team,           presence: true
 
