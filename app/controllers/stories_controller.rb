@@ -55,11 +55,6 @@ class StoriesController < ApplicationController
       render "index"
   end
 
-  def authorize_and_find_team
-    authorize
-    @team = Team.find(current_account.team)
-  end
-
   def story_params
     extracted = params
       .require(:story)

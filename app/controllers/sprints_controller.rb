@@ -31,6 +31,7 @@ class SprintsController < ApplicationController
       @task_table = TaskTableService.new(sprint.taskable_stories.joins(:story))
       @sprint = sprint.decorate
       @teammates = @team.teammates.with_role("teammate")
+      @new_task = Task.new
     end
   end
 
