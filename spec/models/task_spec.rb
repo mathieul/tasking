@@ -21,9 +21,13 @@ describe Task do
       expect(sprint).to have(1).error_on(:status)
     end
 
-    it "is not valid without a row order" do
-      sprint = build(:task, row_order: nil)
-      expect(sprint).to have(1).error_on(:row_order)
+    it "is not valid with an invalid status" do
+      sprint = build(:task, status: "not_supported")
+      expect(sprint).to have(1).error_on(:status)
+      %w[todo in_progress done].each do |value|
+        sprint.status = value
+        expect(sprint).to be_valid
+      end
     end
   end
 

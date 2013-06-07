@@ -29,7 +29,7 @@ class @App.TaskTable
       @forms.create
         .attr(action: action)
         .find("#task_row_order_position")
-          .val(0)
+          .val("last")
           .end()
         .find("#task_description")
           .val(input.val())

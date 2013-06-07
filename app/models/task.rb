@@ -14,6 +14,8 @@
 #
 
 class Task < ActiveRecord::Base
+  VALID_STATUSES = %w[todo in_progress done]
+
   include RankedModel
   ranks :row_order, with_same: "taskable_story_id"
 
@@ -25,7 +27,8 @@ class Task < ActiveRecord::Base
                              numericality: {only_integer: true,
                                             greater_than_or_equal_to: 0,
                                             allow_nil: true}
-  validates :status,         presence: true
+  validates :status,         presence: true,
+                             inclusion: {in: VALID_STATUSES, allow_nil: true}
   validates :taskable_story, presence: true
   validates :team,           presence: true
 

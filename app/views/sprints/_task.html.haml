@@ -4,16 +4,14 @@
       %button.btn.btn-mini.edit-task(type="button")
         %i.icon-edit
       %button.btn.btn-danger.btn-mini.delete-task(type="button")
-        %i.icon-minus-sign
+        %i.icon-minus-sign.icon-white
+      %span.move-task.pull-right
+        %i.icon-move.icon-white
     .task-content= task.description
     %textarea.task-input= task.description
   - else
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.add-task(type="button")
         %i.icon-plus-sign
-      %button.btn.btn-danger.btn-mini.delete-task(type="button")
-        %i.icon-minus-sign.icon-white
-      %span.move-task.pull-right
-        %i.icon-move.icon-white
     .task-content
     %textarea.task-input do something 1h
