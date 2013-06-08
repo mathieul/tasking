@@ -8,6 +8,7 @@ class @App.TaskTable
 
   setup: ->
     $(@selectors.add).on("click", this, handlers.addTask)
+    $(@selectors.delete).on("click", this, handlers.deleteTask)
     $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
     $(@selectors.teammate).on("click", this, handlers.selectTeammate)
 
@@ -34,6 +35,17 @@ handlers =
         .height(height)
         .select()
         .one("blur", event.data, handlers.createTask)
+
+  cancelEditOnEscape: (event) ->
+    if event.keyCode is 27 # escape
+      {selectors} = event.data
+      task = $(event.target).closest(selectors.wrapper)
+      task
+        .find(selectors.command).show().end()
+        .find(selectors.content).show().end()
+        .find(selectors.input)
+          .hide()
+          .off("blur", handlers.createTask)
 
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
@@ -73,13 +85,12 @@ handlers =
         .submit()
     ), 250
 
-  cancelEditOnEscape: (event) ->
-    if event.keyCode is 27 # escape
-      {selectors} = event.data
-      task = $(event.target).closest(selectors.wrapper)
-      task
-        .find(selectors.command).show().end()
-        .find(selectors.content).show().end()
-        .find(selectors.input)
-          .hide()
-          .off("blur", handlers.createTask)
+  deleteTask: (event) ->
+    {forms, selectors} = event.data
+    task = $(event.target).closest(selectors.wrapper)
+    action = forms.destroy.data("destroy")
+      .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+      .replace(/__id__/, task.data("taskId"))
+    forms.destroy
+      .attr(action: action)
+      .submit()

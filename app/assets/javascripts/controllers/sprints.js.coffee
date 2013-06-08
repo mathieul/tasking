@@ -17,6 +17,7 @@ class SprintsController
       currentTeammateId: @options.currentTeammateId
       selectors:
         add:      ".add-task"
+        delete:   ".delete-task"
         input:    ".task-input"
         command:  ".task-command"
         content:  ".task-content"

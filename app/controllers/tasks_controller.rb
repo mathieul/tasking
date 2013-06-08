@@ -13,6 +13,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    task = @taskable_story.tasks.find(params.require(:id))
+    task.destroy
+    redirect_to [:edit, @taskable_story.sprint]
   end
 
   private
