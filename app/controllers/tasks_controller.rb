@@ -10,6 +10,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    task = @taskable_story.tasks.find(params.require(:id))
+    task.update!(task_params)
+    redirect_to [:edit, @taskable_story.sprint]
   end
 
   def destroy

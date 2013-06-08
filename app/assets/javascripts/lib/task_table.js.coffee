@@ -8,6 +8,7 @@ class @App.TaskTable
 
   setup: ->
     $(@selectors.add).on("click", this, handlers.addTask)
+    $(@selectors.edit).on("click", this, handlers.editTask)
     $(@selectors.destroy).on("click", this, handlers.destroyTask)
     $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
     $(@selectors.teammate).on("click", this, handlers.selectTeammate)
@@ -18,13 +19,31 @@ class @App.TaskTable
     [task, @currentTask] = [@currentTask, null]
     task
 
+  updateCurrentTask: (attributes) ->
+    $.extend(@currentTask, attributes) if @currentTask?
+
   setTeammateIdForCurrentTask: (teammateId) ->
     @currentTask?.teammateId = teammateId
 
 handlers =
   addTask: (event) ->
-    {selectors} = event.data
+    {forms, selectors} = table = event.data
     task = $(event.target).closest(selectors.wrapper)
+    table.pushCurrentTask
+      action: forms.create.data("url").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+      position: "last"
+    handlers.setEditMode(table, task, selectors)
+
+  editTask: (event) ->
+    {forms, selectors} = table = event.data
+    task = $(event.target).closest(selectors.wrapper)
+    table.pushCurrentTask
+      action: forms.update.data("url")
+        .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+        .replace(/__id__/, task.data("taskId"))
+    handlers.setEditMode(table, task, selectors)
+
+  setEditMode: (table, task, selectors) ->
     [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
     task
       .find(selectors.command).hide().end()
@@ -34,7 +53,7 @@ handlers =
         .width(width)
         .height(height)
         .select()
-        .one("blur", event.data, handlers.createTask)
+        .one("blur", table, handlers.createTask)
 
   cancelEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
@@ -55,10 +74,7 @@ handlers =
     {forms, selectors, currentTeammateId} = table = event.data
     task = $(event.target).closest(selectors.wrapper)
     input = task.find(selectors.input)
-    action = forms.create.data("create").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-    table.pushCurrentTask
-      action: action
-      position: "last"
+    table.updateCurrentTask
       description: input.val()
       hours: 0
       status: task.data("status")

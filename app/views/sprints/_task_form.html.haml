@@ -1,7 +1,7 @@
 = form_for task,
     html: {id: "#{kind}-task-form"},
     url: "/",
-    data: {create: url, replace: true} do |f|
+    data: {url: url, replace: true} do |f|
   = hidden_field_tag "_method", (kind == "create" ? "post" : "patch"), id: nil
   = f.hidden_field :row_order_position
   = f.hidden_field :description
