@@ -11,6 +11,7 @@
 #  team_id           :integer          not null
 #  created_at        :datetime
 #  updated_at        :datetime
+#  teammate_id       :integer
 #
 
 class Task < ActiveRecord::Base
@@ -21,6 +22,7 @@ class Task < ActiveRecord::Base
 
   belongs_to :taskable_story
   belongs_to :team
+  belongs_to :teammate
 
   validates :description,    presence: true
   validates :hours,          presence: true,

@@ -45,6 +45,11 @@ describe Task do
       task.team = nil
       expect(task).to have(1).error_on(:team)
     end
+
+    it "can belong to a teammate" do
+      task = build(:task, teammate: teammate = create(:teammate))
+      expect(task.teammate).to eq(teammate)
+    end
   end
 
   context "querying" do
