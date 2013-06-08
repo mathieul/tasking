@@ -18,7 +18,7 @@ class SprintsController < ApplicationController
       redirect_to [:edit, @sprint]
     else
       new
-      render "new"
+      render :new
     end
   end
 

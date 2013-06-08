@@ -52,7 +52,7 @@ class StoriesController < ApplicationController
 
   def render_index_action
       index
-      render "index"
+      render :index
   end
 
   def story_params

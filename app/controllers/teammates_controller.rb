@@ -35,7 +35,7 @@ class TeammatesController < ApplicationController
   def render_index_action
     @team.teammates.reload
     index
-    render "index"
+    render :index
   end
 
   def teammate_params
