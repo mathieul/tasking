@@ -7,9 +7,9 @@ class @App.TaskTable
     @setup()
 
   setup: ->
-    $(@selectors.add).on      "click", this, handlers.addTask
-    $(@selectors.input).on    "blur",  this, handlers.createTask
-    $(@selectors.teammate).on "click", this, handlers.selectTeammate
+    $(@selectors.add).on("click", this, handlers.addTask)
+    $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
+    $(@selectors.teammate).on("click", this, handlers.selectTeammate)
 
   pushCurrentTask: (@currentTask) ->
 
@@ -26,17 +26,14 @@ handlers =
     task = $(event.target).closest(selectors.wrapper)
     [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
     task
-      .find(selectors.command)
-        .hide()
-        .end()
-      .find(selectors.content)
-        .hide()
-        .end()
+      .find(selectors.command).hide().end()
+      .find(selectors.content).hide().end()
       .find(selectors.input)
         .show()
         .width(width)
         .height(height)
         .select()
+        .one("blur", event.data, handlers.createTask)
 
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
@@ -75,3 +72,14 @@ handlers =
           .end()
         .submit()
     ), 250
+
+  cancelEditOnEscape: (event) ->
+    if event.keyCode is 27 # escape
+      {selectors} = event.data
+      task = $(event.target).closest(selectors.wrapper)
+      task
+        .find(selectors.command).show().end()
+        .find(selectors.content).show().end()
+        .find(selectors.input)
+          .hide()
+          .off("blur", handlers.createTask)
