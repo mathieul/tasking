@@ -3,6 +3,6 @@ class TaskDecorator < ApplicationDecorator
 
   def timed_description
     binding.pry if object.description == "do something 1h"
-    [object.description, object.hours == 0 ? nil : "#{object.hours}h"].join(" ")
+    [object.description, object.hours.zero? ? nil : "#{object.hours}h"].join(" ")
   end
 end
