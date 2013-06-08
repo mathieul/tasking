@@ -114,5 +114,5 @@ handlers =
       .submit()
 
   parseDescription: (value) ->
-    match = value.match(/(.*)\s+((\d+)\s*h?|)/)
+    match = value.match(/(.*)\s+(([\d\.]+)\s*h?|)/)
     [match[1], match[3] || 0]

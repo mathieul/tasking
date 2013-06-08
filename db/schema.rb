@@ -79,12 +79,12 @@ ActiveRecord::Schema.define(version: 20130608004825) do
   add_index "taskable_stories", ["team_id"], name: "index_taskable_stories_on_team_id", using: :btree
 
   create_table "tasks", force: true do |t|
-    t.string   "description",                   null: false
-    t.integer  "hours",             default: 1, null: false
-    t.string   "status",                        null: false
-    t.integer  "row_order",                     null: false
-    t.integer  "taskable_story_id",             null: false
-    t.integer  "team_id",                       null: false
+    t.string   "description",                                             null: false
+    t.decimal  "hours",             precision: 5, scale: 2, default: 1.0, null: false
+    t.string   "status",                                                  null: false
+    t.integer  "row_order",                                               null: false
+    t.integer  "taskable_story_id",                                       null: false
+    t.integer  "team_id",                                                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teammate_id"
