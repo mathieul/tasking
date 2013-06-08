@@ -1,5 +1,6 @@
 class @App.TaskTable
   constructor: (options) ->
+    @currentTeammateId = options.currentTeammateId
     @selectors = options.selectors
     @forms = {}
     @forms[kind] = $(selector) for kind, selector of options.forms
@@ -13,13 +14,18 @@ class @App.TaskTable
     $(@selectors.add).click (event) =>
       task = $(event.target).closest(@selectors.wrapper)
       [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
-      task.find(@selectors.command).hide()
-      task.find(@selectors.content).hide()
-      task.find(@selectors.input)
-        .show()
-        .width(width)
-        .height(height)
-        .select()
+      task
+        .find(@selectors.command)
+          .hide()
+          .end()
+        .find(@selectors.content)
+          .hide()
+          .end()
+        .find(@selectors.input)
+          .show()
+          .width(width)
+          .height(height)
+          .select()
 
   setupInputFields: ->
     $(@selectors.input).blur (event) =>
@@ -39,5 +45,8 @@ class @App.TaskTable
           .end()
         .find("#task_status")
           .val(task.data("status"))
+          .end()
+        .find("#task_teammate_id")
+          .val(@currentTeammateId)
           .end()
         .submit()

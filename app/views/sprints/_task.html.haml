@@ -1,5 +1,8 @@
-%td.task{style: "width: #{width}px", data: {taskable_story_id: taskable_story.id, status: status}}
-  - if task.present?
+%td.task{style: "width: #{width}px",
+         class: task ? current_teammate.show_color : "",
+         data: {taskable_story_id: taskable_story.id,
+         status: status}}
+  - if task
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.edit-task(type="button")
         %i.icon-edit

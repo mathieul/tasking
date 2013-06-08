@@ -14,6 +14,7 @@ class SprintsController
   run: ->
     @initDatePickers()
     @taskTable = new App.TaskTable
+      currentTeammateId: @options.currentTeammateId
       selectors:
         add:      ".add-task"
         input:    ".task-input"

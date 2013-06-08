@@ -12,6 +12,10 @@ class TeammateDecorator < ApplicationDecorator
   end
 
   def show_color_class
-    {class: "show-color-#{object.color}"}
+    {class: show_color}
+  end
+
+  def show_color
+    "show-color-#{object.color}"
   end
 end
