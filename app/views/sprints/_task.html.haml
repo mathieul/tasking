@@ -1,6 +1,6 @@
 %td.task{style: "width: #{width}px", data: {taskable_story_id: taskable_story.id, status: status}}
   - if task.present?
-    .task-command{style: "width: #{width - 8 * 3 + 1}px"}
+    .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.edit-task(type="button")
         %i.icon-edit
       %button.btn.btn-danger.btn-mini.delete-task(type="button")
