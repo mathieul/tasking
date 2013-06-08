@@ -8,7 +8,7 @@ class @App.TaskTable
 
   setup: ->
     $(@selectors.add).on("click", this, handlers.addTask)
-    $(@selectors.delete).on("click", this, handlers.deleteTask)
+    $(@selectors.destroy).on("click", this, handlers.destroyTask)
     $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
     $(@selectors.teammate).on("click", this, handlers.selectTeammate)
 
@@ -85,7 +85,7 @@ handlers =
         .submit()
     ), 250
 
-  deleteTask: (event) ->
+  destroyTask: (event) ->
     {forms, selectors} = event.data
     task = $(event.target).closest(selectors.wrapper)
     action = forms.destroy.data("destroy")
