@@ -74,11 +74,13 @@ handlers =
     {forms, selectors, currentTeammateId} = table = event.data
     task = $(event.target).closest(selectors.wrapper)
     input = task.find(selectors.input)
+    [description, hours] = handlers.parseDescription(input.val())
     table.updateCurrentTask
-      description: input.val()
-      hours: 0
-      status: task.data("status")
-      teammateId: currentTeammateId
+      description: description
+      hours:       hours
+      status:      task.data("status")
+      teammateId:  currentTeammateId
+
     setTimeout (->
       task = table.popCurrentTask()
       forms.create
@@ -110,3 +112,7 @@ handlers =
     forms.destroy
       .attr(action: action)
       .submit()
+
+  parseDescription: (value) ->
+    match = value.match(/(.*)\s+((\d+)\s*h?|)/)
+    [match[1], match[3] || 0]

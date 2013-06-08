@@ -12,7 +12,7 @@
       %span.move-task.pull-right
         %i.icon-move.icon-white
     .task-content= task.description
-    %textarea.task-input= task.description
+    %textarea.task-input= task.timed_description
   - else
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.add-task(type="button")

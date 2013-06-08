@@ -32,7 +32,7 @@ class TaskTable
 
   def each_story_and_tasks(&block)
     sprint.taskable_stories.each do |taskable_story|
-      per_status = taskable_story.tasks.ranked.group_by(&:status)
+      per_status = taskable_story.tasks.ranked.decorate.group_by(&:status)
       tasks = KINDS.each.with_object({}) do |kind, tasks|
         story_tasks = per_status[kind] || []
         count_missing = col_count(kind) - story_tasks.length
