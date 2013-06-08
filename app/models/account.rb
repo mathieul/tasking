@@ -19,6 +19,7 @@ class Account < ActiveRecord::Base
   has_secure_password
 
   belongs_to :team
+  has_one    :teammate
 
   validates :email,    presence: true, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}, presence: {on: :create}

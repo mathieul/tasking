@@ -40,6 +40,12 @@ describe Account do
       account.team = nil
       expect(account).not_to be_valid
     end
+
+    it "has one teammate" do
+      teammate = create(:teammate, team: create(:team))
+      account = build(:account, teammate: teammate)
+      expect(account.teammate).to eq(teammate)
+    end
   end
 
   context "tokens" do
