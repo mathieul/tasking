@@ -23,6 +23,7 @@ table.tasks
 
 td.task
   padding: 0
+  position: relative
 
   &:hover
     .task-command
@@ -40,6 +41,12 @@ th.column-divider, td.column-divider
 
 .task-content
   padding: 8px
+
+.task-hours
+  position: absolute
+  bottom: 0
+  right: 0
+  padding: 4px 8px
 
 .move-task
   @extend .badge

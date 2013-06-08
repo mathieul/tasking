@@ -12,10 +12,12 @@
       %span.move-task.pull-right
         %i.icon-move.icon-white
     .task-content= task.description
+    .task-hours= task.hours
     %textarea.task-input= task.timed_description
   - else
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.add-task(type="button")
         %i.icon-plus-sign
     .task-content
+    .task-hours &nbsp;
     %textarea.task-input do something 1h
