@@ -1,0 +1,5 @@
+.btn-group
+  - teammates.each do |teammate|
+    .btn.set-teammate{class: "btn-color-#{teammate.color}",
+                      :"data-teammate-id" => teammate.id}
+      = teammate.name

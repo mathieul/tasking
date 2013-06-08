@@ -7,9 +7,7 @@
   = javascript_tag "App.initSprints({currentTeammateId: #{current_account.teammate.try(:id) || "null"}});"
 
 %h3 Team
-.btn-group
-  - @teammates.each do |teammate|
-    .btn{class: "btn-color-#{teammate.color}"}= teammate.name
+= render "teammate_selector", teammates: @teammates
 
 %br
 %br

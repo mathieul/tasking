@@ -25,6 +25,6 @@ class TasksController < ApplicationController
   def task_params
     params
       .require(:task)
-      .permit(:row_order_position, :description, :hours, :status)
+      .permit(:row_order_position, :description, :hours, :status, :teammate_id)
   end
 end

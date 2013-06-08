@@ -21,6 +21,7 @@ class SprintsController
         command:  ".task-command"
         content:  ".task-content"
         wrapper:  "td.task"
+        teammate: ".set-teammate"
       forms:
         create:   "#create-task-form"
         update:   "#update-task-form"
