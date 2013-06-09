@@ -10,11 +10,13 @@ feature "Backlog management" do
     create(:teammate, name: "Sophie", roles: ["product_manager"], team: team)
   end
 
-  scenario "Create story" do
+  scenario "Create story", js: false do
     sign_in "serge@gainsbourg.com", password: "auxarmesetc..."
     click_link "Backlog"
     expect(page).to have_content("There are no stories in the backlog yet.")
     click_link "Create first story"
+    # expect(page).to have_content("New user story")
+
     fill_in "Description", with: "As a user I can do something so I benefit from it"
     select "Ari", from: "Tech lead"
     select "Sophie", from: "Product manager"

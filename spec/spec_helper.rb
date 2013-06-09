@@ -19,6 +19,7 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 SimpleCov.start 'rails'
 Draper::ViewContext.test_strategy :fast
+Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
