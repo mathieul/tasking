@@ -13,7 +13,7 @@
       %span.move-task.pull-right
         %i.icon-move.icon-white
     .task-content= task.description
-    .task-hours= task.hours
+    .task-hours= task.duration
     %textarea.task-input= task.timed_description
   - else
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
