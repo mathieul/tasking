@@ -8,11 +8,18 @@ class Manager
     window.wiselinks ?= new Wiselinks($('body'), html4: false)
 
   listenToPageEvents: ->
+    scrollInfo = []
     page = $(document)
     page
       .off("page:loading")
       .on "page:loading", (event, target, render, url) ->
-        console.log "Loading: #{url} to #{target.selector} within '#{render}'"
+        scrollInfo.length = 0
+        $(".preserve-scroll").each (index, obj) ->
+          $obj = $(obj)
+          scrollInfo.push
+            id:   obj.id
+            top:  $obj.scrollTop()
+            left: $obj.scrollLeft()
 
     page
       .off("page:redirected")
@@ -27,7 +34,10 @@ class Manager
     page
       .off("page:done")
       .on "page:done", (event, target, status, url, data) ->
-        console.log "Done: status is '#{status}'"
+        for scroll in scrollInfo
+          $("##{info.id}")
+            .scrollTop(scroll.top)
+            .scrollLeft(scroll.left)
 
     page
       .off("page:fail")
