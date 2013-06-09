@@ -21,10 +21,10 @@ class Manager
             top:  $(node).scrollTop()
             left: $(node).scrollLeft()
 
-    page
-      .off("page:redirected")
-      .on "page:redirected", (event, target, render, url) ->
-        console.log "Redirected: to #{url}"
+    # page
+    #   .off("page:redirected")
+    #   .on "page:redirected", (event, target, render, url) ->
+    #     console.log "Redirected: to #{url}"
 
     page
       .off("page:always")
@@ -34,11 +34,12 @@ class Manager
             .scrollTop(info.top)
             .scrollLeft(info.left)
 
-    page
-      .off("page:done")
-      .on "page:done", (event, target, status, url, data) ->
-        console.log "page:done..."
-    page
-      .off("page:fail")
-      .on "page:fail", (event, target, status, url, error) ->
-        console.log "Failure: status is '#{status}'"
+    # page
+    #   .off("page:done")
+    #   .on "page:done", (event, target, status, url, data) ->
+    #     console.log "page:done..."
+
+    # page
+    #   .off("page:fail")
+    #   .on "page:fail", (event, target, status, url, error) ->
+    #     console.log "Failure: status is '#{status}'"
