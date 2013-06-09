@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'timecop'
 
 feature "Backlog management" do
   include SignInSpecHelpers
@@ -54,5 +55,31 @@ feature "Backlog management" do
       expect(page).to have_css("td:nth-child(3)", text: "Sophie")
       expect(page).to have_css("td:nth-child(5)", text: "user sign up")
     end
+  end
+
+  scenario "Create New Sprint", js: true do
+    create(:story, description: "as a user I can sign up", points: 8, row_order: 1, team: team)
+    create(:story, description: "as a user I can sign in", points: 5, row_order: 2, team: team)
+
+    Timecop.travel Time.local(2013, 3, 9, 14, 0, 0)
+    sign_in "serge@gainsbourg.com", password: "auxarmesetc..."
+    click_link "Backlog"
+    fill_in "velocity", with: 15
+    within "tbody.table tr:nth-child(3)" do
+      expect(page).to have_css("td:nth-child(2)",
+                               text: "This is where we wish the line to be... New Sprint")
+      expect(page).to have_css("td:nth-child(3)", text: "13") # 8 + 5 points
+    end
+    click_on "New Sprint"
+    expect(page).to have_content("New Sprint")
+    expect(find_field("Start on").value).to eq("2013-03-10")
+    expect(find_field("End on").value).to eq("2013-03-24")
+    expect(find("#sprint_projected_velocity")["disabled"]).to eq("disabled")
+    expect(find("#sprint_projected_velocity").value).to eq("15")
+
+    click_button "Create Sprint"
+    click_button "Create Sprint"  # TODO: figure out why we need to click twice here...
+    expect(page).to have_content("Sprint Tasking")
+    Timecop.return
   end
 end

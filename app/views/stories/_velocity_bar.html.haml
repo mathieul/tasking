@@ -4,7 +4,7 @@
     %p.text-center
       %strong This is where we wish the line to be... &nbsp;
       - if velocity.sum > 0
-        = link_to "Create New Sprint",
+        = link_to "New Sprint",
           new_sprint_path(sprint: {story_ids: velocity.included_story_ids}),
           class: "btn btn-success",
           id: "btn-new-sprint",
