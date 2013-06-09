@@ -65,6 +65,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'simplecov'
+  gem 'timecop'
 end
 
 group :test, :development do
