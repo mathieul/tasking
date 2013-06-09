@@ -61,7 +61,9 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email', '~> 2.1.0'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'simplecov'
 end
@@ -72,6 +74,3 @@ group :test, :development do
   gem 'factory_girl', github: 'thoughtbot/factory_girl'
   gem 'factory_girl_rails', '~> 4.2.0'
 end
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]

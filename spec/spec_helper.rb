@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'simplecov'
 require 'database_cleaner'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -20,30 +21,21 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 SimpleCov.start 'rails'
 Draper::ViewContext.test_strategy :fast
-Capybara.javascript_driver = :webkit
 DatabaseCleaner.strategy = :truncation
+
+# Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::Email::DSL, type: :feature
 
   config.use_transactional_fixtures = false
-
-  config.before :each do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before :each, js: true, pre_count: true do
-    DatabaseCleaner.strategy = :truncation, {:pre_count => true}
-  end
-
-  config.before :each do
-    DatabaseCleaner.start
-  end
-
-  config.after :each do
-    DatabaseCleaner.clean
-  end
+  config.before(:each)           { DatabaseCleaner.strategy = :transaction }
+  config.before(:each, js: true) { DatabaseCleaner.strategy = :truncation  }
+  config.before(:each)           { DatabaseCleaner.start                   }
+  config.after(:each)            { DatabaseCleaner.clean                   }
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of

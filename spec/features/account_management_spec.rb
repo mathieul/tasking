@@ -5,13 +5,15 @@ feature "Account management" do
     create(:account, email: "john@zorn.com", password: "secret0").activate!
   end
 
-  scenario "Signing up" do
+  scenario "Signing up", js: true do
     visit "/"
     click_link "Sign Up"
 
+    fill_in "Team name", with: "X"
     fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "123"
     click_button "Sign Up"
+    # save_screenshot('/Users/mathieu/Tmp/sign-up.png', full: true)
     expect(page).to have_content "Please review the problems below:"
     expect(page).to have_content "is too short (minimum is 6 characters)"
 
@@ -22,7 +24,7 @@ feature "Account management" do
     expect(current_path).to eq("/stories")
   end
 
-  scenario "Signing in" do
+  scenario "Signing in", js: true do
     visit "/"
     click_link "Sign In"
 
@@ -38,7 +40,7 @@ feature "Account management" do
     expect(page).not_to have_css "li > a", text: "Sign In"
   end
 
-  scenario "Signing out" do
+  scenario "Signing out", js: true do
     visit "/sign_in"
     fill_in "Email",    with: "john@zorn.com"
     fill_in "Password", with: "secret0"
@@ -49,7 +51,7 @@ feature "Account management" do
     expect(page).to have_css "li > a", text: "Sign In"
   end
 
-  scenario "Forgotten password" do
+  scenario "Forgotten password", js: true do
     clear_emails
     visit "/"
     click_link "Sign In"
@@ -74,7 +76,7 @@ feature "Account management" do
     expect(page).to have_content "Welcome back!"
   end
 
-  scenario "Confirm account" do
+  scenario "Confirm account", js: true do
     clear_emails
     visit "/sign_up"
     fill_in "Team name", with: "Ze Team"
