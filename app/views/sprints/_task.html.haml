@@ -2,7 +2,8 @@
          class: task ? (task.teammate.try(:decorate) || NonTeammateDecorator.new).show_color : "",
          data: {task_id: task.try(:id),
                 taskable_story_id: taskable_story.id,
-                status: status}}
+                status: status,
+                teammate_id: task.try(:teammate_id)}}
   - if task
     .task-command{style: "width: #{width - 8 * 2 + 1}px"}
       %button.btn.btn-mini.edit-task(type="button")

@@ -79,7 +79,7 @@ handlers =
       description: description
       hours:       hours
       status:      task.data("status")
-      teammateId:  currentTeammateId
+      teammateId:  task.data("teammateId") || currentTeammateId
 
     setTimeout (->
       task = table.popCurrentTask()
