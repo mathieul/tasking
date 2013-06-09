@@ -61,7 +61,6 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email', '~> 2.1.0'
-  # gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
