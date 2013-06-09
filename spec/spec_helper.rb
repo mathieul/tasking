@@ -23,8 +23,8 @@ SimpleCov.start 'rails'
 Draper::ViewContext.test_strategy :fast
 DatabaseCleaner.strategy = :truncation
 
-# Capybara.javascript_driver = :selenium
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium
+# Capybara.javascript_driver = :poltergeist
 # Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|

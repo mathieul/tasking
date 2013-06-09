@@ -13,7 +13,6 @@ feature "Account management" do
     fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "123"
     click_button "Sign Up"
-    # save_screenshot('/Users/mathieu/Tmp/sign-up.png', full: true)
     expect(page).to have_content "Please review the problems below:"
     expect(page).to have_content "is too short (minimum is 6 characters)"
 
@@ -36,6 +35,7 @@ feature "Account management" do
     fill_in "Password", with: "secret0"
     click_button "Sign In"
     expect(page).to have_content "Welcome back!"
+    click_on "john@zorn.com"
     expect(page).to have_css "li > a", text: "Sign Out"
     expect(page).not_to have_css "li > a", text: "Sign In"
   end
@@ -46,6 +46,7 @@ feature "Account management" do
     fill_in "Password", with: "secret0"
     click_button "Sign In"
 
+    click_on "john@zorn.com"
     click_link "Sign Out"
     expect(page).to have_content "Logged out successfully."
     expect(page).to have_css "li > a", text: "Sign In"
@@ -67,6 +68,7 @@ feature "Account management" do
     fill_in "New Password", with: "verysecret1"
     click_button "Update Password"
     expect(page).to have_content "Password has been reset!"
+    click_on "john@zorn.com"
     click_link "Sign Out"
 
     click_link "Sign In"
@@ -83,6 +85,7 @@ feature "Account management" do
     fill_in "Email",     with: "user@example.com"
     fill_in "Password",  with: "verysecret"
     click_button "Sign Up"
+    click_on "user@example.com"
     click_link "Sign Out"
 
     click_link "Sign In"

@@ -22,7 +22,7 @@ feature "Backlog management" do
     select "Sophie", from: "Product manager"
     fill_in "Business driver", with: "usability"
     fill_in "Spec link", with: "http://www.google.com"
-    click_on "Create Story"
+    click_on "Create story"
     within "tbody.table tr:nth(1)" do
       expect(page).to have_css("> td:nth(2)", text: "Ari")
       expect(page).to have_css("> td:nth(3)", text: "Sophie")
