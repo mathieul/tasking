@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature "Account management" do
+  given(:for_a_bit) { 0.25 }
+
   background do
     create(:account, email: "john@zorn.com", password: "secret0").activate!
   end
@@ -71,7 +73,7 @@ feature "Account management" do
     click_on "john@zorn.com"
     click_link "Sign Out"
 
-    click_link "Sign In"
+    click_link "Sign In" and sleep for_a_bit
     fill_in "Email",    with: "john@zorn.com"
     fill_in "Password", with: "verysecret1"
     click_button "Sign In"
@@ -88,7 +90,7 @@ feature "Account management" do
     click_on "user@example.com"
     click_link "Sign Out"
 
-    click_link "Sign In"
+    click_link "Sign In" and sleep for_a_bit
     fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "verysecret"
     click_button "Sign In"
