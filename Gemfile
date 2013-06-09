@@ -62,6 +62,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-email', '~> 2.1.0'
   gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'simplecov'
 end
 

@@ -80,6 +80,7 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     dalli (2.6.4)
+    database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     diff-lcs (1.2.4)
     draper (1.2.1)
@@ -245,6 +246,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   compass-rails!
   dalli (~> 2.6.4)
+  database_cleaner
   draper (~> 1.2.1)
   factory_girl!
   factory_girl_rails (~> 4.2.0)
