@@ -28,8 +28,25 @@ feature "Sprint management" do
     click_link "Sprints"
     click_link "Current Sprint"
     expect(page).to have_content("Sprint Tasking")
-    raise "WIP"
-    # binding.pry
+    # check tasks table content
+    within "table.tasks tbody" do
+      within "tr:nth-child(1)" do
+        expect(page).to have_css("td:nth-child(2)", text: "authentication")
+        expect(page).to have_css("td:nth-child(3)", text: "5")
+      end
+      within "table.tasks tr:nth-child(2)" do
+        expect(page).to have_css("td:nth-child(2)", text: "send email")
+        expect(page).to have_css("td:nth-child(3)", text: "13")
+      end
+    end
+    # create todo task
+    within "table.tasks tbody tr:nth-child(1)" do
+      find('td.task[data-status="todo"]').hover and sleep for_a_bit
+      find('td.task[data-status="todo"] .add-task').click
+      find('td.task[data-status="todo"] .task-input').set("write tests")
+      find('td.task[data-status="todo"] .task-input').trigger("blur")
+    end
+    binding.pry
     Timecop.return
   end
 end
