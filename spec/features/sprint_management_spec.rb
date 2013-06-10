@@ -4,7 +4,7 @@ require 'timecop'
 feature "Sprint management" do
   include SignInSpecHelpers
 
-  given(:for_a_bit) { 0.25 }
+  given(:for_a_bit) { 0.5 }
   given(:team)      { create(:team) }
   given(:story1)    { create(:story, description: "authentication", points: 5, team: team) }
   given(:story2)    { create(:story, description: "send email", points: 13, team: team) }
@@ -40,13 +40,13 @@ feature "Sprint management" do
       end
     end
     # create todo task
-    within "table.tasks tbody tr:nth-child(1)" do
-      find('td.task[data-status="todo"]').hover and sleep for_a_bit
-      find('td.task[data-status="todo"] .add-task').click
-      find('td.task[data-status="todo"] .task-input').set("write tests")
-      find('td.task[data-status="todo"] .task-input').trigger("blur")
-    end
-    binding.pry
+    task = find('table.tasks tbody tr:nth-child(1) td.task[data-status="todo"]')
+    task.hover
+    task.find(".add-task").click
+    task.find(".task-input").set("write tests")
+    find("body").click and sleep for_a_bit
+    first_todo_task = all('table.tasks tbody tr:nth-child(1) td.task[data-status="todo"]').first.text
+    expect(first_todo_task).to eq("write tests 0")
     Timecop.return
   end
 end
