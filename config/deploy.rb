@@ -28,6 +28,7 @@ set :user, "deploy"
 set :group, "deploy"
 
 set :unicorn_pid_file, "/tmp/unicorn.tasking.pid"
+set :nginx_site_conf, File.expand_path("../nginx-site.conf.erb", __FILE__)
 
 role :web, domain
 role :app, domain
@@ -120,7 +121,7 @@ namespace :deploy do
 
   desc "Setup nginx for this application"
   task :setup_nginx, roles: :web do
-    template = File.read(File.expand_path("../admin/nginx-site.conf.erb", __FILE__))
+    template = File.read(nginx_site_conf)
     conf = ERB.new(template).result(binding)
     available_file = "/etc/nginx/sites-available/#{application}.#{domain}"
     enabled_file = "/etc/nginx/sites-enabled/#{application}.#{domain}"
