@@ -67,6 +67,7 @@ group :test do
   gem 'database_cleaner'
   gem 'simplecov'
   gem 'timecop'
+  gem 'bogus'
 end
 
 group :test, :development do

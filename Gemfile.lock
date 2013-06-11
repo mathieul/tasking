@@ -51,6 +51,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
+    bogus (0.0.4)
+      dependor (>= 0.0.4)
     bootstrap-sass (2.3.1.3)
       sass (~> 3.2)
     builder (3.1.4)
@@ -89,6 +91,7 @@ GEM
     dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
+    dependor (0.0.5)
     diff-lcs (1.2.4)
     draper (1.2.1)
       actionpack (>= 3.0)
@@ -270,6 +273,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
+  bogus
   bootstrap-sass (~> 2.3.1.3)
   capistrano-zen
   capybara
