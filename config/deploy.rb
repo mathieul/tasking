@@ -7,6 +7,9 @@
 require "erb"
 require "bundler/capistrano"
 require "capistrano-zen/nginx"
+require File.expand_path("../../lib/recipes/pg", __FILE__)
+require File.expand_path("../../lib/recipes/nodejs", __FILE__)
+require File.expand_path("../../lib/recipes/redis", __FILE__)
 
 set :application, "tasking"
 set :domain, "cloudigisafe.com"

@@ -1,28 +1,54 @@
-== README
+== Setup Web Server rackspace
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Install Ubuntu 12.10 or later, and:
 
-Things you may want to cover:
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get install build-essential openssl libreadline libreadline-dev \
+             curl git-core zlib1g zlib1g-dev libyaml-dev \
+             libopenssl-ruby1.9.1 libssl-dev libruby1.9.1 \
+             tklib libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev \
+             python-software-properties zsh
+sudo apt-get -y upgrade
 
-* Ruby version
+groupadd -g 500 deploy
+useradd -g deploy -u 500 -G sudo -s /bin/zsh -m deploy
+passwd deploy
 
-* System dependencies
+su - deploy
+git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+mkdir .rbenv/plugins
+cd .rbenv/plugins
+git clone git://github.com/sstephenson/ruby-build.git
+echo "export PATH=\$HOME/.rbenv/bin:\$PATH\neval \"\$(rbenv init -)\"" > ~/.zshenv
+exec /bin/zsh
+rbenv install ruby 2.0.0p195
+rbenv rehash
+rbenv global ruby 2.0.0p195
 
-* Configuration
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+gem install bundler
 
-* Database creation
+== Install applications
 
-* Database initialization
+On your dev server:
 
-* How to run the test suite
+$ cap nginx:install
+$ cap nodejs:install
+$ cap redis:install
+$ cap pg:install
+$ cap pg:init
 
-* Services (job queues, cache servers, search engines, etc.)
+== Run a worker manually
 
-* Deployment instructions
+$ RAILS_ENV=development INTERVAL=0.5 QUEUE="*" rake resque:work
 
-* ...
+== Deploy tasking
 
+First time:
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+$ cap deploy:setup deploy deploy:setup_nginx deploy:start deploy:start_resque
+
+Update:
+
+$ cap deploy deploy:reload_resque
