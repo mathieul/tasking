@@ -1,6 +1,9 @@
 team = Team.create! name: "Testing"
 
-account = Account.create! email: "admin@example.com", password: "secret", team_id: team.id
+account = Account.create! email: "admin@example.com",
+                          password: "secret",
+                          password_confirmation: "secret",
+                          team_id: team.id
 account.activate!
 
 Story.create! description: "As Ryan, I can compensate caring advisors properly on thursday morning, because we have migrated contact owners to follow the new rules",
