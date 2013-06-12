@@ -56,6 +56,6 @@ production:
   encoding: unicode
   database: tasking_production
   pool: 5
-  username: tasking
+  username: deploy
   password: changeme
   port: 5433
