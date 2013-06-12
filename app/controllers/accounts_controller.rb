@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
     secured = params
       .require(:account)
       .permit(:email, :password, team_attributes: [:name])
-    secured[:account][:password_confirmation] = secured[:account][:password]
+    secured[:password_confirmation] = secured[:password]
     secured
   end
 
