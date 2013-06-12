@@ -73,6 +73,9 @@ Tasking::Application.configure do
     authentication:       'plain',
     enable_starttls_auto: true
   }
+  config.action_mailer.default_url_options = {
+    host: "tasking.cloudigisafe.com"
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
