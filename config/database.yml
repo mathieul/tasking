@@ -57,5 +57,5 @@ production:
   database: tasking_production
   pool: 5
   username: tasking
-  password:
+  password: changeme
   port: 5433
