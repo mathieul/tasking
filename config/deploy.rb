@@ -28,6 +28,12 @@ set :shared_children, ["system", "log", "pids", "git", "sockets"]
 set :user, "deploy"
 set :group, "deploy"
 
+set :default_environment, "RAILS_ENV"              => rails_env,
+                          "TASKING_EMAIL_USERNAME" => ENV["TASKING_EMAIL_USERNAME"],
+                          "TASKING_EMAIL_PASSWORD" => ENV["TASKING_EMAIL_PASSWORD"],
+                          "TASKING_DB_USERNAME"    => ENV["TASKING_DB_USERNAME"],
+                          "TASKING_DB_PASSWORD"    => ENV["TASKING_DB_PASSWORD"]
+
 set :nginx_site_conf, File.expand_path("../nginx-site.conf.erb", __FILE__)
 
 role :web, domain
