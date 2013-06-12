@@ -4,7 +4,7 @@ upstream <%= application %> {
   # single worker for timing out).
 
   # for UNIX domain socket setups:
-  server unix:/tmp/<%= application %>.socket fail_timeout=0;
+  server unix:///home/deploy/apps/<%= application %>/shared/tmp/puma/<%= application %>-puma.sock fail_timeout=0;
 }
 
 server {

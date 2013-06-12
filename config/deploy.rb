@@ -6,6 +6,7 @@
 
 require "erb"
 require "bundler/capistrano"
+require "puma/capistrano"
 require "capistrano-zen/nginx"
 require File.expand_path("../../lib/recipes/pg", __FILE__)
 require File.expand_path("../../lib/recipes/nodejs", __FILE__)
@@ -27,7 +28,6 @@ set :shared_children, ["system", "log", "pids", "git"]
 set :user, "deploy"
 set :group, "deploy"
 
-set :unicorn_pid_file, "/tmp/unicorn.tasking.pid"
 set :nginx_site_conf, File.expand_path("../nginx-site.conf.erb", __FILE__)
 
 role :web, domain
@@ -136,21 +136,6 @@ namespace :deploy do
     enabled_file = "/etc/nginx/sites-enabled/#{application}.#{domain}"
     run "rm -f #{enabled_file} #{available_file}"
     run "#{sudo} /etc/init.d/nginx reload"
-  end
-
-  desc "Start unicorn"
-  task :start, except: {no_release: true} do
-    run "cd #{current_path} ; if [ ! -f #{unicorn_pid_file} ]; then bundle exec unicorn_rails -c config/unicorn.rb -D; fi"
-  end
-
-  desc "Stop unicorn"
-  task :stop, except: {no_release: true} do
-    run "kill -s QUIT `cat #{unicorn_pid_file}`"
-  end
-
-  desc "Zero-downtime restart of Unicorn"
-  task :restart, except: {no_release: true} do
-    run "if [ -f #{unicorn_pid_file} ]; then kill -s USR2 `cat #{unicorn_pid_file}`; fi"
   end
 
   desc "Start Resque workers"
