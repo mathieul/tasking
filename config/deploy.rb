@@ -8,9 +8,9 @@ require "erb"
 require "bundler/capistrano"
 require "puma/capistrano"
 require "capistrano-zen/nginx"
-require File.expand_path("../../lib/recipes/pg", __FILE__)
-require File.expand_path("../../lib/recipes/nodejs", __FILE__)
-require File.expand_path("../../lib/recipes/redis", __FILE__)
+%w[pg nodejs redis memcache].each do |app|
+  require File.expand_path("../../lib/recipes/#{app}", __FILE__)
+end
 
 set :application, "tasking"
 set :domain, "cloudigisafe.com"
