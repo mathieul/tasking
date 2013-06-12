@@ -23,9 +23,11 @@ class AccountsController < ApplicationController
   private
 
   def account_params
-    params
+    secured = params
       .require(:account)
       .permit(:email, :password, team_attributes: [:name])
+    secured[:account][:password_confirmation] = secured[:account][:password]
+    secured
   end
 
   def activation_token_params
