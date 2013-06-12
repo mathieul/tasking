@@ -23,7 +23,7 @@ set :ssh_options, forward_agent: true
 set :default_run_options, pty: true, shell: "bash"
 set :rails_env, "production"
 set :deploy_to, "/home/deploy/apps/tasking"
-set :shared_children, ["system", "log", "pids", "git"]
+set :shared_children, ["system", "log", "pids", "git", "sockets"]
 
 set :user, "deploy"
 set :group, "deploy"
