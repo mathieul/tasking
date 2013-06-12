@@ -56,6 +56,6 @@ production:
   encoding: unicode
   database: tasking_production
   pool: 5
-  username: deploy
-  password: changeme
+  username: <%= ENV["TASKING_DB_USERNAME"] %>
+  password: <%= ENV["TASKING_DB_PASSWORD"] %>
   port: 5433
