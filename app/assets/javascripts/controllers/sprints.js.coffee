@@ -13,6 +13,12 @@ class SprintsController
 
   run: ->
     @initDatePickers()
+    @initTaskTable()
+
+  initDatePickers: ->
+    $(".date .input-append").datetimepicker(pickTime: false)
+
+  initTaskTable: ->
     @taskTable = new App.TaskTable
       currentTeammateId: @options.currentTeammateId
       selectors:
@@ -28,6 +34,3 @@ class SprintsController
         create:   "#create-task-form"
         update:   "#update-task-form"
         destroy:  "#destroy-task-form"
-
-  initDatePickers: ->
-    $(".date .input-append").datetimepicker(pickTime: false)
