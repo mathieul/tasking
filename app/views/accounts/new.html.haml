@@ -6,7 +6,7 @@
     %legend Fill up below to sign up
     = f.error_notification
 
-    = f.simple_fields_for :team_attributes do |team_f|
+    = f.simple_fields_for @account.errors_on_team? ? :team : :team_attributes do |team_f|
       = team_f.input :name, label: "Team name"
     = f.input :email, html: {class: "span6"}
     = f.input :password, html: {class: "span6"}

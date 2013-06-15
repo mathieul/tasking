@@ -30,6 +30,10 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :team
 
+  def errors_on_team?
+    errors.keys.any? { |key| key.to_s.starts_with?("team.") }
+  end
+
   def generate_token(field)
     begin
       write_attribute(field, SecureRandom.urlsafe_base64)
