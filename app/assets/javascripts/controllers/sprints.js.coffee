@@ -28,7 +28,8 @@ class SprintsController
         input:    ".task-input"
         command:  ".task-command"
         content:  ".task-content"
-        wrapper:  "td.task"
+        task:     "td.task"
+        handle:   ".move-task"
         teammate: ".set-teammate"
       forms:
         create:   "#create-task-form"
