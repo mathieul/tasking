@@ -20,6 +20,11 @@ class StoriesController extends App.ModalEditorController
     @makeStoriesStortable()
     @updateVelocityOnChange()
     @highlight()
+    @autoCloseAlerts()
+
+  autoCloseAlerts: ->
+    alerts = $(".alert.auto-close")
+    setTimeout (-> alerts.alert("close")), 5000
 
   executeAction: (action, data) ->
     switch action
