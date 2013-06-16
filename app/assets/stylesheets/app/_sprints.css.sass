@@ -52,11 +52,26 @@ th.column-divider, td.column-divider
   @extend .badge
   cursor: move
 
+.task-helper
+  +opacity(0.5)
+  z-index: 2
+  border: 1px solid white
+
 .task-target
   position: absolute
   z-index: 1
-  background-color: green
-  +opacity(0.5)
+
+  .target-left, .target-right
+    float: left
+    width: 50%
+    height: 100%
+
+  .target-left
+    +background-image(linear-gradient(left, white, #9bce68), radial-gradient(#c00, #fff 10px))
+
+  .target-right
+    +background-image(linear-gradient(left, #9bce68, white), radial-gradient(#c00, #fff 10px))
 
 .task-hovering
-  background-color: red
+  .target-left, .target-right
+    +opacity(0.5)

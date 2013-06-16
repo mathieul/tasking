@@ -26,17 +26,18 @@ class @App.TaskTable
       revertDuration: 150
       appendTo: @selectors.wrapper
       helper: (event) ->
-        console.log "currentTarget:", event.currentTarget, "event:", event
         target = $(event.currentTarget)
+        content = target.find(".task-content").text()
+        colorClass = ""
+        for value in target.attr("class").split(" ")
+          colorClass = value if value.indexOf("show-color-") is 0
         [width, height] = [target.outerWidth(), target.outerHeight()]
         $("<div/>")
           .offset(target.offset())
-          .css
-            width: width
-            height: height
-            backgroundColor: "#ccc"
-            opacity: 0.8
-            zIndex: 2
+          .addClass("task-helper")
+          .addClass(colorClass)
+          .css(width: width, height: height)
+          .append($('<div class="task-content" />').text(content))
       start: (event, ui) =>
         console.log "start", event.target
         target = $(event.target)
@@ -50,9 +51,10 @@ class @App.TaskTable
           offset = task.offset()
           $("<div/>")
             .addClass("task-target")
-            .width(width)
+            .width(width / 2)
             .height(height)
-            .offset(top: offset.top + 1, left: offset.left - (width / 2))
+            .offset(top: offset.top + 1, left: offset.left - (width / 4))
+            .append($('<div class="target-left"/><div class="target-right"/>'))
             .appendTo(@selectors.wrapper)
             .droppable(accept: @selectors.task, hoverClass: "task-hovering")
       stop: (event, ui) =>
