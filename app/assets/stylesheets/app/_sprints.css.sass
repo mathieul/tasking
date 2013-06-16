@@ -57,6 +57,10 @@ th.column-divider, td.column-divider
   z-index: 2
   border: 1px solid white
 
+$transparent: rgba(255, 255, 255, 0)
+$target-green: #9bce68
+$target-red: red
+
 .task-target
   position: absolute
   z-index: 1
@@ -65,13 +69,15 @@ th.column-divider, td.column-divider
     float: left
     width: 50%
     height: 100%
-
   .target-left
-    +background-image(linear-gradient(left, white, #9bce68), radial-gradient(#c00, #fff 10px))
-
+    +background-image(linear-gradient(left, $transparent, $target-green))
   .target-right
-    +background-image(linear-gradient(left, #9bce68, white), radial-gradient(#c00, #fff 10px))
+    +background-image(linear-gradient(left, $target-green, $transparent))
 
 .task-hovering
   .target-left, .target-right
     +opacity(0.5)
+  .target-left
+    +background-image(linear-gradient(left, $transparent, $target-red))
+  .target-right
+    +background-image(linear-gradient(left, $target-red, $transparent))
