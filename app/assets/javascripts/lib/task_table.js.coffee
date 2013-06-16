@@ -19,7 +19,7 @@ class @App.TaskTable
 
   setupDragDrop: ->
     $(@selectors.task).draggable
-      # axis: "x"
+      containment: "parent"
       handle: @selectors.handle
       cursor: "move"
       revert: true
@@ -29,8 +29,27 @@ class @App.TaskTable
         target = $(event.currentTarget)
         [width, height] = [target.outerWidth(), target.outerHeight()]
         $("<div/>").css(width: width, height: height, backgroundColor: "#ccc", opacity: 0.8)
-      start: (event, ui) -> console.log "start", event.target
-      stop: (event, ui) -> console.log "stop", event.target
+      start: (event, ui) =>
+        console.log "start", event.target
+        target = $(event.target)
+        parent = target.parent()
+        tasks = parent
+          .find(@selectors.task)
+          .not(event.target)
+          .not("*[data-blank]")
+        [width, height] = [target.outerWidth(), target.outerHeight()]
+        droppables = tasks.map (index, task) ->
+          console.log "task.id = #{$(task).data("taskId")}"
+          $("<div/>")
+            .addClass(".task-target")
+            .width(width)
+            .height(height)
+            .css(position: "relative", zIndex: 2, backgroundColor: "green")
+            .offset($(task).offset())
+            .text(task.text())
+        droppables.each (index, droppable) -> parent.append(droppable)
+      stop: (event, ui) ->
+        console.log "stop", event.target
 
   pushCurrentTask: (@currentTask) ->
 

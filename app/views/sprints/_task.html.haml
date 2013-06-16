@@ -1,6 +1,7 @@
 %td.task{style: "width: #{width}px",
          class: task ? (task.teammate.try(:decorate) || NonTeammateDecorator.new).show_color : "",
          data: {task_id: task.try(:id),
+                blank: !task,
                 taskable_story_id: taskable_story.id,
                 status: status,
                 teammate_id: task.try(:teammate_id)}}
