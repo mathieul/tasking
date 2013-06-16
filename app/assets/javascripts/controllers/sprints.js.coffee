@@ -31,6 +31,7 @@ class SprintsController
         task:     "td.task"
         handle:   ".move-task"
         teammate: ".set-teammate"
+        wrapper:  "#task-table-wrapper"
       forms:
         create:   "#create-task-form"
         update:   "#update-task-form"

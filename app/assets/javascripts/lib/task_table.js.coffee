@@ -19,37 +19,45 @@ class @App.TaskTable
 
   setupDragDrop: ->
     $(@selectors.task).draggable
-      containment: "parent"
+      axis: "x"
       handle: @selectors.handle
       cursor: "move"
-      revert: true
+      revert: "invalid"
       revertDuration: 150
+      appendTo: @selectors.wrapper
       helper: (event) ->
         console.log "currentTarget:", event.currentTarget, "event:", event
         target = $(event.currentTarget)
         [width, height] = [target.outerWidth(), target.outerHeight()]
-        $("<div/>").css(width: width, height: height, backgroundColor: "#ccc", opacity: 0.8)
+        $("<div/>")
+          .offset(target.offset())
+          .css
+            width: width
+            height: height
+            backgroundColor: "#ccc"
+            opacity: 0.8
+            zIndex: 2
       start: (event, ui) =>
         console.log "start", event.target
         target = $(event.target)
-        parent = target.parent()
-        tasks = parent
+        tasks = target.parent()
           .find(@selectors.task)
           .not(event.target)
           .not("*[data-blank]")
-        [width, height] = [target.outerWidth(), target.outerHeight()]
-        droppables = tasks.map (index, task) ->
-          console.log "task.id = #{$(task).data("taskId")}"
+        [width, height] = [target.outerWidth(), target.outerHeight() - 1]
+        tasks.each (index, task) =>
+          task = $(task)
+          offset = task.offset()
           $("<div/>")
-            .addClass(".task-target")
+            .addClass("task-target")
             .width(width)
             .height(height)
-            .css(position: "relative", zIndex: 2, backgroundColor: "green")
-            .offset($(task).offset())
-            .text(task.text())
-        droppables.each (index, droppable) -> parent.append(droppable)
-      stop: (event, ui) ->
+            .offset(top: offset.top + 1, left: offset.left - (width / 2))
+            .appendTo(@selectors.wrapper)
+            .droppable(accept: @selectors.task, hoverClass: "task-hovering")
+      stop: (event, ui) =>
         console.log "stop", event.target
+        $(@selectors.wrapper).find(".task-target").remove()
 
   pushCurrentTask: (@currentTask) ->
 

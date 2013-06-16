@@ -51,3 +51,12 @@ th.column-divider, td.column-divider
 .move-task
   @extend .badge
   cursor: move
+
+.task-target
+  position: absolute
+  z-index: 1
+  background-color: green
+  +opacity(0.5)
+
+.task-hovering
+  background-color: red
