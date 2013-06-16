@@ -60,24 +60,34 @@ th.column-divider, td.column-divider
 $transparent: rgba(255, 255, 255, 0)
 $target-green: #9bce68
 $target-red: red
+$target-width: 10px
 
 .task-target
   position: absolute
   z-index: 1
 
-  .target-left, .target-right
+  .target-outer
     float: left
+    position: relative
     width: 50%
-    height: 100%
+    min-height: 100%
+
+  .target-left, .target-right
+    min-height: 100%
+
   .target-left
-    +background-image(linear-gradient(left, $transparent, $target-green))
+    border-right: $target-width solid $target-green
+    background-color: blue
+    // margin-left: -$target-width
   .target-right
-    +background-image(linear-gradient(left, $target-green, $transparent))
+    border-left: $target-width solid $target-green
+    background-color: green
+    // margin-right: -$target-width
 
 .task-hovering
   .target-left, .target-right
     +opacity(0.5)
   .target-left
-    +background-image(linear-gradient(left, $transparent, $target-red))
+    +background-image(linear-gradient(to left, $transparent, $target-red))
   .target-right
-    +background-image(linear-gradient(left, $target-red, $transparent))
+    +background-image(linear-gradient(to right, $target-red, $transparent))

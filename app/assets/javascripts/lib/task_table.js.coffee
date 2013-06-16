@@ -46,6 +46,14 @@ class @App.TaskTable
           .not(event.target)
           .not("*[data-blank]")
         [width, height] = [target.outerWidth(), target.outerHeight() - 1]
+        targetContent = """
+          <div class="target-outer">
+            <div class="target-left">&nbsp;</div>
+          </div>
+          <div class="target-outer">
+            <div class="target-right">&nbsp;</div>
+          </div>
+        """
         tasks.each (index, task) =>
           task = $(task)
           offset = task.offset()
@@ -54,12 +62,12 @@ class @App.TaskTable
             .width(width / 2)
             .height(height)
             .offset(top: offset.top + 1, left: offset.left - (width / 4))
-            .append($('<div class="target-left"/><div class="target-right"/>'))
+            .append($(targetContent))
             .appendTo(@selectors.wrapper)
             .droppable(accept: @selectors.task, hoverClass: "task-hovering")
       stop: (event, ui) =>
         console.log "stop", event.target
-        $(@selectors.wrapper).find(".task-target").remove()
+        # $(@selectors.wrapper).find(".task-target").remove()
 
   pushCurrentTask: (@currentTask) ->
 
