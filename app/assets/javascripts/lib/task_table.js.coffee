@@ -59,7 +59,7 @@ class @App.TaskTable
           offset = task.offset()
           $("<div/>")
             .addClass("task-target")
-            .data(taskId: task.data("taskId"), status: task.data("status"))
+            .data(taskId: task.data("taskId"), status: task.data("status"), position: task.data("position"))
             .width(width / 2)
             .height(height)
             .offset(top: offset.top + 1, left: offset.left - (width / 4))
@@ -71,13 +71,20 @@ class @App.TaskTable
               hoverClass: "task-hovering"
               drop: (event, ui) =>
                 task = ui.draggable
-                url = @forms.update.data("url")
+                url = @forms.edit.data("positionUrl")
                   .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
                   .replace(/__id__/, task.data("taskId"))
-                console.log "drop", ui.draggable.get(0), "on", event.target
-                console.log "target data:", $(event.target).data()
+                target = $(event.target)
+                console.log "drop", ui.draggable.get(0), "on", target
+                console.log "target data:", target.data()
                 console.log "url = #{url}"
-                # TODO: update story at URL using status and taskId from event.target
+                handlers.submitTaskForm @forms.edit,
+                  action: url
+                  position: target.data("position"),
+                  description: null,
+                  hours: null,
+                  status: target.data("status")
+                  teammateId: null
 
       stop: (event, ui) =>
         $(@selectors.wrapper).find(".task-target").remove()
@@ -99,7 +106,8 @@ handlers =
     {forms, selectors} = table = event.data
     task = $(event.target).closest(selectors.task)
     table.pushCurrentTask
-      action: forms.create.data("url").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+      action: forms.edit.data("createUrl").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+      method: "post"
       position: "last"
     handlers.setEditMode(table, task, selectors)
 
@@ -107,9 +115,10 @@ handlers =
     {forms, selectors} = table = event.data
     task = $(event.target).closest(selectors.task)
     table.pushCurrentTask
-      action: forms.update.data("url")
+      action: forms.edit.data("updateUrl")
         .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
         .replace(/__id__/, task.data("taskId"))
+      method: "patch"
     handlers.setEditMode(table, task, selectors)
 
   setEditMode: (table, task, selectors) ->
@@ -149,28 +158,32 @@ handlers =
       hours:       hours
       status:      task.data("status")
       teammateId:  task.data("teammateId") || currentTeammateId
-
     setTimeout (->
-      task = table.popCurrentTask()
-      forms.create
-        .attr(action: task.action)
-        .find("#task_row_order_position")
-          .val(task.position)
-          .end()
-        .find("#task_description")
-          .val(task.description)
-          .end()
-        .find("#task_hours")
-          .val(task.hours)
-          .end()
-        .find("#task_status")
-          .val(task.status)
-          .end()
-        .find("#task_teammate_id")
-          .val(task.teammateId)
-          .end()
-        .submit()
+      handlers.submitTaskForm(forms.edit, table.popCurrentTask())
     ), 250
+
+  submitTaskForm: (form, task) ->
+    form
+      .attr(action: task.action)
+      .find("#form_method")
+        .val(task.method)
+        .end()
+      .find("#task_row_order_position")
+        .val(task.position)
+        .end()
+      .find("#task_description")
+        .val(task.description)
+        .end()
+      .find("#task_hours")
+        .val(task.hours)
+        .end()
+      .find("#task_status")
+        .val(task.status)
+        .end()
+      .find("#task_teammate_id")
+        .val(task.teammateId)
+        .end()
+      .submit()
 
   destroyTask: (event) ->
     {forms, selectors} = event.data

@@ -33,6 +33,5 @@ class SprintsController
         teammate: ".set-teammate"
         wrapper:  "#task-table-wrapper"
       forms:
-        create:   "#create-task-form"
-        update:   "#update-task-form"
+        edit:     "#task-form"
         destroy:  "#destroy-task-form"
