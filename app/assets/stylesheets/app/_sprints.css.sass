@@ -71,23 +71,15 @@ $target-width: 10px
     position: relative
     width: 50%
     min-height: 100%
+    opacity: 0.5
 
-  .target-left, .target-right
-    min-height: 100%
-
-  .target-left
-    border-right: $target-width solid $target-green
-    background-color: blue
-    // margin-left: -$target-width
-  .target-right
-    border-left: $target-width solid $target-green
-    background-color: green
-    // margin-right: -$target-width
+    span.badge
+      margin: 2px
+      background-color: $infoText
 
 .task-hovering
-  .target-left, .target-right
-    +opacity(0.5)
-  .target-left
-    +background-image(linear-gradient(to left, $transparent, $target-red))
-  .target-right
-    +background-image(linear-gradient(to right, $target-red, $transparent))
+  .target-outer
+    opacity: 1
+
+    span.badge
+      background-color: $successText

@@ -48,10 +48,14 @@ class @App.TaskTable
         [width, height] = [target.outerWidth(), target.outerHeight() - 1]
         targetContent = """
           <div class="target-outer">
-            <div class="target-left">&nbsp;</div>
+            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
+            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
+            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
           </div>
           <div class="target-outer">
-            <div class="target-right">&nbsp;</div>
+            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
+            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
+            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
           </div>
         """
         tasks.each (index, task) =>
@@ -67,7 +71,7 @@ class @App.TaskTable
             .droppable(accept: @selectors.task, hoverClass: "task-hovering")
       stop: (event, ui) =>
         console.log "stop", event.target
-        # $(@selectors.wrapper).find(".task-target").remove()
+        $(@selectors.wrapper).find(".task-target").remove()
 
   pushCurrentTask: (@currentTask) ->
 
