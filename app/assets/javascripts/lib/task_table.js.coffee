@@ -19,6 +19,7 @@ class @App.TaskTable
 
   setupDragDrop: ->
     $(@selectors.task).draggable
+      containment: "#task-table-wrapper"
       handle: @selectors.handle
       cursor: "move"
       revert: "invalid"
@@ -37,7 +38,6 @@ class @App.TaskTable
           .css(width: width)
           .append($('<div class="task-content" />').text(content))
       start: (event, ui) =>
-        console.log "start", event.target
         target = $(event.target)
         tasks = target.parent()
           .find(@selectors.task)
@@ -59,14 +59,27 @@ class @App.TaskTable
           offset = task.offset()
           $("<div/>")
             .addClass("task-target")
+            .data(taskId: task.data("taskId"), status: task.data("status"))
             .width(width / 2)
             .height(height)
             .offset(top: offset.top + 1, left: offset.left - (width / 4))
             .append($(targetContent))
             .appendTo(@selectors.wrapper)
-            .droppable(accept: @selectors.task, hoverClass: "task-hovering")
+            .droppable
+              accept: @selectors.task
+              tolerance: "intersect"
+              hoverClass: "task-hovering"
+              drop: (event, ui) =>
+                task = ui.draggable
+                url = @forms.update.data("url")
+                  .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+                  .replace(/__id__/, task.data("taskId"))
+                console.log "drop", ui.draggable.get(0), "on", event.target
+                console.log "target data:", $(event.target).data()
+                console.log "url = #{url}"
+                # TODO: update story at URL using status and taskId from event.target
+
       stop: (event, ui) =>
-        console.log "stop", event.target
         $(@selectors.wrapper).find(".task-target").remove()
 
   pushCurrentTask: (@currentTask) ->
