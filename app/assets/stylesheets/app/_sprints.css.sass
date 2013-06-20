@@ -1,7 +1,11 @@
+@import compass/css3/border-radius
+
+$tasks-outer-border-color: #999
+$table-header-background: #f2f2f2
+
 #task-table-wrapper
   overflow: scroll
 
-$tasks-outer-border-color: #999
 table.tasks
   position: relative
 
@@ -9,7 +13,7 @@ table.tasks
     border-color: $tasks-outer-border-color
 
   th
-    background-color: rgba(black, 0.05)
+    background-color: $table-header-background
 
   td:first-child, th:first-child
     border-left: 1px solid $tasks-outer-border-color
@@ -32,7 +36,7 @@ td.task
 th.column-divider, td.column-divider
   padding: 0
   margin: 0
-  background-color: #f2f2f2
+  background-color: $table-header-background
 
 .task-input
   display: none
@@ -53,33 +57,40 @@ th.column-divider, td.column-divider
   cursor: move
 
 .task-helper
-  +opacity(0.5)
+  height: 40px
+  overflow: hidden
   z-index: 2
-  border: 1px solid white
-
-$transparent: rgba(255, 255, 255, 0)
-$target-green: #9bce68
-$target-red: red
-$target-width: 10px
+  border: 1px solid $tasks-outer-border-color
+  +border-radius($borderRadiusLarge)
+  color: $tasks-outer-border-color
+  background-color: $table-header-background
 
 .task-target
   position: absolute
   z-index: 1
 
-  .target-outer
+  .target-left, .target-right
     float: left
     position: relative
     width: 50%
     min-height: 100%
-    opacity: 0.5
 
-    span.badge
-      margin: 2px
-      background-color: $infoText
+  .target-left i
+    @extend .icon-chevron-right
+    @extend .icon-chevron-white
 
-.task-hovering
-  .target-outer
-    opacity: 1
+  .target-right i
+    @extend .icon-chevron-left
+    @extend .icon-chevron-white
 
-    span.badge
-      background-color: $successText
+  span.badge
+    margin: 4px
+    background-color: $infoText
+    +opacity(0.8)
+
+.task-target.task-hovering
+  span.badge
+    background-color: $successText
+
+  .target-left i, .target-right i
+    @extend .icon-arrow-down

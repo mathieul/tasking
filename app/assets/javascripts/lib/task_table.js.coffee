@@ -19,7 +19,6 @@ class @App.TaskTable
 
   setupDragDrop: ->
     $(@selectors.task).draggable
-      axis: "x"
       handle: @selectors.handle
       cursor: "move"
       revert: "invalid"
@@ -35,27 +34,24 @@ class @App.TaskTable
         $("<div/>")
           .offset(target.offset())
           .addClass("task-helper")
-          .addClass(colorClass)
-          .css(width: width, height: height)
+          .css(width: width)
           .append($('<div class="task-content" />').text(content))
       start: (event, ui) =>
         console.log "start", event.target
         target = $(event.target)
         tasks = target.parent()
           .find(@selectors.task)
-          .not(event.target)
-          .not("*[data-blank]")
+          .not(target)
+          .not(target.next(@selectors.task))
         [width, height] = [target.outerWidth(), target.outerHeight() - 1]
         targetContent = """
-          <div class="target-outer">
-            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
-            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
-            <span class="badge"><i class="icon-chevron-right icon-white" /></span>
+          <div class="target-left">
+            <span class="badge"><i class="icon-white" /></span>
+            <span class="badge"><i class="icon-white" /></span>
           </div>
-          <div class="target-outer">
-            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
-            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
-            <span class="badge"><i class="icon-chevron-left icon-white" /></span>
+          <div class="target-right">
+            <span class="badge"><i class="icon-white" /></span>
+            <span class="badge"><i class="icon-white" /></span>
           </div>
         """
         tasks.each (index, task) =>
