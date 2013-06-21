@@ -12,6 +12,13 @@
         %i.icon-edit
       %button.btn.btn-danger.btn-mini.destroy-task(type="button")
         %i.icon-minus-sign.icon-white
+      - case status
+      - when "todo"
+        %button.btn.btn-primary.btn-mini.progress-task(type="button")
+          %i.icon-fast-forward.icon-white
+      - when "in_progress"
+        %button.btn.btn-success.btn-mini.complete-task(type="button")
+          %i.icon-ok.icon-white
       %span.move-task.pull-right
         %i.icon-move.icon-white
     .task-content= task.description
