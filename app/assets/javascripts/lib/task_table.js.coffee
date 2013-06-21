@@ -71,7 +71,7 @@ class @App.TaskTable
               hoverClass: "task-hovering"
               drop: (event, ui) =>
                 task = ui.draggable
-                url = @forms.edit.data("positionUrl")
+                url = @forms.edit.data("updateUrl")
                   .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
                   .replace(/__id__/, task.data("taskId"))
                 target = $(event.target)

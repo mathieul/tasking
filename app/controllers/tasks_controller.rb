@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :authorize
   before_action :find_team
   before_action :find_taskable_story
-  before_action :find_task, only: [:update, :update_position, :destroy]
+  before_action :find_task, only: [:update, :destroy]
 
   def create
     task = @taskable_story.tasks.build(task_params.merge(team: @team))
@@ -12,11 +12,6 @@ class TasksController < ApplicationController
 
   def update
     @task.update!(task_params)
-    redirect_to [:edit, @taskable_story.sprint]
-  end
-
-  def update_position
-    @task.update(row_order_position: params.require(:position))
     redirect_to [:edit, @taskable_story.sprint]
   end
 

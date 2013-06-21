@@ -40,11 +40,7 @@ Tasking::Application.routes.draw do
   resources :sprints, only: [:index, :new, :create, :edit, :update], concerns: :wiselinkable
   resources :taskable_stories, only: [] do
     resources :tasks, only: [:create, :update, :destroy],
-                      concerns: [:wiselinkable, :wiselinkable_destroy] do
-      member do
-        match "update_position", via: [:get, :post]
-      end
-    end
+                      concerns: [:wiselinkable, :wiselinkable_destroy]
   end
 
   # config

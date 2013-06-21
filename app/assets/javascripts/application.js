@@ -24,6 +24,7 @@
 //= require jquery-ui/jquery.ui.mouse
 //= require jquery-ui/jquery.ui.draggable
 //= require jquery-ui/jquery.ui.droppable
+//= require jquery-ui/jquery.ui.sortable
 //= require jquery-ui/jquery.ui.effect
 //= require jquery-ui/jquery.ui.effect-highlight
 //= require moment
