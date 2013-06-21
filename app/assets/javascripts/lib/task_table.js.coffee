@@ -168,7 +168,7 @@ handlers =
   submitTaskForm: (form, task) ->
     form
       .attr(action: task.action)
-      .find("#form_method")
+      .find("#edit_form_method")
         .val(task.method)
         .end()
       .find("#task_row_order_position")
@@ -191,11 +191,14 @@ handlers =
   destroyTask: (event) ->
     {forms, selectors} = event.data
     task = $(event.target).closest(selectors.task)
-    action = forms.destroy.data("destroy")
+    action = forms.command.data("destroyUrl")
       .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
       .replace(/__id__/, task.data("taskId"))
-    forms.destroy
+    forms.command
       .attr(action: action)
+      .find("#edit_form_method")
+        .val(forms.command.data("destroyMethod"))
+        .end()
       .submit()
 
   parseDescription: (value) ->

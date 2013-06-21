@@ -34,4 +34,4 @@ class SprintsController
         wrapper:  "#task-table-wrapper"
       forms:
         edit:     "#task-form"
-        destroy:  "#destroy-task-form"
+        command:  "#command-task-form"

@@ -1,0 +1,7 @@
+= form_for task,
+    html: {id: "command-task-form"},
+    url: "/",
+    data: {destroy_url: destroy_taskable_story_task_path("__taskable_story_id__", "__id__"),
+           destroy_method: "delete",
+           replace: true} do |f|
+  = hidden_field_tag "_method", nil, id: "command_form_method"

@@ -18,5 +18,5 @@
   = render "task_form", task: @new_task,
                         create_url: create_taskable_story_tasks_path("__taskable_story_id__"),
                         update_url: update_taskable_story_task_path("__taskable_story_id__", "__id__")
-- cache ["destroy", @new_task] do
-  = render "destroy_task_form", task: @new_task
+- cache ["command", @new_task] do
+  = render "command_task_form", task: @new_task
