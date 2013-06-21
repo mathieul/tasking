@@ -67,4 +67,27 @@ describe Task do
       end
     end
   end
+
+  context "manipulation" do
+    let(:taskable_story) { create(:taskable_story) }
+    let!(:task_todo1)    { create(:task, status: "todo", hours: 2, taskable_story: taskable_story, row_order_position: :last) }
+    let!(:task_todo2)    { create(:task, status: "todo", hours: 4, taskable_story: taskable_story, row_order_position: :last) }
+    let!(:task_prog1)    { create(:task, status: "in_progress", hours: 1, taskable_story: taskable_story, row_order_position: :last) }
+    let!(:task_prog2)    { create(:task, status: "in_progress", hours: 5, taskable_story: taskable_story, row_order_position: :last) }
+    let!(:task_done)     { create(:task, status: "done", hours: 0, taskable_story: taskable_story, row_order_position: :last) }
+
+    it "progresses the task with #progress!" do
+      task_todo2.progress!
+      expect(task_todo2.status).to eq("in_progress")
+      expect(task_todo2.hours).to eq(4)
+      expect(taskable_story.tasks).to eq([task_todo1, task_prog1, task_prog2, task_todo2, task_done])
+    end
+
+    it "completes the task with #complete!" do
+      task_prog1.complete!
+      expect(task_prog1.status).to eq("done")
+      expect(task_prog1.hours).to eq(0)
+      expect(taskable_story.tasks).to eq([task_todo1, task_todo2, task_prog2, task_done, task_prog1])
+    end
+  end
 end

@@ -12,6 +12,8 @@ class @App.TaskTable
     $(@selectors.add).on("click", this, handlers.addTask)
     $(@selectors.edit).on("click", this, handlers.editTask)
     $(@selectors.destroy).on("click", this, handlers.destroyTask)
+    $(@selectors.progress).on("click", this, handlers.progressTask)
+    $(@selectors.complete).on("click", this, handlers.completeTask)
     $(@selectors.teammate).on("click", this, handlers.selectTeammate)
 
   setupKeyboard: ->
@@ -188,18 +190,27 @@ handlers =
         .end()
       .submit()
 
-  destroyTask: (event) ->
+  runCommandOnTask: (url, method, event) ->
     {forms, selectors} = event.data
     task = $(event.target).closest(selectors.task)
-    action = forms.command.data("destroyUrl")
+    action = forms.command.data(url)
       .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
       .replace(/__id__/, task.data("taskId"))
     forms.command
       .attr(action: action)
       .find("#edit_form_method")
-        .val(forms.command.data("destroyMethod"))
+        .val(forms.command.data(method))
         .end()
       .submit()
+
+  destroyTask: (event) ->
+    handlers.runCommandOnTask("destroyUrl", "destroyMethod", event)
+
+  progressTask: (event) ->
+    handlers.runCommandOnTask("progressUrl", "progressMethod", event)
+
+  completeTask: (event) ->
+    handlers.runCommandOnTask("completeUrl", "completeMethod", event)
 
   parseDescription: (value) ->
     if (match = value.match(/^(.*)\s+(([\d\.]+)\s*h?)$/))

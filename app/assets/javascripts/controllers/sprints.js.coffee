@@ -25,6 +25,8 @@ class SprintsController
         add:      ".add-task"
         edit:     ".edit-task"
         destroy:  ".destroy-task"
+        progress: ".progress-task"
+        complete: ".complete-task"
         input:    ".task-input"
         command:  ".task-command"
         content:  ".task-content"

@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :authorize
   before_action :find_team
   before_action :find_taskable_story
-  before_action :find_task, only: [:update, :destroy]
+  before_action :find_task, only: [:update, :destroy, :progress, :complete]
 
   def create
     task = @taskable_story.tasks.build(task_params.merge(team: @team))
@@ -18,6 +18,16 @@ class TasksController < ApplicationController
   def destroy
     task = @taskable_story.tasks.find(params.require(:id))
     task.destroy
+    redirect_to [:edit, @taskable_story.sprint]
+  end
+
+  def progress
+    @task.progress!
+    redirect_to [:edit, @taskable_story.sprint]
+  end
+
+  def complete
+    @task.complete!
     redirect_to [:edit, @taskable_story.sprint]
   end
 

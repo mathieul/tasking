@@ -34,4 +34,14 @@ class Task < ActiveRecord::Base
   validates :team,           presence: true
 
   scope :ranked, -> { rank(:row_order) }
+
+  def progress!
+    done_index = taskable_story.tasks.pluck("status").find_index { |status| status == "done" }
+    done_index = done_index ? (done_index - 1) : :last
+    update!(row_order_position: done_index, status: "in_progress")
+  end
+
+  def complete!
+    update!(status: "done", hours: 0, row_order_position: :last)
+  end
 end
