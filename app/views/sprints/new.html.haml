@@ -7,7 +7,7 @@
 - content_for :javascript do
   = javascript_tag "App.initSprints({});"
 
-- cache @sprint do
+- cache [@sprint, @stories] do
   .row
     %section
       = simple_form_for @sprint,
@@ -26,8 +26,7 @@
             Please fix the errors below.
 
         .span7
-          - cache @stories do
-            = render "stories/list_summary", stories: @stories
+          = render "stories/list_summary", stories: @stories
 
         .span5
           = f.input :projected_velocity, wrapper: :append do
