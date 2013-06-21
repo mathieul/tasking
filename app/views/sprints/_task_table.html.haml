@@ -19,10 +19,13 @@
           %td= story.description
           %td= story.points
           %td= story.spec_link
+          - position = 0
           - @kinds.each do |kind|
             %td.column-divider &nbsp;
             - tasks[kind].each do |task|
               = render "task", task: task,
+                               position: position,
                                status: kind,
                                taskable_story: taskable_story,
                                width: task_table.col_width
+              - position += 1

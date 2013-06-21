@@ -54,12 +54,16 @@ class @App.TaskTable
             <span class="badge"><i class="icon-white" /></span>
           </div>
         """
+        targetPosition = target.data("position")
         tasks.each (index, task) =>
           task = $(task)
+          taskData = task.data()
+          position = taskData.position
+          position -=1 if position > targetPosition
           offset = task.offset()
           $("<div/>")
             .addClass("task-target")
-            .data(taskId: task.data("taskId"), status: task.data("status"), position: task.data("position"))
+            .data(taskId: taskData.taskId, status: taskData.status, position: position)
             .width(width / 2)
             .height(height)
             .offset(top: offset.top + 1, left: offset.left - (width / 4))
@@ -74,16 +78,15 @@ class @App.TaskTable
                 url = @forms.edit.data("updateUrl")
                   .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
                   .replace(/__id__/, task.data("taskId"))
-                target = $(event.target)
-                console.log "drop", ui.draggable.get(0), "on", target
-                console.log "target data:", target.data()
+                targetData = $(event.target).data()
+                console.log "target data:", targetData
                 console.log "url = #{url}"
                 handlers.submitTaskForm @forms.edit,
                   action: url
-                  position: target.data("position"),
+                  position: targetData.position
                   description: null,
                   hours: null,
-                  status: target.data("status")
+                  status: targetData.status
                   teammateId: null
 
       stop: (event, ui) =>
