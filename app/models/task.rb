@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
   include RankedModel
   ranks :row_order, with_same: "taskable_story_id"
 
-  belongs_to :taskable_story
+  belongs_to :taskable_story, touch: true
   belongs_to :team
   belongs_to :teammate
 

@@ -14,18 +14,20 @@
         = task_table.render_header("done")
     %tbody.table
       - task_table.each_story_and_tasks do |taskable_story, story, tasks|
-        %tr
-          %td= story.id
-          %td= story.description
-          %td= story.points
-          %td= story.spec_link
-          - position = 0
-          - @kinds.each do |kind|
-            %td.column-divider &nbsp;
-            - tasks[kind].each do |task|
-              = render "task", task: task,
-                               position: position,
-                               status: kind,
-                               taskable_story: taskable_story,
-                               width: task_table.col_width
-              - position += 1
+        - cache story do
+          %tr
+            %td= story.id
+            %td= story.description
+            %td= story.points
+            %td= story.spec_link
+            - position = 0
+            - @kinds.each do |kind|
+              %td.column-divider &nbsp;
+              - tasks[kind].each do |task|
+                - cache [task, position, kind, taskable_story, task_table.col_width] do
+                  = render "task", task: task,
+                                   position: position,
+                                   status: kind,
+                                   taskable_story: taskable_story,
+                                   width: task_table.col_width
+                - position += 1
