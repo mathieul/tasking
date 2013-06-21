@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/factory_girl.git
-  revision: e9c23dc817dc51adcd30cc5ac471f83045c569d0
+  revision: fb3e6ccf8759748d217c556e01169fa0d0a8c24b
   specs:
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -51,9 +51,9 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bogus (0.0.4)
+    bogus (0.1.0)
       dependor (>= 0.0.4)
-    bootstrap-sass (2.3.1.3)
+    bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     builder (3.1.4)
     capistrano (2.15.4)
@@ -91,7 +91,7 @@ GEM
     dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    dependor (0.0.5)
+    dependor (0.0.6)
     diff-lcs (1.2.4)
     draper (1.2.1)
       actionpack (>= 3.0)
@@ -109,13 +109,13 @@ GEM
     ffi (1.9.0)
     formatador (0.2.4)
     fssm (0.2.10)
-    guard (1.8.0)
+    guard (1.8.1)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (3.0.1)
+    guard-rspec (3.0.2)
       guard (>= 1.8)
       rspec (~> 2.13)
     haml (4.0.3)
@@ -149,7 +149,7 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.0)
     minitest (4.7.4)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -171,7 +171,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    puma (2.0.1)
+    puma (2.1.1)
       rack (>= 1.1, < 2.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -191,7 +191,7 @@ GEM
       activesupport (= 4.0.0.rc2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.0.4)
+    rake (10.1.0)
     ranked-model (0.2.1)
       activerecord (>= 3.0.3)
     rb-fsevent (0.9.3)
@@ -262,7 +262,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     websocket (1.0.7)
-    wiselinks (0.6.3)
+    wiselinks (0.6.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -275,7 +275,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bogus
-  bootstrap-sass (~> 2.3.1.3)
+  bootstrap-sass (~> 2.3.2.0)
   capistrano-zen
   capybara
   capybara-email (~> 2.1.0)
@@ -285,7 +285,7 @@ DEPENDENCIES
   database_cleaner
   draper (~> 1.2.1)
   factory_girl!
-  factory_girl_rails (~> 4.2.0)
+  factory_girl_rails (~> 4.2.1)
   guard
   guard-rspec
   haml-rails (~> 0.4)
@@ -295,7 +295,7 @@ DEPENDENCIES
   pg (~> 0.15.1)
   poltergeist
   pry-nav
-  puma (~> 2.0.1)
+  puma (~> 2.1.1)
   quiet_assets
   rails (= 4.0.0.rc2)
   ranked-model (~> 0.2.1)

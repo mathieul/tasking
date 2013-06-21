@@ -11,7 +11,7 @@ gem 'pg', '~> 0.15.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0.rc1'
-gem 'bootstrap-sass', '~> 2.3.1.3'
+gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
 gem 'animate-sass', '~> 0.1.1'
 
@@ -40,7 +40,7 @@ gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.4'
 
-gem 'puma', '~> 2.0.1'
+gem 'puma', '~> 2.1.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -74,5 +74,5 @@ group :test, :development do
   gem 'pry-nav'
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl', github: 'thoughtbot/factory_girl'
-  gem 'factory_girl_rails', '~> 4.2.0'
+  gem 'factory_girl_rails', '~> 4.2.1'
 end
