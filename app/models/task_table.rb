@@ -8,6 +8,10 @@ class TaskTable
     @col_width = col_width
   end
 
+  def cache_key
+    [col_width, KINDS.map { |kind| col_count(kind) }, sprint].join("/")
+  end
+
   def col_count(kind)
     task_count_max[kind] + 1
   end
@@ -46,9 +50,5 @@ class TaskTable
     width = column_widths.map { |width| 1 + 8 + width + 8 }.sum
     width += KINDS.map { |kind| 5 + col_width * col_count(kind) }.sum
     {style: "width: #{width}px;"}
-  end
-
-  def tasks_status_per_taskable_story
-    # => {taskable_story1: {todo: [task1, task2], in_progress: [], done: []}, ...}
   end
 end

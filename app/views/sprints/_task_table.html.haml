@@ -14,7 +14,7 @@
         = task_table.render_header("done")
     %tbody.table
       - task_table.each_story_and_tasks do |taskable_story, story, tasks|
-        - cache story do
+        - cache [task_table, story] do
           %tr
             %td= story.id
             %td= story.description

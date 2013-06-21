@@ -15,7 +15,7 @@
 class TaskableStory < ActiveRecord::Base
   VALID_STATUSES = %w[draft tasked completed accepted]
 
-  belongs_to :story, touch: true
+  belongs_to :story,  touch: true
   belongs_to :sprint, touch: true
   belongs_to :team
   has_many   :tasks, -> { ranked }
