@@ -58,12 +58,10 @@ class StoriesController extends App.ModalEditorController
             .submit()
 
   newPositionFor: (item) ->
-    prevPosition = item.prev().data("position")
-    return 0 unless prevPosition?
-    if prevPosition > item.data("position")
-      prevPosition
-    else
-      prevPosition + 1
+    newPosition = item.next(".story-row").data("position")
+    return "last" unless newPosition?
+    newPosition -=1 if newPosition > item.data("position")
+    newPosition
 
   updateVelocityOnChange: ->
     $("#velocity").change (event) ->
