@@ -18,7 +18,7 @@ class TaskableStory < ActiveRecord::Base
   belongs_to :story,  touch: true
   belongs_to :sprint, touch: true
   belongs_to :team
-  has_many   :tasks, -> { ranked }
+  has_many   :tasks, -> { ranked }, dependent: :destroy
 
   validates :status,    presence: true,
                         inclusion: {in: VALID_STATUSES, allow_nil: true}
