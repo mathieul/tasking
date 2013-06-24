@@ -14,10 +14,11 @@
         = task_table.render_header("done")
     %tbody.table
       - task_table.each_story_and_tasks do |taskable_story, story, tasks|
-        - cache [task_table, story] do
+        - cache [task_table, story, taskable_story] do
+          - owner = taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
           %tr
             %td= story.id
-            %td= story.description
+            %td{class: owner.show_color}= story.description
             %td= story.points
             %td= story.spec_link
             - position = 0
