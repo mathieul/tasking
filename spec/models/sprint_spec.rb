@@ -89,6 +89,22 @@ describe Sprint do
       taskable_story = create(:taskable_story, sprint: sprint, story: story)
       expect(sprint.stories).to eq([story])
     end
+
+    it "sets the owner to taskable stories when there's an ovbious one" do
+      tech_lead = create(:teammate, roles: %w[tech_lead engineer])
+      pm = create(:teammate, roles: %w[product_manager engineer])
+      stories = [
+        with_tech = create(:story, tech_lead: tech_lead, product_manager: nil, team: team),
+        with_pm   = create(:story, tech_lead: nil, product_manager: pm, team: team),
+        with_both = create(:story, tech_lead: tech_lead, product_manager: pm, team: team),
+        with_none = create(:story, tech_lead: nil, product_manager: nil, team: team)
+      ]
+      sprint = create(:sprint, stories_count: 0, story_ids: stories.map(&:id), team: team)
+      expect(sprint.taskable_stories.where(story_id: with_tech.id).take.owner).to eq(tech_lead)
+      expect(sprint.taskable_stories.where(story_id: with_pm.id).take.owner).to eq(pm)
+      expect(sprint.taskable_stories.where(story_id: with_both.id).take.owner).to eq(tech_lead)
+      expect(sprint.taskable_stories.where(story_id: with_none.id).take.owner).to be_nil
+    end
   end
 
   context "querying" do

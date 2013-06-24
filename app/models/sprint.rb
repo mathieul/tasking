@@ -62,7 +62,8 @@ class Sprint < ActiveRecord::Base
 
   def create_taskable_stories
     stories_to_task.each.with_index do |story, index|
-      taskable_stories.create!(story: story, team: team, row_order: index)
+      owner = story.tech_lead || story.product_manager
+      taskable_stories.create!(story: story, team: team, row_order: index, owner: owner)
     end
   end
 
