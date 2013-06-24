@@ -1,3 +1,4 @@
+- spec_width = 67
 #task-table-wrapper.preserve-scroll
   %table.table.table-bordered.tasks{task_table.table_properties(43, 216, 31, 67)}
     %thead.table
@@ -5,7 +6,7 @@
         %th(style="width: 43px") Id
         %th(style="width: 216px") Story
         %th(style="width: 31px") Pts
-        %th(style="width: 67px") Spec
+        %th{style: "width: #{spec_width}px"} Spec
         %th.column-divider(style="width: 0") &nbsp;
         = task_table.render_header("todo")
         %th.column-divider(style="width: 0") &nbsp;
@@ -20,7 +21,8 @@
             %td= story.id
             %td{class: owner.show_color}= story.description
             %td= story.points
-            %td= story.spec_link
+            %td
+              .width-container{style: "width: #{spec_width}px"}= story.spec_link
             - position = 0
             - @kinds.each do |kind|
               %td.column-divider &nbsp;

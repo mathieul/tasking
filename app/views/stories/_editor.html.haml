@@ -30,7 +30,7 @@
       = f.association :tech_lead, collection: @team.teammates.tech_leads
       = f.association :product_manager, collection: @team.teammates.product_managers
       = f.input :business_driver
-      = f.input :spec_link
+      = f.input :spec_link, as: :url
     .modal-footer
       %button.btn(data-dismiss="modal") Cancel
       = f.button :submit, class: "btn-primary",
