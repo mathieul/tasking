@@ -27,16 +27,6 @@ describe Story do
   end
 
   context "optional attributes" do
-    it "can have a tech lead" do
-      story = build(:story, tech_lead: teammate = create(:teammate))
-      expect(story.tech_lead).to eq(teammate)
-    end
-
-    it "can have a product manager" do
-      story = build(:story, product_manager: product_manager = create(:teammate))
-      expect(story.product_manager).to eq(product_manager)
-    end
-
     it "can have a row order" do
       story = build(:story, row_order: 7)
       expect(story.row_order).to eq(7)
@@ -60,6 +50,16 @@ describe Story do
       expect(story).to be_valid
       story.team = nil
       expect(story).not_to be_valid
+    end
+
+    it "can belong to a tech lead" do
+      story = build(:story, tech_lead: teammate = create(:teammate))
+      expect(story.tech_lead).to eq(teammate)
+    end
+
+    it "can belong to a product manager" do
+      story = build(:story, product_manager: product_manager = create(:teammate))
+      expect(story.product_manager).to eq(product_manager)
     end
 
     it "has many taskable stories" do

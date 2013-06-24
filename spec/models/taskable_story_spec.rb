@@ -48,6 +48,11 @@ describe TaskableStory do
       expect(taskable_story).to have(1).error_on(:team)
     end
 
+    it "can belong to an owner" do
+      taskable_story = build(:taskable_story, owner: teammate = create(:teammate))
+      expect(taskable_story.owner).to eq(teammate)
+    end
+
     it "has many tasks" do
       taskable_story = build(:taskable_story, team: team = create(:team))
       taskable_story.tasks << create(:task, team: team)

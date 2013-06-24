@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130608004825) do
+ActiveRecord::Schema.define(version: 20130624035034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 20130608004825) do
     t.integer  "team_id",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
   end
 
+  add_index "taskable_stories", ["owner_id"], name: "index_taskable_stories_on_owner_id", using: :btree
   add_index "taskable_stories", ["sprint_id"], name: "index_taskable_stories_on_sprint_id", using: :btree
   add_index "taskable_stories", ["story_id"], name: "index_taskable_stories_on_story_id", using: :btree
   add_index "taskable_stories", ["team_id"], name: "index_taskable_stories_on_team_id", using: :btree
