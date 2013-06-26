@@ -49,7 +49,7 @@ group :doc do
 end
 
 group :development do
-  gem 'listen', '~> 1.0.3'
+  gem 'listen'
   gem 'guard'
   gem 'guard-rspec'
   gem 'letter_opener'

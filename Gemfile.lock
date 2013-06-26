@@ -297,7 +297,7 @@ DEPENDENCIES
   haml-rails (~> 0.4)
   jquery-rails (~> 3.0.0)
   letter_opener
-  listen (~> 1.0.3)
+  listen
   pg (~> 0.15.1)
   poltergeist
   pry-nav
