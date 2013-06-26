@@ -30,7 +30,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.0.0'
 
-gem 'wiselinks', '~> 0.6.2'
+gem 'wiselinks', github: 'mathieul/wiselinks', branch: 'master'
 
 gem 'simple_form', github: 'plataformatec/simple_form',
                    ref: '9b2018052e9a7706fd4b2e28cca0d04560c0f1ec'
