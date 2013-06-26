@@ -4,7 +4,8 @@
       defaults: {input_html: {class: "input-xlarge"}},
       data: {create: create_stories_path,
              update: update_story_path(id: "__id__"),
-             replace: true} do |f|
+             replace: true,
+             include_blank: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     = f.hidden_field :row_order_position
     .modal-header
