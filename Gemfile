@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0.rc2'
+gem 'rails', '4.0.0'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
@@ -10,7 +10,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'pg', '~> 0.15.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0.rc1'
+gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
 gem 'animate-sass', '~> 0.1.1'
@@ -32,7 +32,8 @@ gem 'jquery-rails', '~> 3.0.0'
 
 gem 'wiselinks', '~> 0.6.2'
 
-gem 'simple_form', '~> 3.0.0.rc'
+gem 'simple_form', github: 'plataformatec/simple_form',
+                   ref: '9b2018052e9a7706fd4b2e28cca0d04560c0f1ec'
 
 gem 'draper', '~> 1.2.1'
 
