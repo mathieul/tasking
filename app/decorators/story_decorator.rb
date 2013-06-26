@@ -6,7 +6,7 @@ class StoryDecorator < ApplicationDecorator
     helpers.content_tag(:span, object.points, class: classes)
   end
 
-  def spec_link
+  def link_to_spec
     return "" unless object.spec_link
     helpers.content_tag(:a, object.spec_link, href: object.spec_link, target: "_new")
   end
