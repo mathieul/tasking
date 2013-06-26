@@ -32,7 +32,7 @@
       = f.input :business_driver
       = f.input :spec_link, as: :url
     .modal-footer
-      %button.btn(data-dismiss="modal") Cancel
+      %a.btn(href data-dismiss="modal") Cancel
       = f.button :submit, class: "btn-primary",
         data: {create: t("helpers.submit.create", model: "story"),
                update: t("helpers.submit.update", model: "story")}
