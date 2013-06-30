@@ -24,7 +24,7 @@ class StoriesController < ApplicationController
   def update
     if @story.update(story_params)
       trigger_effect!(highlight: @story)
-      redirect_to stories_url
+      redirect_to(params[:redirect_to] || stories_url)
     else
       render_index_action
     end

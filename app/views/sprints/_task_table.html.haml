@@ -25,7 +25,9 @@
                 %button.btn.btn-mini.edit-story(type="button")
                   %i.icon-edit
               .story-content= story.description
-              %textarea.story-input= story.description
+              = form_for story, data: {replace: true}, html: {class: "story-form"} do |f|
+                = hidden_field_tag :redirect_to, url_for
+                = f.text_area :description, id: nil, class: "story-input"
             %td= story.points
             %td
               .width-container{style: "width: #{spec_width}px"}= story.link_to_spec
