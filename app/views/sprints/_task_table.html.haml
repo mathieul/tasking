@@ -16,21 +16,10 @@
     %tbody.table
       - task_table.each_story_and_tasks do |taskable_story, story, tasks|
         - cache [task_table, story, taskable_story] do
-          - owner = taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
-          %tr
-            %td= story.id
-            %td{class: owner.show_color}= story.description
-            %td= story.points
-            %td
-              .width-container{style: "width: #{spec_width}px"}= story.link_to_spec
-            - position = 0
-            - @kinds.each do |kind|
-              %td.column-divider &nbsp;
-              - tasks[kind].each do |task|
-                - cache [task, position, kind, taskable_story, task_table.col_width] do
-                  = render "task", task: task,
-                                   position: position,
-                                   status: kind,
-                                   taskable_story: taskable_story,
-                                   width: task_table.col_width
-                - position += 1
+          = render "taskable_story",
+            task_table: task_table,
+            taskable_story: taskable_story,
+            story: story,
+            tasks: tasks,
+            spec_width: spec_width,
+            owner: taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
