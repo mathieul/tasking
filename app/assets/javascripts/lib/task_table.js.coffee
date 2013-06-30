@@ -103,8 +103,11 @@ class @App.TaskTable
   updateCurrentTask: (attributes) ->
     $.extend(@currentTask, attributes) if @currentTask?
 
-  setTeammateIdForCurrentTask: (teammateId) ->
-    @currentTask?.teammateId = teammateId
+  setSelectedTeammateId: (@teammateId) ->
+
+  getAndResetSelectedTeammateId: ->
+    [id, @teammateId] = [@teammateId, null]
+    id
 
 handlers =
   addTask: (event) ->
@@ -151,7 +154,7 @@ handlers =
 
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
-    event.data.setTeammateIdForCurrentTask(teammateId)
+    event.data.setSelectedTeammateId(teammateId)
 
   createTask: (event) ->
     {forms, selectors, currentTeammateId} = table = event.data
@@ -164,7 +167,10 @@ handlers =
       status:      task.data("status")
       teammateId:  task.data("teammateId") || currentTeammateId
     setTimeout (->
-      handlers.submitTaskForm(forms.edit, table.popCurrentTask())
+      task = table.popCurrentTask()
+      selectedId = table.getAndResetSelectedTeammateId()
+      task.teammateId = selectedId if selectedId?
+      handlers.submitTaskForm(forms.edit, task)
     ), 250
 
   submitTaskForm: (form, task) ->
