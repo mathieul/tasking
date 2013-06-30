@@ -18,19 +18,25 @@ table.tasks
   td .width-container
     overflow-wrap: break-word
 
-.task-command
+form.story-form
+  margin: 0
+
+.story-command, .task-command
   position: absolute
   padding: 4px 8px
   background-color: #eee
   border-bottom: 1px solid #ddd
   +hover-reveal-hidden(0.2s)
 
-td.task
+.story-command
+  +border-right-radius($borderRadiusLarge)
+
+td.story, td.task
   padding: 0
   position: relative
 
   &:hover
-    .task-command
+    .story-command, .task-command
       +hover-reveal-shown
 
 th.column-divider, td.column-divider
@@ -38,12 +44,12 @@ th.column-divider, td.column-divider
   margin: 0
   background-color: $table-header-background
 
-.task-input
+.story-input, .task-input
   display: none
   margin: 0
   border: none
 
-.task-content
+.story-content, .task-content
   padding: 8px
 
 .task-hours

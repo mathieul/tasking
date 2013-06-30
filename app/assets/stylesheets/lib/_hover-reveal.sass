@@ -8,5 +8,5 @@
   +transition-timing-function(ease-in-out)
   +transition-delay($delay)
 
-@mixin hover-reveal-shown
-  +opacity(1)
+@mixin hover-reveal-shown($opacity: 1)
+  +opacity($opacity)

@@ -20,8 +20,8 @@
           - owner = taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
           %tr
             %td= story.id
-            %td{class: owner.show_color}
-              .story-command{style: "width: #{story_width}px"}
+            %td.story{class: owner.show_color}
+              .story-command(style="width: 28px")
                 %button.btn.btn-mini.edit-story(type="button")
                   %i.icon-edit
               .story-content= story.description
