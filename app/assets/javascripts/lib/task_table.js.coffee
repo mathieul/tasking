@@ -15,6 +15,7 @@ class @App.TaskTable
     $(@selectors.progress).on("click", this, handlers.progressTask)
     $(@selectors.complete).on("click", this, handlers.completeTask)
     $(@selectors.teammate).on("click", this, handlers.selectTeammate)
+    $(@selectors.editStory).on("click", this, handlers.editStory)
 
   setupKeyboard: ->
     $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
@@ -129,6 +130,20 @@ handlers =
       method: "patch"
     handlers.setEditMode(table, task, selectors)
 
+  editStory: (event) ->
+    {forms, selectors} = table = event.data
+    story = $(event.target).closest(selectors.story)
+    [width, height] = [story.innerWidth() - 4, story.innerHeight() - 6]
+    story
+      .find(selectors.storyCommand).hide().end()
+      .find(selectors.storyContent).hide().end()
+      .find(selectors.storyInput)
+        .show()
+        .width(width)
+        .height(height)
+        .select()
+        .one("blur", table, handlers.todo)
+
   setEditMode: (table, task, selectors) ->
     [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
     task
@@ -140,6 +155,7 @@ handlers =
         .height(height)
         .select()
         .one("blur", table, handlers.createTask)
+
 
   cancelEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
