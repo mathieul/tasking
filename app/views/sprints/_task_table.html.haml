@@ -1,10 +1,11 @@
 - spec_width = 67
+- story_width = 216
 #task-table-wrapper.preserve-scroll
-  %table.table.table-bordered.tasks{task_table.table_properties(43, 216, 31, 67)}
+  %table.table.table-bordered.tasks{task_table.table_properties(43, story_width, 31, spec_width)}
     %thead.table
       %tr
         %th(style="width: 43px") Id
-        %th(style="width: 216px") Story
+        %th{style: "width: #{story_width}px"} Story
         %th(style="width: 31px") Pts
         %th{style: "width: #{spec_width}px"} Spec
         %th.column-divider(style="width: 0") &nbsp;
@@ -16,10 +17,26 @@
     %tbody.table
       - task_table.each_story_and_tasks do |taskable_story, story, tasks|
         - cache [task_table, story, taskable_story] do
-          = render "taskable_story",
-            task_table: task_table,
-            taskable_story: taskable_story,
-            story: story,
-            tasks: tasks,
-            spec_width: spec_width,
-            owner: taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
+          - owner = taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
+          %tr
+            %td= story.id
+            %td{class: owner.show_color}
+              .story-command{style: "width: #{story_width}px"}
+                %button.btn.btn-mini.edit-story(type="button")
+                  %i.icon-edit
+              .story-content= story.description
+              %textarea.story-input= story.description
+            %td= story.points
+            %td
+              .width-container{style: "width: #{spec_width}px"}= story.link_to_spec
+            - position = 0
+            - @kinds.each do |kind|
+              %td.column-divider &nbsp;
+              - tasks[kind].each do |task|
+                - cache [task, position, kind, taskable_story, task_table.col_width] do
+                  = render "task", task: task,
+                                   position: position,
+                                   status: kind,
+                                   taskable_story: taskable_story,
+                                   width: task_table.col_width
+                - position += 1
