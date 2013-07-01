@@ -59,4 +59,13 @@ describe TaskableStory do
       expect(taskable_story).to be_valid
     end
   end
+
+  context "delegation" do
+    it "delegates getting and setting the description to its story" do
+      taskable_story = build(:taskable_story, story: story = create(:story))
+      taskable_story.description = "delegate to story"
+      expect(taskable_story.description).to eq("delegate to story")
+      expect(story.reload.description).to eq("delegate to story")
+    end
+  end
 end

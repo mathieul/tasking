@@ -27,4 +27,10 @@ class TaskableStory < ActiveRecord::Base
   validates :story,     presence: true
   validates :sprint,    presence: true
   validates :team,      presence: true
+
+  delegate :description, to: :story
+
+  def description=(description)
+    story.update(description: description)
+  end
 end
