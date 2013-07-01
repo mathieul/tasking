@@ -19,6 +19,7 @@ class @App.TaskTable
 
   setupKeyboard: ->
     $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
+    $(@selectors.storyInput).on("keyup", this, handlers.cancelStoryEditOnEscape)
 
   setupDragDrop: ->
     $(@selectors.task).draggable
@@ -131,9 +132,10 @@ handlers =
     handlers.setEditMode(table, task, selectors)
 
   editStory: (event) ->
-    {forms, selectors} = table = event.data
+    {selectors} = table = event.data
     story = $(event.target).closest(selectors.story)
     [width, height] = [story.innerWidth() - 4, story.innerHeight() - 6]
+    form = story.find("form.story-form")
     story
       .find(selectors.storyCommand).hide().end()
       .find(selectors.storyContent).hide().end()
@@ -142,7 +144,14 @@ handlers =
         .width(width)
         .height(height)
         .select()
-        .one("blur", table, handlers.todo)
+        .one "blur", table, (event) ->
+          setTimeout (->
+            selectedId = table.getAndResetSelectedTeammateId()
+            if selectedId?
+              form.find('input[name="taskable_story[owner_id]"]').val(selectedId)
+            form.get(0).submit()
+          ), 250
+
 
   setEditMode: (table, task, selectors) ->
     [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
@@ -167,6 +176,15 @@ handlers =
         .find(selectors.input)
           .hide()
           .off("blur", handlers.createTask)
+
+  cancelStoryEditOnEscape: (event) ->
+    if event.keyCode is 27 # escape
+      {selectors} = event.data
+      story = $(event.target).closest(selectors.story)
+      story
+        .find(selectors.storyCommand).show().end()
+        .find(selectors.storyContent).show().end()
+        .find(selectors.storyInput).hide().off("blur")
 
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
