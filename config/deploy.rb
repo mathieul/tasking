@@ -54,7 +54,8 @@ namespace :deploy do
   desc "Deploy your application"
   task :default do
     update
-    restart
+    stop
+    start
   end
 
   desc "Setup your git-based deployment app"
@@ -95,7 +96,8 @@ namespace :deploy do
       update_code
     end
     migrate
-    restart
+    stop
+    start
   end
 
   task :finalize_update, except: {no_release: true} do
