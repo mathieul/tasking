@@ -16,6 +16,8 @@ table.tasks
     border-left: 1px solid $tasks-outer-border-color
 
   td .width-container
+    // also use word-wrap for browsers not handling overflow-wrap very well yet
+    word-wrap: break-word
     overflow-wrap: break-word
 
 form.story-form
