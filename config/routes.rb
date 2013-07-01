@@ -38,7 +38,7 @@ Tasking::Application.routes.draw do
 
   # sprints
   resources :sprints, only: [:index, :new, :create, :edit, :update], concerns: :wiselinkable
-  resources :taskable_stories, only: [] do
+  resources :taskable_stories, only: [:update] do
     resources :tasks, only: [:create, :update, :destroy],
                       concerns: [:wiselinkable, :wiselinkable_destroy] do
       member do
