@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'timecop'
 
 feature "Sprint management" do
   include SignInSpecHelpers
@@ -17,10 +16,8 @@ feature "Sprint management" do
   end
 
   scenario "Create tasks", js: true do
-    Timecop.travel Time.local(2012, 4, 12, 7, 0, 0)
-
-    sprint = team.sprints.create! start_on:           "2012-04-12",
-                                  end_on:             "2012-04-26",
+    sprint = team.sprints.create! start_on:           1.day.ago.to_date.to_s,
+                                  end_on:             1.day.from_now.to_date.to_s,
                                   projected_velocity: 18,
                                   story_ids: [story1.id, story2.id]
 
@@ -47,6 +44,5 @@ feature "Sprint management" do
     find("body").click and sleep for_a_bit
     first_todo_task = all('table.tasks tbody tr:nth-child(1) td.task[data-status="todo"]').first.text
     expect(first_todo_task).to eq("write tests 0")
-    Timecop.return
   end
 end
