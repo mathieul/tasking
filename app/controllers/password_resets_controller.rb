@@ -38,8 +38,10 @@ class PasswordResetsController < ApplicationController
   end
 
   def account_params
-    params
+    secured = params
       .require(:account)
       .permit(:password)
+    secured[:password_confirmation] = secured[:password]
+    secured
   end
 end
