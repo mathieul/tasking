@@ -9,26 +9,26 @@ class @App.TaskTable
     @setupDragDrop()
 
   setupClicks: ->
-    $(@selectors.add).on("click", this, handlers.addTask)
-    $(@selectors.edit).on("click", this, handlers.editTask)
-    $(@selectors.destroy).on("click", this, handlers.destroyTask)
-    $(@selectors.progress).on("click", this, handlers.progressTask)
-    $(@selectors.complete).on("click", this, handlers.completeTask)
-    $(@selectors.teammate).on("click", this, handlers.selectTeammate)
-    $(@selectors.editStory).on("click", this, handlers.editStory)
+    $(@selectors.task.add).on("click", this, handlers.addTask)
+    $(@selectors.task.edit).on("click", this, handlers.editTask)
+    $(@selectors.task.destroy).on("click", this, handlers.destroyTask)
+    $(@selectors.task.progress).on("click", this, handlers.progressTask)
+    $(@selectors.task.complete).on("click", this, handlers.completeTask)
+    $(@selectors.task.teammate).on("click", this, handlers.selectTeammate)
+    $(@selectors.story.cell).on("click", this, handlers.editStory)
 
   setupKeyboard: ->
-    $(@selectors.input).on("keyup", this, handlers.cancelEditOnEscape)
-    $(@selectors.storyInput).on("keyup", this, handlers.cancelStoryEditOnEscape)
+    $(@selectors.task.input).on("keyup", this, handlers.cancelEditOnEscape)
+    $(@selectors.story.input).on("keyup", this, handlers.cancelStoryEditOnEscape)
 
   setupDragDrop: ->
-    $(@selectors.task).draggable
+    $(@selectors.task.cell).draggable
       containment: "#task-table-wrapper"
-      handle: @selectors.handle
+      handle: @selectors.task.handle
       cursor: "move"
       revert: "invalid"
       revertDuration: 150
-      appendTo: @selectors.wrapper
+      appendTo: @selectors.task.wrapper
       helper: (event) ->
         target = $(event.currentTarget)
         content = target.find(".task-content").text()
@@ -44,9 +44,9 @@ class @App.TaskTable
       start: (event, ui) =>
         target = $(event.target)
         tasks = target.parent()
-          .find(@selectors.task)
+          .find(@selectors.task.cell)
           .not(target)
-          .not(target.next(@selectors.task))
+          .not(target.next(@selectors.task.cell))
         [width, height] = [target.outerWidth(), target.outerHeight() - 1]
         targetContent = """
           <div class="target-left">
@@ -72,9 +72,9 @@ class @App.TaskTable
             .height(height)
             .offset(top: offset.top + 1, left: offset.left - (width / 4))
             .append($(targetContent))
-            .appendTo(@selectors.wrapper)
+            .appendTo(@selectors.task.wrapper)
             .droppable
-              accept: @selectors.task
+              accept: @selectors.task.cell
               tolerance: "intersect"
               hoverClass: "task-hovering"
               drop: (event, ui) =>
@@ -94,7 +94,7 @@ class @App.TaskTable
                   teammateId: null
 
       stop: (event, ui) =>
-        $(@selectors.wrapper).find(".task-target").remove()
+        $(@selectors.task.wrapper).find(".task-target").remove()
 
   pushCurrentTask: (@currentTask) ->
 
@@ -114,7 +114,7 @@ class @App.TaskTable
 handlers =
   addTask: (event) ->
     {forms, selectors} = table = event.data
-    task = $(event.target).closest(selectors.task)
+    task = $(event.target).closest(selectors.task.cell)
     table.pushCurrentTask
       action: forms.edit.data("createUrl").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
       method: "post"
@@ -123,7 +123,7 @@ handlers =
 
   editTask: (event) ->
     {forms, selectors} = table = event.data
-    task = $(event.target).closest(selectors.task)
+    task = $(event.target).closest(selectors.task.cell)
     table.pushCurrentTask
       action: forms.edit.data("updateUrl")
         .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
@@ -133,13 +133,13 @@ handlers =
 
   editStory: (event) ->
     {selectors} = table = event.data
-    story = $(event.target).closest(selectors.story)
+    story = $(event.target).closest(selectors.story.cell)
     [width, height] = [story.innerWidth() - 4, story.innerHeight() - 6]
     form = story.find("form.story-form")
     story
-      .find(selectors.storyCommand).hide().end()
-      .find(selectors.storyContent).hide().end()
-      .find(selectors.storyInput)
+      .find(selectors.story.command).hide().end()
+      .find(selectors.story.content).hide().end()
+      .find(selectors.story.input)
         .show()
         .width(width)
         .height(height)
@@ -156,9 +156,9 @@ handlers =
   setEditMode: (table, task, selectors) ->
     [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
     task
-      .find(selectors.command).hide().end()
-      .find(selectors.content).hide().end()
-      .find(selectors.input)
+      .find(selectors.task.command).hide().end()
+      .find(selectors.task.content).hide().end()
+      .find(selectors.task.input)
         .show()
         .width(width)
         .height(height)
@@ -169,22 +169,22 @@ handlers =
   cancelEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
       {selectors} = event.data
-      task = $(event.target).closest(selectors.task)
+      task = $(event.target).closest(selectors.task.cell)
       task
-        .find(selectors.command).show().end()
-        .find(selectors.content).show().end()
-        .find(selectors.input)
+        .find(selectors.task.command).show().end()
+        .find(selectors.task.content).show().end()
+        .find(selectors.task.input)
           .hide()
           .off("blur", handlers.createTask)
 
   cancelStoryEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
       {selectors} = event.data
-      story = $(event.target).closest(selectors.story)
+      story = $(event.target).closest(selectors.story.cell)
       story
-        .find(selectors.storyCommand).show().end()
-        .find(selectors.storyContent).show().end()
-        .find(selectors.storyInput).hide().off("blur")
+        .find(selectors.story.command).show().end()
+        .find(selectors.story.content).show().end()
+        .find(selectors.story.input).hide().off("blur")
 
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
@@ -192,8 +192,8 @@ handlers =
 
   createTask: (event) ->
     {forms, selectors, currentTeammateId} = table = event.data
-    task = $(event.target).closest(selectors.task)
-    input = task.find(selectors.input)
+    task = $(event.target).closest(selectors.task.cell)
+    input = task.find(selectors.task.input)
     [description, hours] = handlers.parseDescription(input.val())
     table.updateCurrentTask
       description: description
@@ -232,7 +232,7 @@ handlers =
 
   runCommandOnTask: (url, method, event) ->
     {forms, selectors} = event.data
-    task = $(event.target).closest(selectors.task)
+    task = $(event.target).closest(selectors.task.cell)
     action = forms.command.data(url)
       .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
       .replace(/__id__/, task.data("taskId"))
