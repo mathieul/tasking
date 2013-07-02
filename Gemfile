@@ -30,10 +30,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.0.0'
 
-gem 'wiselinks', github: 'mathieul/wiselinks', branch: 'master'
+gem 'wiselinks', '~> 0.7.0'
 
 gem 'simple_form', github: 'plataformatec/simple_form',
-                   ref: '9b2018052e9a7706fd4b2e28cca0d04560c0f1ec'
+                   ref: 'dcf4862972792abafeefd73f6b1d385322a64115'
 
 gem 'draper', '~> 1.2.1'
 
@@ -41,7 +41,7 @@ gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.4'
 
-gem 'puma', '~> 2.1.1'
+gem 'puma', '~> 2.2.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
