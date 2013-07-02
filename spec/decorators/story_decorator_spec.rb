@@ -19,9 +19,9 @@ describe StoryDecorator do
     expect(decorator.badged_points).to eq('<span class="badge badge-success">3</span>')
   end
 
-  it "formats spec link as a HTML link" do
+  it "formats spec link as a HTML link with #link_to_spec" do
     story.stub(spec_link: nil)
-    expect(decorator.spec_link).to eq('')
+    expect(decorator.link_to_spec).to eq('')
     story.stub(spec_link: "http://daringfireball.net")
     expect(decorator.link_to_spec).to eq('<a href="http://daringfireball.net" target="_new">http://daringfireball.net</a>')
   end
