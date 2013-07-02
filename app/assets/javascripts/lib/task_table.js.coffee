@@ -149,7 +149,7 @@ handlers =
             selectedId = table.getAndResetSelectedTeammateId()
             if selectedId?
               form.find('input[name="taskable_story[owner_id]"]').val(selectedId)
-            form.get(0).submit()
+            form.submit()
           ), 250
 
 
