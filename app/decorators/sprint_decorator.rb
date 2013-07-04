@@ -2,7 +2,7 @@ class SprintDecorator < ApplicationDecorator
   delegate_all
 
   def label
-    "##{object.id}"
+    "##{object.number}"
   end
 
   def start_on

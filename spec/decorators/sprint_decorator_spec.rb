@@ -5,7 +5,7 @@ describe SprintDecorator do
   let(:decorator) { SprintDecorator.decorate(sprint) }
 
   it "formats a lable with #label" do
-    sprint.stub(id: 42)
+    sprint.stub(number: 42)
     expect(decorator.label).to eq("#42")
   end
 

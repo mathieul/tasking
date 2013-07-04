@@ -29,6 +29,7 @@ class Sprint < ActiveRecord::Base
   validates :end_on, presence: true
   validates :team, presence: true
 
+  before_create :set_number
   after_create :create_taskable_stories
 
   def self.find_from_kind_or_id(kind_or_id)
@@ -59,6 +60,12 @@ class Sprint < ActiveRecord::Base
   end
 
   private
+
+  def set_number
+    return if number.present?
+    previous_number = team.sprints.order(number: :asc).limit(1).pluck(:number).last
+    self.number = previous_number.nil? ? 1 : previous_number + 1
+  end
 
   def create_taskable_stories
     stories_to_task.each.with_index do |story, index|

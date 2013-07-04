@@ -43,10 +43,26 @@ describe Sprint do
     end
   end
 
-  context "optional attributes" do
+  context "other attributes" do
     it "can have a measured velocity" do
       sprint = build(:sprint, measured_velocity: 42)
       expect(sprint.measured_velocity).to eq(42)
+    end
+
+    it "has a sprint number per team" do
+      team1, team2 = create(:team), create(:team)
+      sprint1t1 = create(:sprint, team: team1)
+      sprint1t2 = create(:sprint, team: team2)
+      expect(team1.sprints.create).not_to be_valid
+      sprint2t2 = create(:sprint, team: team2)
+      sprint2t1 = create(:sprint, team: team1)
+      expect([sprint1t1.number, sprint2t1.number]).to eq([1, 2])
+      expect([sprint1t2.number, sprint2t2.number]).to eq([1, 2])
+    end
+
+    it "doesn't change the sprint number if it is already set" do
+      sprint = create(:sprint, number: 12)
+      expect(sprint.number).to eq(12)
     end
   end
 
