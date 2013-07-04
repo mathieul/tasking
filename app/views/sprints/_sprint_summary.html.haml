@@ -7,7 +7,7 @@
       %th Velocity
       %th Status
   %tbody
-    %tr
+    %tr{class: sprint.current? ? "success" : ""}
       %td= sprint.label
       %td= sprint.start_on
       %td= sprint.end_on

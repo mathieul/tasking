@@ -6,7 +6,7 @@
     from the backlog.
 
 - content_for :javascript do
-  = javascript_tag "App.initSprints({currentTeammateId: #{current_account.teammate.try(:id) || "null"}});"
+  = javascript_tag "App.initSprints();"
 
 - cache [@sprints, @today] do
   - if @sprints.empty?
@@ -17,7 +17,7 @@
             %p
               There are no sprints yet.
   - else
-    %table.table.table-stripped.table-hover
+    %table.table.table-stripped.table-hover#sprints
       %thead.table
         %tr
           %th Number
@@ -29,7 +29,7 @@
         - @sprints.each do |sprint|
           - cache [sprint, @today] do
             %tr{class: sprint.current? ? "success" : ""}
-              %td= sprint.label
+              %td= link_to sprint.label, edit_sprint_path(sprint), data: {push: true}
               %td= sprint.start_on
               %td= sprint.end_on
               %td= sprint.projected_velocity

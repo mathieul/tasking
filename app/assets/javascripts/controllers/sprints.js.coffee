@@ -3,7 +3,7 @@
 
 controller = null
 
-@App.initSprints = (options) ->
+@App.initSprints = (options = {}) ->
   App.WiselinksManager.setup()
   controller = new SprintsController(options)
   controller.run()
@@ -13,7 +13,8 @@ class SprintsController
 
   run: ->
     @initDatePickers()
-    @initTaskTable()
+    @initTaskTable() if @options.currentTeammateId?
+    @initSprintTable()
 
   initDatePickers: ->
     $(".date .input-append").datetimepicker(pickTime: false)
@@ -44,3 +45,8 @@ class SprintsController
       forms:
         edit:     "#task-form"
         command:  "#command-task-form"
+
+  initSprintTable: ->
+    $("#sprints").on "click", "td:not(:first-child)", (event) ->
+      event.preventDefault()
+      $(event.target).closest("tr").find("td:first a").click()
