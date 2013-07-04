@@ -43,6 +43,9 @@ gem 'dalli', '~> 2.6.4'
 
 gem 'puma', '~> 2.2.0'
 
+gem 'nokogiri'
+gem 'css_parser'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
