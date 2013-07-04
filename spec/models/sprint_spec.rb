@@ -123,6 +123,15 @@ describe Sprint do
     end
   end
 
+  context "business rules" do
+    it "knows if it is the current sprint" do
+      expect(build(:sprint, start_on: 1.week.ago, end_on: 1.day.ago)).not_to be_current
+      expect(build(:sprint, start_on: 3.days.ago, end_on: Time.zone.today)).to be_current
+      expect(build(:sprint, start_on: Time.zone.today, end_on: 1.day.from_now)).to be_current
+      expect(build(:sprint, start_on: 1.day.from_now, end_on: 1.week.from_now)).not_to be_current
+    end
+  end
+
   context "querying" do
     context ".find_from_kind_or_id" do
       let!(:old_sprint)     { create(:sprint, start_on: 3.months.ago,     end_on: 2.months.ago) }

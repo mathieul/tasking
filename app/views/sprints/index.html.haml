@@ -1,0 +1,36 @@
+- page_title "Sprints"
+- page_description do
+  %p
+    Access recent and older sprints or
+    = link_to "Create a sprint", stories_path, class: "btn", data: {push: true}
+    from the backlog.
+
+- content_for :javascript do
+  = javascript_tag "App.initSprints({currentTeammateId: #{current_account.teammate.try(:id) || "null"}});"
+
+- cache [@sprints, @today] do
+  - if @sprints.empty?
+    %table.table.table-bordered
+      %tbody.table
+        %tr
+          %td
+            %p
+              There are no sprints yet.
+  - else
+    %table.table.table-stripped.table-hover
+      %thead.table
+        %tr
+          %th Number
+          %th Start
+          %th End
+          %th Velocity
+          %th Status
+      %tbody.table
+        - @sprints.each do |sprint|
+          - cache [sprint, @today] do
+            %tr{class: sprint.current? ? "success" : ""}
+              %td= sprint.label
+              %td= sprint.start_on
+              %td= sprint.end_on
+              %td= sprint.projected_velocity
+              %td= sprint.status

@@ -59,6 +59,10 @@ class Sprint < ActiveRecord::Base
     @story_ids = ids
   end
 
+  def current?(date = Time.zone.today)
+    (start_on..end_on).include?(date)
+  end
+
   private
 
   def set_number

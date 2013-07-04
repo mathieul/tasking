@@ -2,6 +2,11 @@ class SprintsController < ApplicationController
   before_action :authorize
   before_action :find_team
 
+  def index
+    @sprints = @team.sprints.decorate
+    @today = Time.zone.today
+  end
+
   def new
     @stories = @team.stories.where(id: story_ids_params).decorate
     @sprint = Sprint.new(
