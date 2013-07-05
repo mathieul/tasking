@@ -10,6 +10,7 @@
 #  team_id    :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
+#  owner_id   :integer
 #
 
 class TaskableStory < ActiveRecord::Base

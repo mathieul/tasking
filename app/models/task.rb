@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  description       :string(255)      not null
-#  hours             :string(255)      not null
+#  hours             :decimal(5, 2)    default(1.0), not null
 #  status            :string(255)      not null
 #  row_order         :integer          not null
 #  taskable_story_id :integer          not null

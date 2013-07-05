@@ -11,6 +11,7 @@
 #  team_id            :integer          not null
 #  created_at         :datetime
 #  updated_at         :datetime
+#  number             :integer          not null
 #
 
 class Sprint < ActiveRecord::Base
