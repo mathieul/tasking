@@ -33,5 +33,9 @@ module Tasking
     config.generators do |g|
       g.helper false
     end
+
+    console do
+      config.console = Pry
+    end
   end
 end
