@@ -1,44 +1,14 @@
-require "csv"
-
 class ImportService
-  MANDATORY = {
-    :teammates => ["name", "color"]
-  }
-
-  attr_reader :common_attributes
+  attr_reader :attributes
 
   def initialize(attributes = {})
-    @common_attributes = attributes.stringify_keys
+    @attributes = attributes.stringify_keys
   end
 
-  def teammates(content)
-    CSV.parse(content, headers: true) do |csv|
-      attributes = csv.to_hash
-      unless (MANDATORY[:teammates] - attributes.keys).empty?
-        raise ArgumentError, "missing mandatory attributes: #{MANDATORY[:teammates].join(", ")}"
-      end
-      create_teammate(csv.to_hash)
-    end
-  end
-
-  def create_teammate(requested)
-    attributes = common_attributes.merge(roles: %w[teammate]).merge(requested)
-    attributes["name"] = attributes["name"].titleize if attributes["name"]
-    attributes["initials"] ||= teammate_initials(attributes["name"])
-    teammate = Teammate.find_or_initialize_by(attributes.slice("name"))
-    teammate.update!(attributes)
-  end
-
-  def teammate_initials(name)
-    name ||= ""
-    names = name.split(/\s/)
-    case names.length
-    when 0
-      ""
-    when 1 
-      names.first[0..2].upcase
-    else
-      names.map(&:first).join.upcase
+  def teammates(request)
+    request.each do |format, content|
+      klass = Import.const_get(:"Teammates#{format.to_s.camelize}")
+      klass.new(attributes).import(content)
     end
   end
 end
