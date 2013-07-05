@@ -1,6 +1,10 @@
 require "csv"
 
 class ImportService
+  MANDATORY = {
+    :teammates => ["name", "color"]
+  }
+
   attr_reader :common_attributes
 
   def initialize(attributes = {})
@@ -9,6 +13,10 @@ class ImportService
 
   def teammates(content)
     CSV.parse(content, headers: true) do |csv|
+      attributes = csv.to_hash
+      unless (MANDATORY[:teammates] - attributes.keys).empty?
+        raise ArgumentError, "missing mandatory attributes: #{MANDATORY[:teammates].join(", ")}"
+      end
       create_teammate(csv.to_hash)
     end
   end

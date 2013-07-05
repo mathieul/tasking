@@ -63,7 +63,11 @@ describe ImportService do
     end
 
     context "import with errors" do
-      pending
+      it "raises an error if the headers don't contain at least name and color" do
+        expect {
+          import.teammates "blah blah blah\ntiti"
+        }.to raise_error(ArgumentError)
+      end
     end
   end
 end
