@@ -17,7 +17,8 @@ class ImportService
     attributes = common_attributes.merge(roles: %w[teammate]).merge(requested)
     attributes["name"] = attributes["name"].titleize if attributes["name"]
     attributes["initials"] ||= teammate_initials(attributes["name"])
-    Teammate.create!(attributes)
+    teammate = Teammate.find_or_initialize_by(attributes.slice("name"))
+    teammate.update!(attributes)
   end
 
   def teammate_initials(name)
