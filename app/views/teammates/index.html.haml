@@ -2,7 +2,19 @@
 - page_description do
   %p Manage the list of teammates to use.
   %p
-    %a.btn.btn-primary#new-teammate-button(href) Create teammate
+    %a.btn.btn-primary#new-teammate-button(href)
+      %i.icon-plus.icon-white
+      Teammate
+    = link_to "/", class: "btn btn-success", data: {push: true} do
+      %i.icon-upload.icon-white
+      Import
+      %i.icon-arrow-left.icon-white
+      CSV
+    = link_to "/", class: "btn btn-info", data: {push: true} do
+      %i.icon-download.icon-white
+      Export
+      %i.icon-arrow-right.icon-white
+      CSV
 
 - content_for :javascript do
   = javascript_tag "App.initTeammates({newAttributes: #{@new_teammate.to_json}});"
