@@ -81,12 +81,19 @@ describe DataExchangeService do
     let(:export) { DataExchangeService.new.export }
 
     it "exports the teammates for a team as CSV" do
-      create(:teammate, name: "John Zorn", color: "black", initials: "JZO", team: team)
+      masada = create(:team, name: "Masada")
+      create(:teammate, name: "John Zorn", color: "black", initials: "JZO", team: masada)
+      create(:teammate, name: "Greg Cohen", color: "pink", initials: "GCO", team: masada)
+      create(:teammate, name: "Dave Douglas", color: "baby-blue", initials: "DDO", team: masada)
+      create(:teammate, name: "Joey Baron", color: "purple", initials: "JBA", team: masada)
       expected_csv = file_content <<-EOC
         | name,color,initials
+        | Dave Douglas,baby-blue,DDO
+        | Greg Cohen,pink,GCO
+        | Joey Baron,purple,JBA
         | John Zorn,black,JZO
       EOC
-      expect(export.teammates(:csv, team: team)).to eq(expected_csv)
+      expect(export.teammates(:csv, team: masada)).to eq(expected_csv)
     end
   end
 end

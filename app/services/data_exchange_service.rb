@@ -13,7 +13,8 @@ class DataExchangeService
     self
   end
 
-  def teammates(request)
+  def teammates(format = nil, request)
+    request[format] = true if format
     run_exchange("Teammates", request)
   end
 
@@ -22,9 +23,8 @@ class DataExchangeService
   def run_exchange(type, request)
     request, default_attributes = request.slice(*FORMATS), request.except(*FORMATS)
     default_attributes.stringify_keys!
-    request.each do |format, content|
-      worker_class_for(type, format).new.run(content, default_attributes)
-    end
+    format, content = request.first
+    worker_class_for(type, format).new.run(content, default_attributes)
   end
 
   def worker_class_for(type, format)
