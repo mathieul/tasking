@@ -1,12 +1,13 @@
 require 'spec_helper'
 
-describe ImportService do
+describe DataExchangeService do
   include SharedHelpers
 
   let(:team)   { create(:team) }
-  let(:import) { ImportService.new }
 
-  context "teammate CSV file" do
+  context "import teammate CSV file" do
+    let(:import) { DataExchangeService.new.import }
+
     context "successful import" do
       let(:csv)  do
         file_content <<-EOC
@@ -67,14 +68,25 @@ describe ImportService do
         expect(gob.color).to eq("purple")
         expect(gob.initials).to eq("GB")
       end
-    end
 
-    context "import with errors" do
       it "raises an error if the headers don't contain at least name and color" do
         expect {
           import.teammates(csv: "blah blah blah\ntiti", team: team)
         }.to raise_error(ArgumentError)
       end
+    end
+  end
+
+  context "export teammate CSV file" do
+    let(:export) { DataExchangeService.new.export }
+
+    it "exports the teammates for a team as CSV" do
+      create(:teammate, name: "John Zorn", color: "black", initials: "JZO", team: team)
+      expected_csv = file_content <<-EOC
+        | name,color,initials
+        | John Zorn,black,JZO
+      EOC
+      expect(export.teammates(:csv, team: team)).to eq(expected_csv)
     end
   end
 end

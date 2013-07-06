@@ -1,10 +1,10 @@
 require "csv"
 
-module Import
-  class TeammatesCsv
+module DataExchange
+  class ImportTeammatesCsv
     MANDATORY = ["name", "color"]
 
-    def import(content, common_attributes)
+    def run(content, common_attributes)
       CSV.parse(content, headers: true) do |csv|
         attributes = csv.to_hash
         unless (MANDATORY - attributes.keys).empty?
