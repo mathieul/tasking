@@ -4,25 +4,19 @@ module Import
   class TeammatesCsv
     MANDATORY = ["name", "color"]
 
-    attr_reader :common_attributes
-
-    def initialize(common_attributes)
-      @common_attributes = common_attributes
-    end
-
-    def import(content)
+    def import(content, common_attributes)
       CSV.parse(content, headers: true) do |csv|
         attributes = csv.to_hash
         unless (MANDATORY - attributes.keys).empty?
           raise ArgumentError, "missing mandatory attributes: #{MANDATORY.join(", ")}"
         end
-        create_teammate(csv.to_hash)
+        create_teammate(csv.to_hash, common_attributes)
       end
     end
 
     private
 
-    def create_teammate(requested)
+    def create_teammate(requested, common_attributes)
       attributes = common_attributes.merge(roles: %w[teammate]).merge(requested)
       attributes["name"] = attributes["name"].titleize if attributes["name"]
       attributes["initials"] ||= teammate_initials(attributes["name"])
