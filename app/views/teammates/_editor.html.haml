@@ -1,15 +1,13 @@
 .modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
   = simple_form_for teammate,
-      url: update_teammate_path(teammate),
+      url: create_teammates_path(teammate),
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
-      data: {create: create_teammates_path(teammate),
-             update: update_teammate_path(id: "__id__"),
-             replace: true} do |f|
+      data: {replace: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
       %button.close(type="button" data-dismiss="modal") x
-      %h3.title(data-create="New teammate" data-update="Edit teammate") Edit teammate
+      %h3.title New teammate
     .modal-body
       - if teammate.errors.present?
         .alert.alert-error
@@ -25,7 +23,5 @@
       = f.input :color, as: :select, collection: Teammate::COLORS
       = f.association :account, collection: @team.accounts, label_method: :email
     .modal-footer
-      %a.btn(href data-dismiss="modal") Cancel
-      = f.button :submit, class: "btn-primary",
-        data: {create: t("helpers.submit.create", model: "teammate"),
-               update: t("helpers.submit.update", model: "teammate")}
+      = link_to "Cancel", teammates_path, class: "btn"
+      = f.button :submit, class: "btn-primary"

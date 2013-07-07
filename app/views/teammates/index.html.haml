@@ -1,4 +1,4 @@
-= render "main", new_teammate: @new_teammate, teammates: @teammates
+= render "main", teammates: @teammates
 - if @teammate.present?
   - cache @teammate do
     = render "editor", id: "show-now", teammate: @teammate

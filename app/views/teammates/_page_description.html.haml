@@ -1,6 +1,6 @@
 %p Manage the list of teammates to use.
 %p
-  %a.btn.btn-primary#new-teammate-button(href)
+  = link_to new_teammate_path, class: "btn btn-primary" do
     %i.icon-plus.icon-white
     Teammate
   = link_to "/", class: "btn btn-success", data: {push: true} do

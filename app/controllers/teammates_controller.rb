@@ -1,10 +1,18 @@
 class TeammatesController < ApplicationController
   before_action :authorize
   before_action :find_team
-  before_action :find_teammate, only: [:update, :destroy]
+  before_action :find_teammate, only: [:edit, :update, :destroy]
 
   def index
-    @new_teammate = Teammate.new
+    @teammates = @team.teammates.decorate
+  end
+
+  def new
+    @teammate = Teammate.new
+    @teammates = @team.teammates.decorate
+  end
+
+  def edit
     @teammates = @team.teammates.decorate
   end
 
@@ -13,7 +21,9 @@ class TeammatesController < ApplicationController
     if @teammate.save
       redirect_to teammates_url, notice: "New teammate was created."
     else
-      render_index_action
+      @team.teammates.reload
+      new
+      render :new
     end
   end
 
@@ -21,7 +31,9 @@ class TeammatesController < ApplicationController
     if @teammate.update(teammate_params)
       redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was updated."
     else
-      render_index_action
+      @team.teammates.reload
+      edit
+      render :edit
     end
   end
 
