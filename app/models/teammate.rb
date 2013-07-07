@@ -21,8 +21,8 @@ class Teammate < ActiveRecord::Base
   belongs_to :team
   belongs_to :account
 
-  validates :name,     presence: true, uniqueness: true
-  validates :initials, presence: true, uniqueness: true
+  validates :name,     presence: true, uniqueness: {case_sensitive: false}
+  validates :initials, presence: true, uniqueness: {case_sensitive: false}
   validates :roles,    presence: {message: "can't be empty"}
   validates :color,    presence: true,
                        inclusion: {in: COLORS, allow_nil: true}

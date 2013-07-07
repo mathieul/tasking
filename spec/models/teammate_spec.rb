@@ -13,7 +13,7 @@ describe Teammate do
 
     it "has a unique name" do
       create(:teammate, name: "Unique Name")
-      teammate = build(:teammate, name: "Unique Name")
+      teammate = build(:teammate, name: "unique name")
       expect(teammate).to have(1).error_on(:name)
     end
 
@@ -36,7 +36,7 @@ describe Teammate do
 
     it "has unique initials in the team" do
       create(:teammate, initials: "MLA")
-      teammate = build(:teammate, initials: "MLA")
+      teammate = build(:teammate, initials: "mla")
       expect(teammate).to have(1).error_on(:initials)
     end
   end
