@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15.1'
@@ -41,7 +41,7 @@ gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.4'
 
-gem 'puma', '~> 2.2.0'
+gem 'puma', '~> 2.3.1'
 
 gem 'nokogiri'
 gem 'css_parser'
