@@ -21,7 +21,7 @@ class TeammatesController < ApplicationController
     if @teammate.save
       redirect_to teammates_url, notice: "New teammate was created."
     else
-      setup_to_render_main
+      setup_to_render_main(true)
       render :new
     end
   end
@@ -30,7 +30,7 @@ class TeammatesController < ApplicationController
     if @teammate.update(teammate_params)
       redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was updated."
     else
-      setup_to_render_main
+      setup_to_render_main(true)
       render :edit
     end
   end
@@ -42,8 +42,8 @@ class TeammatesController < ApplicationController
 
   private
 
-  def setup_to_render_main
-    @team.teammates.reload
+  def setup_to_render_main(reload = false)
+    @team.teammates.reload if reload
     @teammates = @team.teammates.decorate
   end
 
