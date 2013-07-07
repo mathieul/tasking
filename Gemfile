@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15.1'
@@ -30,7 +30,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.0.0'
 
-gem 'wiselinks', '~> 0.7.0'
+gem 'wiselinks', '0.7.2'
 
 gem 'simple_form', github: 'plataformatec/simple_form',
                    ref: 'dcf4862972792abafeefd73f6b1d385322a64115'
