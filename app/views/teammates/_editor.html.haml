@@ -6,7 +6,7 @@
       data: {replace: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
-      %button.close(type="button" data-dismiss="modal") x
+      = link_to "x", teammates_path, class: "close"
       %h3.title New teammate
     .modal-body
       - if teammate.errors.present?
