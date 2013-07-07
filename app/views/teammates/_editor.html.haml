@@ -1,10 +1,9 @@
-.modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
+.modal.hide{id: id, tabindex: -1, role: "dialog", class: teammate.errors.empty? ? "fade" : "" }
   = simple_form_for teammate,
       url: url,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
       data: {replace: true} do |f|
-    = hidden_field_tag "_method", "post", id: nil
     .modal-header
       = link_to "x", teammates_path, class: "close"
       %h3.title= title
@@ -18,7 +17,7 @@
             teammate.
           Please fix the errors below.
       = f.input :name
-      = f.input :initials
+      = f.input :initials, required: false
       = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
       = f.input :color, as: :select, collection: Teammate::COLORS
       = f.association :account, collection: @team.accounts, label_method: :email

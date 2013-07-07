@@ -18,4 +18,4 @@ class TeammatesController
       time.text moment(time.attr("datetime")).fromNow()
 
   showNowIfPresent: ->
-    $("#show-now").modal("show")
+    $("#show-now").modal()
