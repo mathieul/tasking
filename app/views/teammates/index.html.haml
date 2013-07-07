@@ -1,4 +1,1 @@
 = render "main", teammates: @teammates
-- if @teammate.present?
-  - cache @teammate do
-    = render "editor", id: "show-now", teammate: @teammate

@@ -1,13 +1,13 @@
 .modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
   = simple_form_for teammate,
-      url: create_teammates_path(teammate),
+      url: url,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
       data: {replace: true} do |f|
     = hidden_field_tag "_method", "post", id: nil
     .modal-header
       = link_to "x", teammates_path, class: "close"
-      %h3.title New teammate
+      %h3.title= title
     .modal-body
       - if teammate.errors.present?
         .alert.alert-error

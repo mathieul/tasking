@@ -1,3 +1,5 @@
 = render "main", teammates: @teammates
 - cache @teammate do
-  = render "editor", id: "show-now", teammate: @teammate
+  = render "editor", id: "show-now", teammate: @teammate,
+                                     title: "New teammate",
+                                     url: create_teammates_path(@teammate)
