@@ -10,6 +10,6 @@
         Edit Teammate
     %li.divider
     %li
-      = link_to teammate_path(target), method: :delete do
+      = link_to teammate_path(target), method: :delete, data: {remote: true} do
         %i.icon-minus-sign
         Delete Teammate

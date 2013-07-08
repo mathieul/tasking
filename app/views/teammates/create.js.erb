@@ -1,8 +1,0 @@
-App.teammates.teardown();
-$("#editor")
-  .addClass("fade")
-  .modal("hide");
-$("#main").html("<%= escape_javascript render('teammates_list', teammates: @teammates) %>");
-$("<%= escape_javascript render('shared/flash', type: 'success', message: 'New teammate was created.', auto_close: true) %>").prependTo("#page-description");
-Turbolinks.visit("<%= teammates_url %>");
-App.teammates.setup();

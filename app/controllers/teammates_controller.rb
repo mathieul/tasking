@@ -20,10 +20,11 @@ class TeammatesController < ApplicationController
     @teammate = @team.teammates.build(teammate_params)
     respond_to do |format|
       if @teammate.save
-        format.html { redirect_to teammates_url, notice: "New teammate was created." }
+        notice = "New teammate was created."
+        format.html { redirect_to teammates_url, notice: notice }
         format.js {
           setup_to_render_main(true)
-          render :create, status: :turbolinks
+          render template: "teammates/refresh", locals: {notice: notice}
         }
       else
         format.html {
@@ -45,7 +46,14 @@ class TeammatesController < ApplicationController
 
   def destroy
     @teammate.destroy
-    redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was deleted."
+    notice = "Teammate #{@teammate.name.inspect} was deleted."
+    respond_to do |format|
+      format.html { redirect_to teammates_url, notice: notice }
+      format.js {
+        setup_to_render_main(true)
+        render template: "teammates/refresh", locals: {notice: notice}
+      }
+    end
   end
 
   private
