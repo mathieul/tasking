@@ -1,16 +1,9 @@
-class TeammatesController
+#= require ../lib/base_controller
+
+class TeammatesController extends App.BaseController
   setup: ->
     @labelTimeTags()
     @showEditorIfPresent()
-
-  teardown: ->
-
-  labelTimeTags: ->
-    $('time').each ->
-      time = $(this)
-      time.text moment(time.attr("datetime")).fromNow()
-
-  showEditorIfPresent: ->
-    $("#editor").modal()
+    @autoCloseAlerts()
 
 @App.teammates = new TeammatesController
