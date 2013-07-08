@@ -32,7 +32,6 @@ gem 'jquery-rails', '~> 3.0.0'
 
 gem 'turbolinks', '~> 1.2.0'
 gem 'jquery-turbolinks', '~> 1.0.0'
-gem 'turbolinks-redirect', '~> 0.0.1'
 
 gem 'simple_form', github: 'plataformatec/simple_form',
                    ref: 'dcf4862972792abafeefd73f6b1d385322a64115'

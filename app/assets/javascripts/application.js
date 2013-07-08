@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require turbolinks.redirect
+//= require ./lib/turbolinks_reflect_url
 //= require bootstrap-alert
 //= require bootstrap-transition
 //= require bootstrap-modal
