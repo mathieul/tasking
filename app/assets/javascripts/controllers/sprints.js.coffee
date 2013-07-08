@@ -1,10 +1,8 @@
-#= require ../lib/wiselinks_manager
 #= require ../lib/task_table
 
 controller = null
 
 @App.initSprints = (options = {}) ->
-  App.WiselinksManager.setup()
   controller = new SprintsController(options)
   controller.run()
 

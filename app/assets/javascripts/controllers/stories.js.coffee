@@ -1,11 +1,9 @@
 #= require ../lib/story_editor
 #= require ../lib/modal_editor_controller
-#= require ../lib/wiselinks_manager
 
 controller = null
 
 @App.initStories = (options) ->
-  App.WiselinksManager.setup()
   controller = new StoriesController(options)
   controller.run()
 

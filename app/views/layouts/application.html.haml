@@ -4,6 +4,21 @@
     %title= page_title
     = stylesheet_link_tag "application", :media => "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
-    = wiselinks_meta_tag
     = csrf_meta_tags
-  = render template: "layouts/wiselinks"
+
+  %body#body.preserve-scroll
+    = render "layouts/navigation_bar"
+    %header.title
+      .summary-bar.container
+        .row
+          %div{page_width(:title)}
+            %h1= page_title
+          %div{page_width(:description)}
+            = flash_messages
+            = yield(:page_description)
+
+    .main-content{page_container}
+      %br
+      = yield
+
+    = yield :javascript

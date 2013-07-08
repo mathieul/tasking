@@ -1,19 +1,4 @@
 Tasking::Application.routes.draw do
-  # allow get for use with wiselinks
-  concern :wiselinkable do
-    collection do
-      get "create", as: "create"
-    end
-    member do
-      get "update", as: "update"
-    end
-  end
-  concern :wiselinkable_destroy do
-    member do
-      get "destroy", as: "destroy"
-    end
-  end
-
   # authentication
   resources :accounts, only: [:new, :create] do
     get "activate/:token", as: :activate, on: :collection, action: :activate
@@ -27,32 +12,28 @@ Tasking::Application.routes.draw do
   get "sign_out" => "sessions#destroy", as: :sign_out
 
   # backlog
-  resources :stories, concerns: [:wiselinkable, :wiselinkable_destroy] do
+  resources :stories do
     collection do
-      match "update_velocity", via: [:get, :post]
+      post "update_velocity"
     end
     member do
-      match "update_position", via: [:get, :post]
+      post "update_position"
     end
   end
 
   # sprints
-  resources :sprints, only: [:index, :new, :create, :edit, :update], concerns: :wiselinkable
+  resources :sprints, only: [:index, :new, :create, :edit, :update]
   resources :taskable_stories, only: [:update] do
-    member do
-      get "update", as: "update"
-    end
     resources :tasks, only: [:create, :update, :destroy] do
-      concerns :wiselinkable, :wiselinkable_destroy
       member do
-        match "progress", via: [:get, :post]
-        match "complete", via: [:get, :post]
+        post "progress"
+        post "complete"
       end
     end
   end
 
   # config
-  resources :teammates, concerns: [:wiselinkable, :wiselinkable_destroy]
+  resources :teammates
 
   root to: "home#redirect"
 end

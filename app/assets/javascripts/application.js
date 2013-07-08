@@ -11,8 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require wiselinks
 //= require jquery_ujs
+//= require jquery.turbolinks
+//= require turbolinks
 //= require bootstrap-alert
 //= require bootstrap-transition
 //= require bootstrap-modal

@@ -1,6 +1,5 @@
 .modal.hide{id: id, tabindex: -1, role: "dialog", class: teammate.errors.empty? ? "fade" : "" }
   = simple_form_for teammate,
-      url: url,
       html: {class: "form-horizontal", id: nil},
       defaults: {input_html: {class: "input-xlarge"}},
       data: {replace: true} do |f|

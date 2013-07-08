@@ -30,7 +30,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.0.0'
 
-gem 'wiselinks', '0.7.2'
+gem 'turbolinks', '~> 1.2.0'
+gem 'jquery-turbolinks', '~> 1.0.0'
 
 gem 'simple_form', github: 'plataformatec/simple_form',
                    ref: 'dcf4862972792abafeefd73f6b1d385322a64115'

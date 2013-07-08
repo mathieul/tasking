@@ -11,7 +11,6 @@
   .row
     %section
       = simple_form_for @sprint,
-          url: create_sprints_path,
           html: {class: "form-horizontal", id: nil},
           defaults: {input_html: {class: "input-xlarge"}},
           data: {replace: true} do |f|

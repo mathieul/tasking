@@ -1,9 +1,6 @@
-#= require ../lib/wiselinks_manager
-
 controller = null
 
 @App.initTeammates = (options) ->
-  App.WiselinksManager.setup()
   controller = new TeammatesController(options)
   controller.run()
 

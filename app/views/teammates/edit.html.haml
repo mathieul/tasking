@@ -1,5 +1,4 @@
 = render "main", teammates: @teammates
 - cache @teammate do
   = render "editor", id: "show-now", teammate: @teammate,
-                                     title: "Edit teammate #{@teammate.name.inspect}",
-                                     url: update_teammate_path(@teammate)
+                                     title: "Edit teammate #{@teammate.name.inspect}"

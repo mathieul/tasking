@@ -36,7 +36,7 @@ class TeammatesController < ApplicationController
   end
 
   def destroy
-    @teammate.destroy
+    # @teammate.destroy
     redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was deleted."
   end
 
