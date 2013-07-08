@@ -1,4 +1,3 @@
 = render "main", teammates: @teammates
 - cache @teammate do
-  = render "editor", id: "show-now", teammate: @teammate,
-                                     title: "Edit teammate #{@teammate.name.inspect}"
+  = render "editor", teammate: @teammate, title: "Edit teammate #{@teammate.name.inspect}"

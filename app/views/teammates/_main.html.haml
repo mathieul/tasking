@@ -3,7 +3,7 @@
   = render "page_description"
 
 - content_for :javascript do
-  = javascript_tag "App.initTeammates();"
+  = javascript_tag "App.teammates.setup();"
 
 - cache teammates do
   = render "teammates_list", teammates: teammates

@@ -1,8 +1,8 @@
-.modal.hide{id: id, tabindex: -1, role: "dialog", class: teammate.errors.empty? ? "fade" : "" }
+#editor.modal.hide{tabindex: -1, role: "dialog", class: teammate.errors.empty? ? "fade" : "" }
   = simple_form_for teammate,
-      html: {class: "form-horizontal", id: nil},
+      html: {class: "form-horizontal"},
       defaults: {input_html: {class: "input-xlarge"}},
-      data: {replace: true} do |f|
+      data: {remote: true} do |f|
     .modal-header
       = link_to "x", teammates_path, class: "close"
       %h3.title= title

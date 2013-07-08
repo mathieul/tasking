@@ -1,18 +1,16 @@
-controller = null
-
-@App.initTeammates = (options) ->
-  controller = new TeammatesController(options)
-  controller.run()
-
 class TeammatesController
-  run: ->
+  setup: ->
     @labelTimeTags()
-    @showNowIfPresent()
+    @showEditorIfPresent()
+
+  teardown: ->
 
   labelTimeTags: ->
     $('time').each ->
       time = $(this)
       time.text moment(time.attr("datetime")).fromNow()
 
-  showNowIfPresent: ->
-    $("#show-now").modal()
+  showEditorIfPresent: ->
+    $("#editor").modal()
+
+@App.teammates = new TeammatesController

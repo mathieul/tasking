@@ -13,12 +13,12 @@
         .row
           %div{page_width(:title)}
             %h1= page_title
-          %div{page_width(:description)}
+          #page-description{page_width(:description)}
             = flash_messages
             = yield(:page_description)
 
     .main-content{page_container}
       %br
-      = yield
-
-    = yield :javascript
+      #main
+        = yield
+        = yield :javascript
