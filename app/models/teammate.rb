@@ -28,7 +28,24 @@ class Teammate < ActiveRecord::Base
                        inclusion: {in: COLORS, allow_nil: true}
   validates :team,     presence: true
 
+  before_validation :set_initials_if_missing
+
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }
   scope :tech_leads, -> { with_role("tech_lead").order("name") }
   scope :product_managers, -> { with_role("product_manager").order("name") }
+
+  private
+
+  def set_initials_if_missing
+    return if initials.present? || name.nil?
+    names = name.split(/\s/)
+    self.initials = case names.length
+                    when 0
+                      ""
+                    when 1
+                      names.first[0..2].upcase
+                    else
+                      names.map(&:first).join.upcase
+                    end
+  end
 end
