@@ -33,7 +33,11 @@ Tasking::Application.routes.draw do
   end
 
   # config
-  resources :teammates
+  resources :teammates do
+    collection do
+      get :export
+    end
+  end
 
   root to: "home#redirect"
 end

@@ -50,6 +50,15 @@ class TeammatesController < ApplicationController
     end
   end
 
+  def export
+    respond_to do |format|
+      format.csv {
+        send_data(exporter.teammates(:csv, team: @team),
+          filename: "teammates-#{Time.zone.today.to_s(:db)}.csv")
+      }
+    end
+  end
+
   private
 
   def setup_to_render_main(reload = false)
@@ -89,5 +98,9 @@ class TeammatesController < ApplicationController
 
   def find_teammate
     @teammate = @team.teammates.find(params.require(:id))
+  end
+
+  def exporter
+    DataExchangeService.new.export
   end
 end

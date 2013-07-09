@@ -1,14 +1,14 @@
 %p Manage the list of teammates to use.
 %p
-  = link_to new_teammate_path, class: "btn btn-primary", data: {push: true} do
+  = link_to new_teammate_path, class: "btn btn-primary" do
     %i.icon-plus.icon-white
     Teammate
-  = link_to "/", class: "btn btn-success", data: {push: true} do
+  = link_to "/", class: "btn btn-success" do
     %i.icon-upload.icon-white
     Import
     %i.icon-arrow-left.icon-white
     CSV
-  = link_to "/", class: "btn btn-info", data: {push: true} do
+  = link_to export_teammates_path(format: :csv), class: "btn btn-info", data: {no_turbolink: true} do
     %i.icon-download.icon-white
     Export
     %i.icon-arrow-right.icon-white
