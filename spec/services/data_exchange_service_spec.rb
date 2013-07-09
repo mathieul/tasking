@@ -74,6 +74,18 @@ describe DataExchangeService do
           import.teammates(csv: "blah blah blah\ntiti", team: team)
         }.to raise_error(ArgumentError)
       end
+
+      it "returns a hash with number of teammates added and updated" do
+        result = import.teammates(csv: csv, team: team)
+        expect(result).to eq(added: 3, updated: 0)
+        csv2 = file_content <<-EOC
+          | name,color,initials
+          | george oscar bluth,purple,GB
+          | james bond,black
+        EOC
+        result = import.teammates(csv:csv2, team: team)
+        expect(result).to eq(added: 1, updated: 1)
+      end
     end
   end
 
