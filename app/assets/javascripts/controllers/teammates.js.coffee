@@ -5,5 +5,6 @@ class TeammatesController extends App.BaseController
     @labelTimeTags()
     @showEditorIfPresent()
     @autoCloseAlerts()
+    @transitionWhenClosingModals()
 
 @App.teammates = new TeammatesController
