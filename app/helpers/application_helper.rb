@@ -25,8 +25,9 @@ module ApplicationHelper
   def flash_messages
     flash.each.with_object([]) do |(type, message), notices|
       next unless message
-      type = :success if type == :notice
-      notices << content_tag(:div, class: "alert fade in alert-#{type} auto-close") do
+      classes = %W[alert fade in alert-#{type == :notice ? :success : type}]
+      classes << "auto-close" if type == :notice
+      notices << content_tag(:div, class: classes.join(" ")) do
         link_to("x", "javascript:void(0)", class: "close", "data-dismiss" => "alert") + message
       end
     end.join("\n").html_safe
