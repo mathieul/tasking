@@ -21,6 +21,7 @@
 //= require bootstrap-dropdown
 //= require bootstrap-button
 //= require bootstrap-datetimepicker.min
+//= require bootstrap-fileupload
 //= require jquery-ui/jquery.ui.core
 //= require jquery-ui/jquery.ui.widget
 //= require jquery-ui/jquery.ui.mouse
