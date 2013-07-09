@@ -16,7 +16,7 @@ set :application, "tasking"
 set :domain, "cloudigisafe.com"
 set :repository,  "git@github.com:mathieul/tasking.git"
 set :scm, :git
-set :branch, "origin/master"
+set :branch, "origin/turbolinks"
 set :deploy_via, :remote_cache
 set :migrate_target,  :current
 set :ssh_options, forward_agent: true
