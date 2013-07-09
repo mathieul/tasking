@@ -1,0 +1,25 @@
+= render "main", teammates: @teammates
+- cache "v1" do
+  #editor.modal.fade.hide{tabindex: -1, role: "dialog"}
+    = form_tag import_teammates_path, multipart: true, class: "form-horizontal" do
+      .modal-header
+        = link_to "x", teammates_path, class: "close"
+        %h3.title Import Teammates
+      .modal-body
+        %p
+          Create a CSV file with a header containing at least
+          - DataExchange::ImportTeammatesCsv::MANDATORY.each do |name|
+            %code= name
+        .fileupload.fileupload-new(data-provides="fileupload")
+          .input-append
+            .uneditable-input.span3
+              %i.icon-file.fileupload-exists
+              %span.fileupload-preview
+            %span.btn.btn-file
+              %span.fileupload-new Select File
+              %span.fileupload-exists Change
+              = file_field_tag :file, accept: "text/csv"
+            %a.btn.fileupload-exists(href data-dismiss="fileupload") Remove
+      .modal-footer
+        = link_to "Cancel", teammates_path, class: "btn"
+        = submit_tag "Upload File", class: "btn-primary"

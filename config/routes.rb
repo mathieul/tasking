@@ -36,6 +36,8 @@ Tasking::Application.routes.draw do
   resources :teammates do
     collection do
       get :export
+      get :import_form
+      post :import
     end
   end
 

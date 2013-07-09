@@ -59,6 +59,10 @@ class TeammatesController < ApplicationController
     end
   end
 
+  def import_form
+    setup_to_render_main
+  end
+
   private
 
   def setup_to_render_main(reload = false)
