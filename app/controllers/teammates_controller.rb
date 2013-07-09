@@ -63,6 +63,12 @@ class TeammatesController < ApplicationController
     setup_to_render_main
   end
 
+  def import
+    result = importer.teammates(csv: import_params.read, team: @team)
+    flash[:info] = "Import was successful: #{result[:added]} added, #{result[:updated]} updated."
+    redirect_to teammates_url
+  end
+
   private
 
   def setup_to_render_main(reload = false)
@@ -100,11 +106,19 @@ class TeammatesController < ApplicationController
     secured
   end
 
+  def import_params
+    params.require(:file)
+  end
+
   def find_teammate
     @teammate = @team.teammates.find(params.require(:id))
   end
 
   def exporter
     DataExchangeService.new.export
+  end
+
+  def importer
+    DataExchangeService.new.import
   end
 end
