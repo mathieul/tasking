@@ -6,6 +6,5 @@
            progress_url: progress_taskable_story_task_path("__taskable_story_id__", "__id__"),
            progress_method: "post",
            complete_url: complete_taskable_story_task_path("__taskable_story_id__", "__id__"),
-           complete_method: "post",
-           replace: true} do |f|
+           complete_method: "post"} do |f|
   = hidden_field_tag "_method", nil, id: "command_form_method"

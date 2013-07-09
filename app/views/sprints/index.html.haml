@@ -2,7 +2,7 @@
 - page_description do
   %p
     Access recent and older sprints or
-    = link_to "Create a sprint", stories_path, class: "btn", data: {push: true}
+    = link_to "Create a sprint", stories_path, class: "btn"
     from the backlog.
 
 - content_for :javascript do
@@ -29,7 +29,7 @@
         - @sprints.each do |sprint|
           - cache [sprint, @today] do
             %tr{class: sprint.current? ? "success" : ""}
-              %td= link_to sprint.label, edit_sprint_path(sprint), data: {push: true}
+              %td= link_to sprint.label, edit_sprint_path(sprint)
               %td= sprint.start_on
               %td= sprint.end_on
               %td= sprint.projected_velocity

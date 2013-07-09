@@ -7,14 +7,11 @@
         = link_to "New Sprint",
           new_sprint_path(sprint: {story_ids: velocity.included_story_ids}),
           class: "btn btn-success",
-          id: "btn-new-sprint",
-          data: {push: true}
+          id: "btn-new-sprint"
   %td
     %strong= velocity.sum
   %td
-    = form_tag update_velocity_stories_path,
-               class: "form-inline-row",
-               data: {replace: true} do
+    = form_tag update_velocity_stories_path, class: "form-inline-row" do
       = number_field_tag :velocity, velocity.value,
                                     min: 1,
                                     class: "input-mini",

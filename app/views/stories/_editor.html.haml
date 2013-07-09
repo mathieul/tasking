@@ -1,8 +1,7 @@
 .modal.hide.fade{id: id, tabindex: -1, role: "dialog"}
   = simple_form_for story,
       html: {class: "form-horizontal", id: nil},
-      defaults: {input_html: {class: "input-xlarge"}},
-      data: {replace: true} do |f|
+      defaults: {input_html: {class: "input-xlarge"}} do |f|
     = hidden_field_tag "_method", "post", id: nil
     = f.hidden_field :row_order_position
     .modal-header

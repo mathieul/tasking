@@ -2,7 +2,7 @@
   .navbar-inner
     .container
       - brand_path = current_account ? stories_path : root_path
-      = link_to "Tasking", brand_path, class: "brand", data: {push: true}
+      = link_to "Tasking", brand_path, class: "brand"
       .nav-collapse.collapse
         %ul.nav
           %li.divider-vertical

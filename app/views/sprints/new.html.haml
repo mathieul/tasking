@@ -12,8 +12,7 @@
     %section
       = simple_form_for @sprint,
           html: {class: "form-horizontal", id: nil},
-          defaults: {input_html: {class: "input-xlarge"}},
-          data: {replace: true} do |f|
+          defaults: {input_html: {class: "input-xlarge"}} do |f|
 
         - @stories.each do |story|
           = hidden_field_tag "sprint[story_ids][]", story.id, id: nil
@@ -39,4 +38,4 @@
           .form-actions
             = f.button :submit, class: "btn-primary"
             or
-            = link_to "Cancel", stories_path, class: "btn", data: {push: true}
+            = link_to "Cancel", stories_path, class: "btn"
