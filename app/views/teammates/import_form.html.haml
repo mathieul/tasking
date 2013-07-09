@@ -7,9 +7,18 @@
         %h3.title Import Teammates
       .modal-body
         %p
-          Create a CSV file with a header containing at least
-          - DataExchange::ImportTeammatesCsv::MANDATORY.each do |name|
+          Please select the CSV file to import and click on
+          %em Upload File.
+        %p
+          The file must contain a header with at least those required columns:
+          - @required_columns.each do |name|
             %code= name
+        %p
+          Those columns are optional:
+          - @optional_columns.each do |name|
+            %code= name
+        %br
+
         .fileupload.fileupload-new(data-provides="fileupload")
           .input-append
             .uneditable-input.span3

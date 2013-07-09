@@ -63,6 +63,8 @@ class TeammatesController < ApplicationController
 
   def import_form
     setup_to_render_main
+    @required_columns = DataExchange::ImportTeammatesCsv::MANDATORY
+    @optional_columns = DataExchange::ExportTeammatesCsv::HEADER - @required_columns
   end
 
   def import
