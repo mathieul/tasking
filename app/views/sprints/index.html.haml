@@ -17,7 +17,7 @@
             %p
               There are no sprints yet.
   - else
-    %table.table.table-stripped.table-hover#sprints
+    %table.table.table-stripped.table-hover#sprints(data-provides="rowlink")
       %thead.table
         %tr
           %th Number
@@ -29,7 +29,7 @@
         - @sprints.each do |sprint|
           - cache [sprint, @today] do
             %tr{class: sprint.current? ? "success" : ""}
-              %td= link_to sprint.label, edit_sprint_path(sprint)
+              %td= link_to sprint.label, edit_sprint_path(sprint), class: "rowlink"
               %td= sprint.start_on
               %td= sprint.end_on
               %td= sprint.projected_velocity
