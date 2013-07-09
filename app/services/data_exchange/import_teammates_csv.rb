@@ -9,7 +9,7 @@ module DataExchange
       CSV.parse(content, headers: true) do |csv|
         attributes = csv.to_hash
         unless (MANDATORY - attributes.keys).empty?
-          raise ArgumentError, "missing mandatory attributes: #{MANDATORY.join(", ")}"
+          raise ArgumentError, "some or all required columns are missing (#{MANDATORY.join(", ")})."
         end
         operation = create_teammate(csv.to_hash, common_attributes)
         result[operation] += 1

@@ -70,6 +70,9 @@ class TeammatesController < ApplicationController
   def import
     result = importer.teammates(csv: import_params.read, team: @team)
     flash[:info] = "Import was successful: #{result[:added]} added, #{result[:updated]} updated."
+  rescue StandardError => error
+    flash[:error] = "Import failed: #{error.message}"
+  ensure
     redirect_to teammates_url
   end
 
