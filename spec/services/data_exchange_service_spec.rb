@@ -46,6 +46,33 @@ describe DataExchangeService do
         expect(Teammate.find_by(name: "Simple").initials).to eq("SIM")
       end
 
+      it "sets the roles to teammate" do
+        import.teammates(csv: csv, team: team)
+        expect(Teammate.find_by(name: "John").roles).to eq(["teammate"])
+        expect(Teammate.find_by(name: "George Oscar Bluth").roles).to eq(["teammate"])
+        expect(Teammate.find_by(name: "Simple").roles).to eq(["teammate"])
+      end
+
+      context "mandatory and optional columns" do
+        it "requires columns name and colors" do
+          expect { import.teammates(csv: "name\njoe", team: team) }.to raise_error(ArgumentError)
+          expect { import.teammates(csv: "color\npink", team: team) }.to raise_error(ArgumentError)
+          expect { import.teammates(csv: "name,color\njoe,pink", team: team) }.not_to raise_error
+        end
+
+        it "can import the initials" do
+          import.teammates(csv: "name,color,initials\njoe,pink,JB", team: team)
+          expect(Teammate.find_by(name: "Joe").initials).to eq("JB")
+        end
+
+        it "can import the roles" do
+          import.teammates(csv: "name,color,roles\njoe,pink,product_manager admin", team: team)
+          joe = Teammate.find_by(name: "Joe")
+          expect(joe.roles).to include("product_manager")
+          expect(joe.roles).to include("admin")
+        end
+      end
+
       it "doesn't re-create existing teammates" do
         import.teammates(csv: csv, team: team)
         expect {

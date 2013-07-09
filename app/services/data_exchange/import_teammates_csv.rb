@@ -20,7 +20,9 @@ module DataExchange
     private
 
     def create_teammate(requested, common_attributes)
-      attributes = common_attributes.merge(roles: %w[teammate]).merge(requested)
+      attributes = common_attributes.merge(requested)
+      attributes["roles"] = attributes["roles"].split if attributes["roles"].is_a?(String)
+      attributes["roles"] ||= ["teammate"]
       attributes["name"] = attributes["name"].titleize if attributes["name"]
       teammate = Teammate.find_or_initialize_by(attributes.slice("name"))
       result = teammate.new_record? ? :added : :updated
