@@ -33,5 +33,10 @@ $color-pairs: baby-blue   #508de5 white,
       background-color: $background-lighten;
       color: $foreground-color;
     }
+
+    .table-hover tr.rowlink:hover > & {
+      background-color: desaturate($background-color, 50%);
+      color: $foreground-color;
+    }
   }
 }
