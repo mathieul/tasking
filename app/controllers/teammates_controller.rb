@@ -24,20 +24,22 @@ class TeammatesController < ApplicationController
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { render_refresh_main(notice: notice, auto_close: true) }
       else
-        format.html {
-          setup_to_render_main(true)
-          render :new
-        }
+        format.html { setup_to_render_main(true); render :edit }
+        format.js
       end
     end
   end
 
   def update
-    if @teammate.update(teammate_params)
-      redirect_to teammates_url, notice: "Teammate #{@teammate.name.inspect} was updated."
-    else
-      setup_to_render_main(true)
-      render :edit
+    respond_to do |format|
+      if @teammate.update(teammate_params)
+        notice = "Teammate #{@teammate.name.inspect} was updated."
+        format.html { redirect_to teammates_url, notice: notice }
+        format.js   { render_refresh_main(notice: notice, auto_close: true) }
+      else
+        format.html { setup_to_render_main(true); render :edit }
+        format.js
+      end
     end
   end
 
@@ -61,11 +63,16 @@ class TeammatesController < ApplicationController
 
   def import_form
     setup_to_render_main
+    @required_columns = DataExchange::ImportTeammatesCsv::MANDATORY
+    @optional_columns = DataExchange::ExportTeammatesCsv::HEADER - @required_columns
   end
 
   def import
     result = importer.teammates(csv: import_params.read, team: @team)
     flash[:info] = "Import was successful: #{result[:added]} added, #{result[:updated]} updated."
+  rescue StandardError => error
+    flash[:error] = "Import failed: #{error.message}"
+  ensure
     redirect_to teammates_url
   end
 

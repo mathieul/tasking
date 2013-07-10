@@ -14,6 +14,7 @@ class DataExchangeService
   end
 
   def teammates(format = nil, request)
+    format, request = request, {} unless request.is_a?(Hash)
     request[format] = true if format
     run_exchange("Teammates", request)
   end

@@ -46,6 +46,33 @@ describe DataExchangeService do
         expect(Teammate.find_by(name: "Simple").initials).to eq("SIM")
       end
 
+      it "sets the roles to teammate" do
+        import.teammates(csv: csv, team: team)
+        expect(Teammate.find_by(name: "John").roles).to eq(["teammate"])
+        expect(Teammate.find_by(name: "George Oscar Bluth").roles).to eq(["teammate"])
+        expect(Teammate.find_by(name: "Simple").roles).to eq(["teammate"])
+      end
+
+      context "mandatory and optional columns" do
+        it "requires columns name and colors" do
+          expect { import.teammates(csv: "name\njoe", team: team) }.to raise_error(ArgumentError)
+          expect { import.teammates(csv: "color\npink", team: team) }.to raise_error(ArgumentError)
+          expect { import.teammates(csv: "name,color\njoe,pink", team: team) }.not_to raise_error
+        end
+
+        it "can import the initials" do
+          import.teammates(csv: "name,color,initials\njoe,pink,JB", team: team)
+          expect(Teammate.find_by(name: "Joe").initials).to eq("JB")
+        end
+
+        it "can import the roles" do
+          import.teammates(csv: "name,color,roles\njoe,pink,product_manager admin", team: team)
+          joe = Teammate.find_by(name: "Joe")
+          expect(joe.roles).to include("product_manager")
+          expect(joe.roles).to include("admin")
+        end
+      end
+
       it "doesn't re-create existing teammates" do
         import.teammates(csv: csv, team: team)
         expect {
@@ -91,19 +118,36 @@ describe DataExchangeService do
 
   context "export teammate CSV file" do
     let(:export) { DataExchangeService.new.export }
+    let(:masada) { create(:team, name: "Masada") }
 
     it "exports the teammates for a team as CSV" do
-      masada = create(:team, name: "Masada")
-      create(:teammate, name: "John Zorn", color: "black", initials: "JZO", team: masada)
-      create(:teammate, name: "Greg Cohen", color: "pink", initials: "GCO", team: masada)
-      create(:teammate, name: "Dave Douglas", color: "baby-blue", initials: "DDO", team: masada)
-      create(:teammate, name: "Joey Baron", color: "purple", initials: "JBA", team: masada)
+      create(:teammate, name: "John Zorn", color: "black", initials: "JZO",
+                        roles: %w[teammate product_manager])
+      create(:teammate, name: "Greg Cohen", color: "pink", initials: "GCO",
+                        roles: %w[tech_lead teammate])
+      create(:teammate, name: "Dave Douglas", color: "baby-blue", initials: "DDO",
+                        roles: %w[product_manager])
+      create(:teammate, name: "Joey Baron", color: "purple", initials: "JBA",
+                        roles: %w[teammate])
       expected_csv = file_content <<-EOC
-        | name,color,initials
-        | Dave Douglas,baby-blue,DDO
-        | Greg Cohen,pink,GCO
-        | Joey Baron,purple,JBA
-        | John Zorn,black,JZO
+        | name,roles,color,initials
+        | Dave Douglas,product_manager,baby-blue,DDO
+        | Greg Cohen,teammate tech_lead,pink,GCO
+        | Joey Baron,teammate,purple,JBA
+        | John Zorn,product_manager teammate,black,JZO
+      EOC
+      expect(export.teammates(:csv)).to eq(expected_csv)
+    end
+
+    it "selects teammates to export using the filter" do
+      masada = create(:team, name: "Masada")
+      create(:teammate, name: "Different Team")
+      create(:teammate, name: "John Zorn", color: "black", initials: "JZO",
+                        roles: %w[admin], team: masada)
+      create(:teammate, name: "Another Team")
+      expected_csv = file_content <<-EOC
+        | name,roles,color,initials
+        | John Zorn,admin,black,JZO
       EOC
       expect(export.teammates(:csv, team: masada)).to eq(expected_csv)
     end

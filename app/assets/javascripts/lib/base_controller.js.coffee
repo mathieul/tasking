@@ -13,3 +13,11 @@ class @App.BaseController
   autoCloseAlerts: ->
     alerts = $(".alert.auto-close")
     setTimeout (-> alerts.alert("close")), 5000
+
+  transitionWhenClosingModals: ->
+    $(document.body).on "click", ".modal a.cancel, .modal a.close", (event) ->
+      event.preventDefault()
+      cancel = $(this)
+      cancel.closest(".modal")
+        .modal("hide")
+        .on "hidden", -> Turbolinks.visit cancel.attr("href")

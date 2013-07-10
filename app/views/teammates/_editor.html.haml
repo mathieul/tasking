@@ -1,25 +1,2 @@
 #editor.modal.hide{tabindex: -1, role: "dialog", class: teammate.errors.empty? ? "fade" : "" }
-  = simple_form_for teammate,
-      html: {class: "form-horizontal"},
-      defaults: {input_html: {class: "input-xlarge"}},
-      data: {remote: true} do |f|
-    .modal-header
-      = link_to "x", teammates_path, class: "close"
-      %h3.title= title
-    .modal-body
-      - if teammate.errors.present?
-        .alert.alert-error
-          %button.close(type="button" data-dismiss="alert") &times;
-          %strong
-            Can't
-            = teammate.persisted? ? "update" : "create"
-            teammate.
-          Please fix the errors below.
-      = f.input :name
-      = f.input :initials, required: false
-      = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
-      = f.input :color, as: :select, collection: Teammate::COLORS
-      = f.association :account, collection: @team.accounts, label_method: :email
-    .modal-footer
-      = link_to "Cancel", teammates_path, class: "btn"
-      = f.button :submit, class: "btn-primary"
+  = render "teammate_form", teammate: teammate, title: title
