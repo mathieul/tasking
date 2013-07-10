@@ -6,7 +6,7 @@
           %p
             There are no teammates yet.
 - else
-  %table.table.table-stripped.table-hover.hidden-commands(data-provides="rowlink")
+  %table.table.table-stripped.table-hover.hidden-commands
     %thead.table
       %tr
         %th Name
@@ -19,7 +19,6 @@
         - cache [teammate, index] do
           %tr
             %td<
-              = link_to "", [:edit, teammate], class: "rowlink"
               = render "edit_button", target: teammate, position: index
               = teammate.name
               (
