@@ -20,6 +20,9 @@ class TeammatesController < ApplicationController
     @teammate = @team.teammates.build(teammate_params)
     respond_to do |format|
       if @teammate.save
+        $redis_pool.with do |redis|
+          redis.publish("messages.teammates.create", {id: @teammate.id}.to_json)
+        end
         notice = "New teammate was created."
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
@@ -33,6 +36,9 @@ class TeammatesController < ApplicationController
   def update
     respond_to do |format|
       if @teammate.update(teammate_params)
+        $redis_pool.with do |redis|
+          redis.publish("messages.teammates.update", {id: @teammate.id}.to_json)
+        end
         notice = "Teammate #{@teammate.name.inspect} was updated."
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }

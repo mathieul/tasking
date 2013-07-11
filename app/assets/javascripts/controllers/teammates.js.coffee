@@ -11,6 +11,6 @@ class TeammatesController extends App.BaseController
   test: ->
     source = new EventSource("/messages/events")
     source.addEventListener "message", (event) ->
-      console.log "event:", event
+      console.log "event [#{event.event}]:", event.data
 
 @App.teammates = new TeammatesController
