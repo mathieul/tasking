@@ -4,6 +4,9 @@ $("#editor")
   .addClass("fade")
   .modal("hide");
 $("#main").html("<%= escape_javascript render(content.delete(:partial), content) %>");
+<%- if defined?(updated_id) && updated_id -%>
+setTimeout(function () { $("#<%= updated_id %>").effect("highlight", {duration: 2000}); }, 1000);
+<%- end -%>
 <%- if defined?(flash) -%>
 $("<%= escape_javascript render('shared/flash', type: (flash[:type] || 'success'), message: flash[:message], auto_close: flash[:auto_close]) %>")
   .prependTo("#page-description");

@@ -17,7 +17,7 @@
     %tbody.table
       - teammates.each.with_index do |teammate, index|
         - cache [teammate, index] do
-          %tr
+          %tr{id: dom_id(teammate)}
             %td<
               = render "edit_button", target: teammate, position: index
               = teammate.name

@@ -22,7 +22,7 @@ class TeammatesController < ApplicationController
       if @teammate.save
         notice = "New teammate was created."
         format.html { redirect_to teammates_url, notice: notice }
-        format.js   { render_refresh_main(notice: notice, auto_close: true) }
+        format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
       else
         format.html { setup_to_render_main(true); render :edit }
         format.js
@@ -35,7 +35,7 @@ class TeammatesController < ApplicationController
       if @teammate.update(teammate_params)
         notice = "Teammate #{@teammate.name.inspect} was updated."
         format.html { redirect_to teammates_url, notice: notice }
-        format.js   { render_refresh_main(notice: notice, auto_close: true) }
+        format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
       else
         format.html { setup_to_render_main(true); render :edit }
         format.js
@@ -88,6 +88,7 @@ class TeammatesController < ApplicationController
     setup_to_render_main(true)
     render template: "shared/refresh_main", locals: {
       content: {partial: "teammates/teammates_list", teammates: @teammates},
+      updated_id: options[:updated] && dom_id(options[:updated]),
       flash: options_to_flash(options),
       redirect_url: url
     }
