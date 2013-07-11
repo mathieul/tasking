@@ -18,7 +18,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: tasking_development
-  pool: 5
+  pool: 20
   username: tasking
   password:
 
@@ -55,7 +55,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: tasking_production
-  pool: 5
+  pool: 20
   username: <%= ENV["TASKING_DB_USERNAME"] %>
   password: <%= ENV["TASKING_DB_PASSWORD"] %>
   port: 5433
