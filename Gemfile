@@ -42,6 +42,9 @@ gem 'ranked-model', '~> 0.2.1'
 
 gem 'dalli', '~> 2.6.4'
 
+gem 'redis', '~> 3.0.4'
+gem 'connection_pool', '~> 1.1.0'
+
 gem 'puma', '~> 2.3.1'
 
 gem 'nokogiri'
