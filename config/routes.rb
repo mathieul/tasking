@@ -41,5 +41,9 @@ Tasking::Application.routes.draw do
     end
   end
 
+  resources :messages, only: [] do
+    collection { get :events }
+  end
+
   root to: "home#redirect"
 end

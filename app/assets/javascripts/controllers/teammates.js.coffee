@@ -6,5 +6,11 @@ class TeammatesController extends App.BaseController
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
+    @test()
+
+  test: ->
+    source = new EventSource("/messages/events")
+    source.addEventListener "message", (event) ->
+      console.log "event:", event
 
 @App.teammates = new TeammatesController
