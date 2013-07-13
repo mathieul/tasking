@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require ./lib/turbolinks_reflect_url
 //= require bootstrap-alert
 //= require bootstrap-transition
 //= require bootstrap-modal
@@ -33,6 +32,8 @@
 //= require jquery-ui/jquery.ui.effect-highlight
 //= require moment
 //= require_self
+//= require ./lib/turbolinks_reflect_url
+//= require ./lib/page_update_manager
 //= require_tree ./controllers
 
 window.App = {}

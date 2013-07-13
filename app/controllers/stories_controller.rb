@@ -20,10 +20,13 @@ class StoriesController < ApplicationController
       if @story.save
         notice = "New story was created."
         format.html { redirect_to stories_url, notice: notice }
-        format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @story) }
+        format.js {
+          setup_to_render_main
+          flash.now[:notice] = notice
+        }
       else
         format.html { setup_to_render_main; render :new }
-        format.js
+        format.js   { render :create_error }
       end
     end
   end
