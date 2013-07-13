@@ -1,0 +1,40 @@
+- cache [stories, velocity] do
+  %p The ordered list of "requirements" that is maintained for your product.
+
+  - if stories.empty?
+    %table.table.table-bordered
+      %tbody.table
+        %tr
+          %td
+            %p
+              There are no stories in the backlog yet.
+              &nbsp;
+              = link_to "Create first story", new_story_path, class: "btn btn-primary"
+  - else
+    %p
+      You can mouse over a story to reveal a story management button or &nbsp;
+      = link_to "Create a story", new_story_path, class: "btn btn-primary"
+    %br
+    %table.table.table-hover.hidden-commands
+      %colgroup
+        %col(width="30px")
+        %col(span="2" width="75px")
+        %col(width="60px")
+        %col(width="300px")
+        %col(width="30px")
+        %col(width="150px")
+      %thead.table
+        %tr
+          %th Id
+          %th Tech lead
+          %th PM
+          %th Driver
+          %th User story
+          %th Points
+          %th Spec
+      %tbody#stories.table
+        - stories.each.with_index do |story, index|
+          = render "velocity_bar", velocity: velocity if index == 0 && velocity.index == 0
+          - cache story do
+            = render "story_row", story: story, index: index
+          = render "velocity_bar", velocity: velocity if velocity.index == index + 1

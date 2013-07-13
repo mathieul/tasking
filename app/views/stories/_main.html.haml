@@ -1,0 +1,7 @@
+- page_title "Product Backlog", size: "span5"
+- page_description size: "span7"
+
+- content_for :javascript do
+  = javascript_tag "App.stories.setup();"
+
+= render "stories", stories: stories, velocity: velocity
