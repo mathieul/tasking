@@ -2,7 +2,7 @@
 - page_description size: "span7"
 
 - content_for :javascript do
-  = javascript_tag "App.initStories({newAttributes: #{@new_story.to_json}, effects: #{effects.to_json}});"
+  = javascript_tag "App.stories.setup();"
 
 - cache [@stories, @velocity] do
   %p The ordered list of "requirements" that is maintained for your product.
