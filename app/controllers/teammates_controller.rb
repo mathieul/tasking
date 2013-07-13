@@ -24,7 +24,7 @@ class TeammatesController < ApplicationController
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
       else
-        format.html { setup_to_render_main(true); render :edit }
+        format.html { setup_to_render_main(true); render :new }
         format.js
       end
     end
