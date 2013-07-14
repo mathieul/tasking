@@ -26,8 +26,8 @@
                   %i.icon-edit
               .story-content= story.description
               = form_for taskable_story,
-                url: update_taskable_story_path(taskable_story),
-                html: {class: "story-form"} do |f|
+                html: {class: "story-form"},
+                data: {remote: true} do |f|
                 = f.hidden_field :owner_id, id: nil
                 = f.text_area :description, id: nil, class: "story-input"
             %td= story.points
