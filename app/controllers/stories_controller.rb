@@ -20,10 +20,7 @@ class StoriesController < ApplicationController
       if @story.save
         notice = "New story was created."
         format.html { redirect_to stories_url, notice: notice }
-        format.js {
-          setup_to_render_main
-          flash.now[:notice] = notice
-        }
+        format.js   { setup_to_render_main; flash.now[:notice] = notice }
       else
         format.html { setup_to_render_main; render :new }
         format.js   { render :create_error }
@@ -52,7 +49,7 @@ class StoriesController < ApplicationController
     warning = "Story ##{@story.id} was deleted."
     respond_to do |format|
       format.html { redirect_to stories_url, warning: warning }
-      format.js   { render_refresh_main(warning: warning) }
+      format.js   { setup_to_render_main; flash.now[:warning] = warning }
     end
   end
 
