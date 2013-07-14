@@ -10,7 +10,7 @@ class StoriesController < ApplicationController
   end
 
   def new
-    @story = Story.new
+    @story = Story.new(row_order_position: params[:row_order_position])
     setup_to_render_main
   end
 
@@ -46,8 +46,10 @@ class StoriesController < ApplicationController
 
   def update_position
     @story.update(row_order_position: params.require(:position))
-    trigger_effect!(highlight: @story)
-    redirect_to stories_url
+    respond_to do |format|
+      format.html { redirect_to stories_url }
+      format.js   { setup_to_render_main; render :update }
+    end
   end
 
   def destroy
@@ -60,10 +62,11 @@ class StoriesController < ApplicationController
   end
 
   def update_velocity
-    velocity = params.require(:velocity)
-    @team.update(projected_velocity: velocity)
-    trigger_effect!(highlight: "velocity")
-    redirect_to stories_url
+    @team.update(projected_velocity: params.require(:velocity))
+    respond_to do |format|
+      format.html { redirect_to stories_url }
+      format.js   { setup_to_render_main }
+    end
   end
 
   private

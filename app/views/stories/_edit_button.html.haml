@@ -9,24 +9,24 @@
         %i.icon-pencil
         Edit Story
     %li
-      %a(href data-action="insert-above")
+      = link_to new_story_path(row_order_position: position) do
         %i.icon-arrow-up
         Add New Story Above
     %li
-      %a(href data-action="insert-below")
+      = link_to new_story_path(row_order_position: position + 1) do
         %i.icon-arrow-down
         Add New Story Below
     %li.divider
     %li
-      = link_to update_position_story_path(target, position: :first) do
+      = link_to update_position_story_path(target, position: :first), method: :post, data: {remote: true} do
         %i.icon-circle-arrow-up
         Move to TOP
     %li
-      = link_to update_position_story_path(target, position: :middle) do
+      = link_to update_position_story_path(target, position: :middle), method: :post, data: {remote: true} do
         %i.icon-circle-arrow-right
         Move to MIDDLE
     %li
-      = link_to update_position_story_path(target, position: :last) do
+      = link_to update_position_story_path(target, position: :last), method: :post, data: {remote: true} do
         %i.icon-circle-arrow-down
         Move to BOTTOM
     %li.divider
