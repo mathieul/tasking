@@ -18,10 +18,10 @@ class TeammatesController < ApplicationController
       if @teammate.save
         notice = "New teammate was created."
         format.html { redirect_to teammates_url, notice: notice }
-        format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
+        format.js   { setup_to_render_main; flash.now[:notice] = notice }
       else
         format.html { setup_to_render_main(true); render :new }
-        format.js
+        format.js   { render :create_error }
       end
     end
   end
@@ -35,7 +35,7 @@ class TeammatesController < ApplicationController
       if @teammate.update(teammate_params)
         notice = "Teammate #{@teammate.name.inspect} was updated."
         format.html { redirect_to teammates_url, notice: notice }
-        format.js   { render_refresh_main(notice: notice, auto_close: true, updated: @teammate) }
+        format.js   { setup_to_render_main; flash.now[:notice] = notice; render :create }
       else
         format.html { setup_to_render_main(true); render :edit }
         format.js
@@ -48,7 +48,7 @@ class TeammatesController < ApplicationController
     warning = "Teammate #{@teammate.name.inspect} was deleted."
     respond_to do |format|
       format.html { redirect_to teammates_url, warning: warning }
-      format.js   { render_refresh_main(warning: warning) }
+      format.js   { setup_to_render_main; flash.now[:warning] = warning }
     end
   end
 
@@ -81,27 +81,6 @@ class TeammatesController < ApplicationController
   def setup_to_render_main(reload = false)
     @team.teammates.reload if reload
     @teammates = @team.teammates.decorate
-  end
-
-  def render_refresh_main(options = {})
-    url = options.delete(:url) || teammates_url
-    setup_to_render_main(true)
-    render template: "shared/refresh_main", locals: {
-      content: {partial: "teammates/teammates_list", teammates: @teammates},
-      updated_id: options[:updated] && dom_id(options[:updated]),
-      flash: options_to_flash(options),
-      redirect_url: url
-    }
-  end
-
-  def options_to_flash(options)
-    supported_types = %i[info notice warning error]
-    if (type = options.keys.first { |type| type.in?(supported_types) })
-      message = options.delete(type)
-      options.merge(type: type == :notice ? :success : type, message: message)
-    else
-      {}
-    end
   end
 
   def teammate_params
