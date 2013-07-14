@@ -1,13 +1,13 @@
 %td.task{style: "width: #{width}px",
-         class: task ? (task.teammate.try(:decorate) || NonTeammateDecorator.new).show_color : "",
-         data: {task_id: task.try(:id),
+         class: task.teammate.decorate.show_color,
+         data: {task_id: task.id,
                 blank: !task,
                 taskable_story_id: taskable_story.id,
                 status: status,
                 teammate_id: task.try(:teammate_id),
                 position: position}}
-  - if task
-    .task-command{style: "width: #{width - 8 * 2 + 1}px"}
+  .task-command{style: "width: #{width - 8 * 2 + 1}px"}
+    - if task.persisted?
       %button.btn.btn-mini.edit-task(type="button")
         %i.icon-edit
       %button.btn.btn-danger.btn-mini.destroy-task(type="button")
@@ -21,13 +21,9 @@
           %i.icon-ok.icon-white
       %span.move-task.pull-right
         %i.icon-move.icon-white
-    .task-content= task.description
-    .task-hours= task.duration
-    %textarea.task-input= task.timed_description
-  - else
-    .task-command{style: "width: #{width - 8 * 2 + 1}px"}
+    - else
       %button.btn.btn-mini.add-task(type="button")
         %i.icon-plus-sign
-    .task-content
-    .task-hours &nbsp;
-    %textarea.task-input do something 1h
+  .task-content= task.description
+  .task-hours= task.duration
+  %textarea.task-input= task.timed_description

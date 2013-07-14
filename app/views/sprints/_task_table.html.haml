@@ -38,9 +38,10 @@
               %td.column-divider &nbsp;
               - tasks[kind].each do |task|
                 - cache [task, position, kind, taskable_story, task_table.col_width] do
-                  = render "task", task: task,
-                                   position: position,
-                                   status: kind,
-                                   taskable_story: taskable_story,
-                                   width: task_table.col_width
-                - position += 1
+                  = render "task",
+                            task: task,
+                            position: position,
+                            status: kind,
+                            taskable_story: taskable_story,
+                            width: task_table.col_width
+                - position = 1

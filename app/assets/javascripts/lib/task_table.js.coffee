@@ -113,12 +113,12 @@ class @App.TaskTable
 
 handlers =
   addTask: (event) ->
-    {forms, selectors} = table = event.data
+    {selectors} = table = event.data
     task = $(event.target).closest(selectors.task.cell)
-    table.pushCurrentTask
-      action: forms.edit.data("createUrl").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-      method: "post"
-      position: "last"
+    # table.pushCurrentTask
+    #   action: forms.edit.data("createUrl").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
+    #   method: "post"
+    #   position: "last"
     handlers.setEditMode(table, task, selectors)
 
   editTask: (event) ->

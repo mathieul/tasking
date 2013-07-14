@@ -40,7 +40,7 @@ class TaskTable
       tasks = KINDS.each.with_object({}) do |kind, tasks|
         story_tasks = per_status[kind] || []
         count_missing = col_count(kind) - story_tasks.length
-        tasks[kind] = story_tasks + [nil] * count_missing
+        tasks[kind] = story_tasks + [NonTaskDecorator.new] * count_missing
       end
       block.call(taskable_story, taskable_story.story.decorate, tasks)
     end
