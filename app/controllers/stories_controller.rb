@@ -76,27 +76,6 @@ class StoriesController < ApplicationController
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
   end
 
-  def render_refresh_main(options = {})
-    url = options.delete(:url) || stories_url
-    setup_to_render_main
-    render template: "shared/refresh_main", locals: {
-      content: {partial: "stories/stories", stories: @stories, velocity: @velocity},
-      updated_id: options[:updated] && dom_id(options[:updated]),
-      flash: options_to_flash(options),
-      redirect_url: url
-    }
-  end
-
-  def options_to_flash(options)
-    supported_types = %i[info notice warning error]
-    if (type = options.keys.first { |type| type.in?(supported_types) })
-      message = options.delete(type)
-      options.merge(type: type == :notice ? :success : type, message: message)
-    else
-      {}
-    end
-  end
-
   def story_params
     extracted = params
       .require(:story)
