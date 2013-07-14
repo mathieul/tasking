@@ -12,10 +12,6 @@ class TeammatesController < ApplicationController
     setup_to_render_main
   end
 
-  def edit
-    setup_to_render_main
-  end
-
   def create
     @teammate = @team.teammates.build(teammate_params)
     respond_to do |format|
@@ -28,6 +24,10 @@ class TeammatesController < ApplicationController
         format.js
       end
     end
+  end
+
+  def edit
+    setup_to_render_main
   end
 
   def update

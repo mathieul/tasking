@@ -5,8 +5,14 @@ class StoriesController extends App.BaseController
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
+    @enablePointSelector()
     @makeStoriesStortable()
     @updateVelocityOnChange()
+
+  enablePointSelector: ->
+    $("form .point-selector").on "click", ".btn", (event) ->
+      target = $(event.currentTarget)
+      target.closest(".controls").find("#story_points").val(target.data("value"))
 
   makeStoriesStortable: ->
     $("#stories")

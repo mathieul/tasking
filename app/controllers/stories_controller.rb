@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
 
   before_action :authorize
   before_action :find_team
-  before_action :find_story, only: [:update, :update_position, :destroy]
+  before_action :find_story, only: [:edit, :update, :update_position, :destroy]
 
   def index
     setup_to_render_main
@@ -28,13 +28,19 @@ class StoriesController < ApplicationController
     end
   end
 
+  def edit
+    setup_to_render_main
+  end
+
   def update
-    if @story.update(story_params)
-      trigger_effect!(highlight: @story)
-      redirect_to stories_url
-    else
-      setup_to_render_main
-      render :index
+    respond_to do |format|
+      if @story.update(story_params)
+        format.html { redirect_to stories_url }
+        format.js   { setup_to_render_main }
+      else
+        format.html { setup_to_render_main; render :edit }
+        format.js   { render :update_error }
+      end
     end
   end
 

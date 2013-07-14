@@ -22,7 +22,9 @@
         = f.hidden_field :points
         .point-selector.btn-group(data-toggle="buttons-radio")
           - Story::VALID_POINTS.each do |value|
-            %button.btn{type: "button", :"data-value" => value}= value
+            %button.btn{type: "button",
+                        class: value == story.points ? "active" : "",
+                        :"data-value" => value}= value
     = f.association :tech_lead, collection: @team.teammates.tech_leads
     = f.association :product_manager, collection: @team.teammates.product_managers
     = f.input :business_driver

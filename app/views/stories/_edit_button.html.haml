@@ -1,11 +1,11 @@
 .command.btn-group{:"data-content" => target.to_json, :"data-position" => position}
-  %a.btn.btn-mini(href data-action="edit")
+  = link_to edit_story_path(target), class: "btn btn-mini" do
     %i.icon-pencil
   %button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown")
     %span.caret
   %ul.dropdown-menu
     %li
-      %a(href data-action="edit")
+      = link_to edit_story_path(target) do
         %i.icon-pencil
         Edit Story
     %li

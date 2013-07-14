@@ -1,0 +1,3 @@
+= render "main", stories: @stories, velocity: @velocity
+- cache @story do
+  = render "editor", story: @story, title: "Edit story ##{@story.id}"
