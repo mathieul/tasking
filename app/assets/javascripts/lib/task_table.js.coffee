@@ -114,12 +114,8 @@ class @App.TaskTable
 handlers =
   addTask: (event) ->
     {selectors} = table = event.data
-    task = $(event.target).closest(selectors.task.cell)
-    # table.pushCurrentTask
-    #   action: forms.edit.data("createUrl").replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-    #   method: "post"
-    #   position: "last"
-    handlers.setEditMode(table, task, selectors)
+    taskCell = $(event.target).closest(selectors.task.cell)
+    handlers.setEditMode(table, taskCell, selectors)
 
   editTask: (event) ->
     {forms, selectors} = table = event.data
@@ -153,9 +149,12 @@ handlers =
           ), 250
 
 
-  setEditMode: (table, task, selectors) ->
-    [width, height] = [task.innerWidth() - 4, task.innerHeight() - 6]
-    task
+  setEditMode: (table, taskCell, selectors) ->
+    [width, height] = [taskCell.innerWidth() - 4, taskCell.innerHeight() - 6]
+    data =
+      form: taskCell.find("form")
+      table: table
+    taskCell
       .find(selectors.task.command).hide().end()
       .find(selectors.task.content).hide().end()
       .find(selectors.task.input)
@@ -163,19 +162,16 @@ handlers =
         .width(width)
         .height(height)
         .select()
-        .one("blur", table, handlers.createTask)
-
+        .one("blur", data, handlers.submitTask)
 
   cancelEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
       {selectors} = event.data
-      task = $(event.target).closest(selectors.task.cell)
-      task
+      taskCell = $(event.target).closest(selectors.task.cell)
+      taskCell
         .find(selectors.task.command).show().end()
         .find(selectors.task.content).show().end()
-        .find(selectors.task.input)
-          .hide()
-          .off("blur", handlers.createTask)
+        .find(selectors.task.input).hide().off("blur", handlers.submitTask)
 
   cancelStoryEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
@@ -189,6 +185,14 @@ handlers =
   selectTeammate: (event) ->
     teammateId = $(event.target).data("teammateId")
     event.data.setSelectedTeammateId(teammateId)
+
+  submitTask: (event) ->
+    {form, table} = event.data
+    setTimeout (->
+      selectedId = table.getAndResetSelectedTeammateId()
+      form.find(".teammate-id").val(selectedId) if selectedId?
+      form.submit()
+    ), 250
 
   createTask: (event) ->
     {forms, selectors, currentTeammateId} = table = event.data

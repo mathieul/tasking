@@ -1,10 +1,10 @@
 %td.task{style: "width: #{width}px",
          class: task.teammate.decorate.show_color,
          data: {task_id: task.id,
-                blank: !task,
+                blank: !task.persisted?,
                 taskable_story_id: taskable_story.id,
                 status: status,
-                teammate_id: task.try(:teammate_id),
+                teammate_id: task.teammate_id,
                 position: position}}
   .task-command{style: "width: #{width - 8 * 2 + 1}px"}
     - if task.persisted?
@@ -25,5 +25,9 @@
       %button.btn.btn-mini.add-task(type="button")
         %i.icon-plus-sign
   .task-content= task.description
-  .task-hours= task.duration
-  %textarea.task-input= task.timed_description
+  .task-hours= task.persisted? ? task.duration : ""
+  = form_for [taskable_story, task], data: {remote: true}, html: {class: "task-form"} do |f|
+    = hidden_field_tag "#{f.object_name}[row_order_position]", "last"
+    = f.hidden_field :status
+    = f.hidden_field :teammate_id, class: "teammate-id"
+    = f.text_area :timed_description, class: "task-input"

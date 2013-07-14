@@ -44,4 +44,9 @@ class Task < ActiveRecord::Base
   def complete!
     update!(status: "done", hours: 0, row_order_position: :last)
   end
+
+  def timed_description=(timed_description)
+    matched = timed_description.match(/^(.*)\s+(([\d\.]+)\s*h?)$/)
+    self.description, self.hours = matched ? matched.values_at(1, 3) : [timed_description.strip, 0]
+  end
 end

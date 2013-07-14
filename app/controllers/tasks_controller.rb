@@ -7,7 +7,10 @@ class TasksController < ApplicationController
   def create
     task = @taskable_story.tasks.build(task_params.merge(team: @team))
     task.save!
-    redirect_to [:edit, @taskable_story.sprint]
+    respond_to do |format|
+      format.html { redirect_to [:edit, @taskable_story.sprint] }
+      format.js
+    end
   end
 
   def update
@@ -45,6 +48,7 @@ class TasksController < ApplicationController
   def task_params
     params
       .require(:task)
-      .permit(:row_order_position, :description, :hours, :status, :teammate_id)
+      .permit(:row_order_position, :timed_description, :description,
+              :hours, :status, :teammate_id)
   end
 end

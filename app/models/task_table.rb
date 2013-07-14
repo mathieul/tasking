@@ -34,13 +34,15 @@ class TaskTable
     %Q{<th colspan="#{col_count(kind)}">#{kind.to_s.humanize}</th>}.html_safe
   end
 
-  def each_story_and_tasks(&block)
+  def each_story_and_tasks(teammate = nil, &block)
+    teammate_id = teammate && teammate.id
     sprint.taskable_stories.each do |taskable_story|
       per_status = taskable_story.tasks.ranked.decorate.group_by(&:status)
       tasks = KINDS.each.with_object({}) do |kind, tasks|
         story_tasks = per_status[kind] || []
         count_missing = col_count(kind) - story_tasks.length
-        tasks[kind] = story_tasks + [NonTaskDecorator.new] * count_missing
+        new_task = Task.new(status: kind, teammate_id: teammate_id).decorate
+        tasks[kind] = story_tasks + [new_task] * count_missing
       end
       block.call(taskable_story, taskable_story.story.decorate, tasks)
     end

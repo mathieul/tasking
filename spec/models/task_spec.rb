@@ -89,5 +89,14 @@ describe Task do
       expect(task_prog1.hours).to eq(0)
       expect(taskable_story.tasks).to eq([task_todo1, task_todo2, task_prog2, task_done, task_prog1])
     end
+
+    it "can set description and time at once with #timed_description=" do
+      task = Task.new(timed_description: "something blah ")
+      expect(task.description).to eq("something blah")
+      expect(task.hours).to eq(0)
+      task = Task.new(timed_description: "buy milk 1h")
+      expect(task.description).to eq("buy milk")
+      expect(task.hours).to eq(1)
+    end
   end
 end

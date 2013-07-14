@@ -15,7 +15,7 @@
         %th.column-divider(style="width: 0") &nbsp;
         = task_table.render_header("done")
     %tbody.table
-      - task_table.each_story_and_tasks do |taskable_story, story, tasks|
+      - task_table.each_story_and_tasks(current_account.teammate) do |taskable_story, story, tasks|
         - cache [task_table, story, taskable_story] do
           - owner = taskable_story.owner.try(:decorate) || NonTeammateDecorator.new
           %tr
