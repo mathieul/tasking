@@ -1,17 +1,10 @@
 #= require ../lib/task_table
+#= require ../lib/base_controller
 
-controller = null
-
-@App.initSprints = (options = {}) ->
-  controller = new SprintsController(options)
-  controller.run()
-
-class SprintsController
-  constructor: (@options) ->
-
-  run: ->
+class SprintsController extends App.BaseController
+  setup: (options) ->
     @initDatePickers()
-    @initTaskTable() if @options.currentTeammateId?
+    @initTaskTable()
     @initSprintTable()
 
   initDatePickers: ->
@@ -19,7 +12,6 @@ class SprintsController
 
   initTaskTable: ->
     @taskTable = new App.TaskTable
-      currentTeammateId: @options.currentTeammateId
       selectors:
         task:
           cell:     "td.task"
@@ -48,3 +40,5 @@ class SprintsController
     $("#sprints").on "click", "td:not(:first-child)", (event) ->
       event.preventDefault()
       $(event.target).closest("tr").find("td:first a").click()
+
+@App.sprints = new SprintsController

@@ -5,11 +5,11 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:update, :destroy, :progress, :complete]
 
   def create
-    task = @taskable_story.tasks.build(task_params.merge(team: @team))
-    task.save!
+    @task = @taskable_story.tasks.build(task_params.merge(team: @team))
+    @task.save!
     respond_to do |format|
       format.html { redirect_to [:edit, @taskable_story.sprint] }
-      format.js
+      format.js { @task_table = TaskTable.new(@taskable_story.sprint) }
     end
   end
 
