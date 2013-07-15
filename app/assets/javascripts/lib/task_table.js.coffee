@@ -15,7 +15,7 @@ class @App.TaskTable
     $(@selectors.task.progress).on("click", this, handlers.progressTask)
     $(@selectors.task.complete).on("click", this, handlers.completeTask)
     $(@selectors.task.teammate).on("click", this, handlers.selectTeammate)
-    $(@selectors.story.cell).on("click", this, handlers.editStory)
+    $(@selectors.story.edit).on("click", this, handlers.editStory)
 
   setupKeyboard: ->
     $(@selectors.task.input).on("keyup", this, handlers.cancelEditOnEscape)
@@ -118,14 +118,9 @@ handlers =
     handlers.setEditMode(table, taskCell, selectors)
 
   editTask: (event) ->
-    {forms, selectors} = table = event.data
-    task = $(event.target).closest(selectors.task.cell)
-    table.pushCurrentTask
-      action: forms.edit.data("updateUrl")
-        .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-        .replace(/__id__/, task.data("taskId"))
-      method: "patch"
-    handlers.setEditMode(table, task, selectors)
+    {selectors} = table = event.data
+    taskCell = $(event.target).closest(selectors.task.cell)
+    handlers.setEditMode(table, taskCell, selectors)
 
   editStory: (event) ->
     {selectors} = table = event.data
@@ -192,23 +187,6 @@ handlers =
       selectedId = table.getAndResetSelectedTeammateId()
       form.find(".teammate-id").val(selectedId) if selectedId?
       form.submit()
-    ), 250
-
-  createTask: (event) ->
-    {forms, selectors, currentTeammateId} = table = event.data
-    task = $(event.target).closest(selectors.task.cell)
-    input = task.find(selectors.task.input)
-    [description, hours] = handlers.parseDescription(input.val())
-    table.updateCurrentTask
-      description: description
-      hours:       hours
-      status:      task.data("status")
-      teammateId:  task.data("teammateId") || currentTeammateId
-    setTimeout (->
-      task = table.popCurrentTask()
-      selectedId = table.getAndResetSelectedTeammateId()
-      task.teammateId = selectedId if selectedId?
-      handlers.submitTaskForm(forms.edit, task)
     ), 250
 
   submitTaskForm: (form, task) ->

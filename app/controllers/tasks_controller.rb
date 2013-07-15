@@ -9,13 +9,16 @@ class TasksController < ApplicationController
     @task.save!
     respond_to do |format|
       format.html { redirect_to [:edit, @taskable_story.sprint] }
-      format.js { @task_table = TaskTable.new(@taskable_story.sprint) }
+      format.js   { refresh_task_table }
     end
   end
 
   def update
     @task.update!(task_params)
-    redirect_to [:edit, @taskable_story.sprint]
+    respond_to do |format|
+      format.html { redirect_to [:edit, @taskable_story.sprint] }
+      format.js   { refresh_task_table }
+    end
   end
 
   def destroy
@@ -50,5 +53,10 @@ class TasksController < ApplicationController
       .require(:task)
       .permit(:row_order_position, :timed_description, :description,
               :hours, :status, :teammate_id)
+  end
+
+  def refresh_task_table
+    @task_table = TaskTable.new(@taskable_story.sprint)
+    render :refresh_task_table
   end
 end

@@ -27,7 +27,7 @@
   .task-content= task.description
   .task-hours= task.persisted? ? task.duration : ""
   = form_for [taskable_story, task], data: {remote: true}, html: {class: "task-form"} do |f|
-    = hidden_field_tag "#{f.object_name}[row_order_position]", "last"
+    = hidden_field_tag "#{f.object_name}[row_order_position]", position
     = f.hidden_field :status
     = f.hidden_field :teammate_id, class: "teammate-id"
     = f.text_area :timed_description, class: "task-input"
