@@ -7,34 +7,28 @@ class TasksController < ApplicationController
   def create
     @task = @taskable_story.tasks.build(task_params.merge(team: @team))
     @task.save!
-    respond_to do |format|
-      format.html { redirect_to [:edit, @taskable_story.sprint] }
-      format.js   { refresh_task_table }
-    end
+    respond_with_fresh_task_table
   end
 
   def update
     @task.update!(task_params)
-    respond_to do |format|
-      format.html { redirect_to [:edit, @taskable_story.sprint] }
-      format.js   { refresh_task_table }
-    end
+    respond_with_fresh_task_table
   end
 
   def destroy
-    task = @taskable_story.tasks.find(params.require(:id))
-    task.destroy
-    redirect_to [:edit, @taskable_story.sprint]
+    @task = @taskable_story.tasks.find(params.require(:id))
+    @task.destroy
+    respond_with_fresh_task_table
   end
 
   def progress
     @task.progress!
-    redirect_to [:edit, @taskable_story.sprint]
+    respond_with_fresh_task_table
   end
 
   def complete
     @task.complete!
-    redirect_to [:edit, @taskable_story.sprint]
+    respond_with_fresh_task_table
   end
 
   private
@@ -58,5 +52,12 @@ class TasksController < ApplicationController
   def refresh_task_table
     @task_table = TaskTable.new(@taskable_story.sprint)
     render :refresh_task_table
+  end
+
+  def respond_with_fresh_task_table
+    respond_to do |format|
+      format.html { redirect_to [:edit, @taskable_story.sprint] }
+      format.js   { refresh_task_table }
+    end
   end
 end

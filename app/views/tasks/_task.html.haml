@@ -6,7 +6,7 @@
                 status: status,
                 teammate_id: task.teammate_id,
                 position: position}}
-  .task-command{style: "width: #{width - 8 * 2 + 1}px"}
+  .task-command{style: "width: #{width - 8 * 2}px"}
     - if task.persisted?
       %button.btn.btn-mini.edit-task(type="button")
         %i.icon-edit
@@ -26,8 +26,14 @@
         %i.icon-plus-sign
   .task-content= task.description
   .task-hours= task.persisted? ? task.duration : ""
-  = form_for [taskable_story, task], data: {remote: true}, html: {class: "task-form"} do |f|
+  = form_for [taskable_story, task], remote: true, html: {class: "task-form"} do |f|
     = hidden_field_tag "#{f.object_name}[row_order_position]", position
     = f.hidden_field :status
     = f.hidden_field :teammate_id, class: "teammate-id"
     = f.text_area :timed_description, class: "task-input"
+  = form_tag [taskable_story, task], method: :delete, remote: true, class: "destroy-task-form" do
+    %span
+  = form_tag progress_taskable_story_task_path(taskable_story, task), remote: true, class: "progress-task-form" do
+    %span
+  = form_tag complete_taskable_story_task_path(taskable_story, task), remote: true, class: "complete-task-form" do
+    %span

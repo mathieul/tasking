@@ -9,8 +9,8 @@ class @App.TaskTable
     @setupDragDrop()
 
   setupClicks: ->
-    $(@selectors.task.add).on("click", this, handlers.addTask)
-    $(@selectors.task.edit).on("click", this, handlers.editTask)
+    $(@selectors.task.add).on("click", this, handlers.addOrEditTask)
+    $(@selectors.task.edit).on("click", this, handlers.addOrEditTask)
     $(@selectors.task.destroy).on("click", this, handlers.destroyTask)
     $(@selectors.task.progress).on("click", this, handlers.progressTask)
     $(@selectors.task.complete).on("click", this, handlers.completeTask)
@@ -112,15 +112,22 @@ class @App.TaskTable
     id
 
 handlers =
-  addTask: (event) ->
+  addOrEditTask: (event) ->
     {selectors} = table = event.data
     taskCell = $(event.target).closest(selectors.task.cell)
-    handlers.setEditMode(table, taskCell, selectors)
-
-  editTask: (event) ->
-    {selectors} = table = event.data
-    taskCell = $(event.target).closest(selectors.task.cell)
-    handlers.setEditMode(table, taskCell, selectors)
+    [width, height] = [taskCell.innerWidth() - 4, taskCell.innerHeight() - 6]
+    data =
+      form: taskCell.find("form.task-form")
+      table: table
+    taskCell
+      .find(selectors.task.command).hide().end()
+      .find(selectors.task.content).hide().end()
+      .find(selectors.task.input)
+        .show()
+        .width(width)
+        .height(height)
+        .select()
+        .one("blur", data, handlers.submitTask)
 
   editStory: (event) ->
     {selectors} = table = event.data
@@ -142,22 +149,6 @@ handlers =
               form.find('input[name="taskable_story[owner_id]"]').val(selectedId)
             form.submit()
           ), 250
-
-
-  setEditMode: (table, taskCell, selectors) ->
-    [width, height] = [taskCell.innerWidth() - 4, taskCell.innerHeight() - 6]
-    data =
-      form: taskCell.find("form")
-      table: table
-    taskCell
-      .find(selectors.task.command).hide().end()
-      .find(selectors.task.content).hide().end()
-      .find(selectors.task.input)
-        .show()
-        .width(width)
-        .height(height)
-        .select()
-        .one("blur", data, handlers.submitTask)
 
   cancelEditOnEscape: (event) ->
     if event.keyCode is 27 # escape
@@ -226,16 +217,13 @@ handlers =
       .submit()
 
   destroyTask: (event) ->
-    handlers.runCommandOnTask("destroyUrl", "destroyMethod", event)
+    handlers.eventToTaskCell(event).find("form.destroy-task-form").submit()
 
   progressTask: (event) ->
-    handlers.runCommandOnTask("progressUrl", "progressMethod", event)
+    handlers.eventToTaskCell(event).find("form.progress-task-form").submit()
 
   completeTask: (event) ->
-    handlers.runCommandOnTask("completeUrl", "completeMethod", event)
+    handlers.eventToTaskCell(event).find("form.complete-task-form").submit()
 
-  parseDescription: (value) ->
-    if (match = value.match(/^(.*)\s+(([\d\.]+)\s*h?)$/))
-      [match[1], match[3] || 0]
-    else
-      [value, 0]
+  eventToTaskCell: (event) ->
+    $(event.target).closest(event.data.selectors.task.cell)

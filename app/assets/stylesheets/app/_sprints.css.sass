@@ -20,8 +20,9 @@ table.tasks
     word-wrap: break-word
     overflow-wrap: break-word
 
-form.story-form, form.task-form
-  margin: 0
+form
+  &.story-form, &.task-form, &.destroy-task-form, &.progress-task-form, &.complete-task-form
+    margin: 0
 
 .story-command, .task-command
   position: absolute
