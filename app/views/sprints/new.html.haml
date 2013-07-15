@@ -11,10 +11,8 @@
   .row
     %section
       = simple_form_for @sprint,
-          html: {class: "form-horizontal", id: nil},
-          defaults: {input_html: {class: "input-xlarge"}},
-          data: {remote: true} do |f|
-
+                        html: {class: "form-horizontal"},
+                        defaults: {input_html: {class: "input-xlarge"}} do |f|
         - @stories.each do |story|
           = hidden_field_tag "sprint[story_ids][]", story.id, id: nil
 
