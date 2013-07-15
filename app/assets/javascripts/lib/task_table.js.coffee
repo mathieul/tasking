@@ -78,32 +78,19 @@ class @App.TaskTable
               tolerance: "intersect"
               hoverClass: "task-hovering"
               drop: (event, ui) =>
-                task = ui.draggable
-                url = @forms.edit.data("updateUrl")
-                  .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-                  .replace(/__id__/, task.data("taskId"))
                 targetData = $(event.target).data()
-                console.log "target data:", targetData
-                console.log "url = #{url}"
-                handlers.submitTaskForm @forms.edit,
-                  action: url
-                  position: targetData.position
-                  description: null,
-                  hours: null,
-                  status: targetData.status
-                  teammateId: null
+                taskCell = ui.draggable
+                taskCell.find("form.position-task-form")
+                  .find(".position")
+                    .val(targetData.position)
+                    .end()
+                  .find(".status")
+                    .val(targetData.status)
+                    .end()
+                  .submit()
 
       stop: (event, ui) =>
         $(@selectors.task.wrapper).find(".task-target").remove()
-
-  pushCurrentTask: (@currentTask) ->
-
-  popCurrentTask: ->
-    [task, @currentTask] = [@currentTask, null]
-    task
-
-  updateCurrentTask: (attributes) ->
-    $.extend(@currentTask, attributes) if @currentTask?
 
   setSelectedTeammateId: (@teammateId) ->
 
@@ -179,42 +166,6 @@ handlers =
       form.find(".teammate-id").val(selectedId) if selectedId?
       form.submit()
     ), 250
-
-  submitTaskForm: (form, task) ->
-    form
-      .attr(action: task.action)
-      .find("#edit_form_method")
-        .val(task.method)
-        .end()
-      .find("#task_row_order_position")
-        .val(task.position)
-        .end()
-      .find("#task_description")
-        .val(task.description)
-        .end()
-      .find("#task_hours")
-        .val(task.hours)
-        .end()
-      .find("#task_status")
-        .val(task.status)
-        .end()
-      .find("#task_teammate_id")
-        .val(task.teammateId)
-        .end()
-      .submit()
-
-  runCommandOnTask: (url, method, event) ->
-    {forms, selectors} = event.data
-    task = $(event.target).closest(selectors.task.cell)
-    action = forms.command.data(url)
-      .replace(/__taskable_story_id__/, task.data("taskableStoryId"))
-      .replace(/__id__/, task.data("taskId"))
-    forms.command
-      .attr(action: action)
-      .find("#edit_form_method")
-        .val(forms.command.data(method))
-        .end()
-      .submit()
 
   destroyTask: (event) ->
     handlers.eventToTaskCell(event).find("form.destroy-task-form").submit()

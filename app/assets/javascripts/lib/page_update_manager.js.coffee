@@ -3,7 +3,7 @@ class PageUpdateManager
     $(selector).addClass("fade").modal("hide")
 
   highlight: (selector, after = 0) ->
-    setTimeout (-> $(selector).effect("highlight", duration: 2000)), after
+    setTimeout (-> $(selector).effect("highlight", duration: 1000)), after
 
   replace: (selector, content) ->
     $(selector).html(content)
