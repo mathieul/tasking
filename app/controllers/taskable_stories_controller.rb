@@ -1,11 +1,14 @@
 class TaskableStoriesController < ApplicationController
   before_action :authorize
   before_action :find_team
-  before_action :find_taskable_story
 
   def update
+    @taskable_story = TaskableStory.where(team_id: @team.id).find(params.require(:id))
     @taskable_story.update(taskable_story_params)
-    redirect_to [:edit, @taskable_story.sprint]
+    respond_to do |format|
+      format.html { redirect_to [:edit, @taskable_story.sprint] }
+      format.js   { @task_table = TaskTable.new(@taskable_story.sprint) }
+    end
   end
 
   private
@@ -14,9 +17,5 @@ class TaskableStoriesController < ApplicationController
     params
       .require(:taskable_story)
       .permit(:description, :owner_id)
-  end
-
-  def find_taskable_story
-    @taskable_story = TaskableStory.where(team_id: @team.id).find(params.require(:id))
   end
 end

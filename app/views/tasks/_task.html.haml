@@ -1,5 +1,6 @@
 %td.task{style: "width: #{width}px",
          class: task.teammate.decorate.show_color,
+         id: dom_id(task),
          data: {task_id: task.id,
                 blank: !task.persisted?,
                 taskable_story_id: taskable_story.id,
