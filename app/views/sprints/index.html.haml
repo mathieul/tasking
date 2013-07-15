@@ -6,7 +6,7 @@
     from the backlog.
 
 - content_for :javascript do
-  = javascript_tag "App.initSprints();"
+  = javascript_tag "App.sprints.setup();"
 
 - cache [@sprints, @today] do
   - if @sprints.empty?

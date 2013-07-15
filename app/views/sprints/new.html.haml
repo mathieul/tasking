@@ -5,7 +5,7 @@
     The duration is fixed in advance for each sprint and is normally between one week and one month.
 
 - content_for :javascript do
-  = javascript_tag "App.initSprints({});"
+  = javascript_tag "App.sprints.setup();"
 
 - cache [@sprint, @stories] do
   .row
