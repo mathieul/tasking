@@ -38,7 +38,7 @@ class TeammatesController < ApplicationController
         format.js   { setup_to_render_main; flash.now[:notice] = notice; render :create }
       else
         format.html { setup_to_render_main(true); render :edit }
-        format.js
+        format.js   { render :update_error }
       end
     end
   end

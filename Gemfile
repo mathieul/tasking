@@ -8,7 +8,7 @@ gem 'pry', '0.9.12.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.15.1'
+gem 'pg', '~> 0.16.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -39,11 +39,11 @@ gem 'simple_form', github: 'plataformatec/simple_form',
 
 gem 'draper', '~> 1.2.1'
 
-gem 'ranked-model', '~> 0.2.1'
+gem 'ranked-model', '~> 0.3.0'
 
 gem 'dalli', '~> 2.6.4'
 
-gem 'puma', '~> 2.3.1'
+gem 'puma', '~> 2.4.0'
 
 gem 'nokogiri'
 gem 'css_parser'
