@@ -1,14 +1,13 @@
-App.pageUpdateManager.refreshMain({
-  controllerName: "<%= controller_name %>",
-  modal: "#editor",
+App.pageUpdateManager.refreshMain
+  controllerName: "<%= controller_name %>"
+  modal: "#editor"
   replace: [
-    "#main",
+    "#main"
     "<%= escape_javascript render('stories', stories: @stories, velocity: @velocity) %>"
-  ],
-  highlight: "#<%= dom_id @story %>",
+  ]
+  highlight: "#<%= dom_id @story %>"
   prepend: [
-    "#page-description",
+    "#page-description"
     "<%= escape_javascript flash_messages %>"
-  ],
+  ]
   newUrl: "<%= stories_url %>"
-});

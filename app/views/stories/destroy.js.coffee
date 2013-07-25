@@ -1,12 +1,11 @@
-App.pageUpdateManager.refreshMain({
-  controllerName: "<%= controller_name %>",
+App.pageUpdateManager.refreshMain
+  controllerName: "<%= controller_name %>"
   replace: [
-    "#main",
+    "#main"
     "<%= escape_javascript render('stories', stories: @stories, velocity: @velocity) %>"
-  ],
+  ]
   prepend: [
-    "#page-description",
+    "#page-description"
     "<%= escape_javascript flash_messages %>"
-  ],
+  ]
   newUrl: "<%= stories_url %>"
-});
