@@ -3,6 +3,6 @@ defmodule Wspubsub do
   The application callback used to start this application.
   """
   def start(_type, _args) do
-    Wspubsub.PubsubSupervisor.start_link(nil)
+    Wspubsub.Supervisor.start_link(nil)
   end
 end
