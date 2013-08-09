@@ -81,10 +81,6 @@ defmodule Wspubsub.Pubsub do
     { :ok, State.blank }
   end
 
-  def handle_cast(:clear_all, _state) do
-    { :noreply, State.blank }
-  end
-
   def handle_call({ :register, sid, pid, send_messages }, _from, state) do
     if send_messages do
       messages = Enum.reverse(State.last_messages(state, sid))
@@ -112,6 +108,8 @@ defmodule Wspubsub.Pubsub do
     list = Enum.map(session.registrees, inspect(&1))
     { :reply, list, state }
   end
+
+  def handle_cast(:clear_all, _state), do: { :noreply, State.blank }
 
   def handle_cast({ :publish, sid, message }, state) do
     session = State.fetch_session(state, sid)
