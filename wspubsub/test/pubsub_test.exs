@@ -4,6 +4,10 @@ defmodule PubsubTest do
   use ExUnit.Case
   alias Wspubsub.Pubsub
 
+  teardown do
+    Pubsub.clear_all && :ok
+  end
+
   test "it returns the list of session ids with #session_ids" do
     Pubsub.register(self, "abc123")
     assert Pubsub.session_ids == ["abc123"]
