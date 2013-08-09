@@ -60,12 +60,12 @@ defmodule Wspubsub.Pubsub do
   end
 
   def clear_all, do: :gen_server.cast(:pubsub, :clear_all)
-  def register(pid, sid, send_last // false) do
-    :gen_server.call(:pubsub, { :register, pid, sid, send_last })
+  def register(sid, pid, send_messages // false) do
+    :gen_server.call(:pubsub, { :register, sid, pid, send_messages })
   end
-  def unregister(pid, sid), do: :gen_server.call(:pubsub, { :unregister, pid, sid })
+  def unregister(sid, pid), do: :gen_server.call(:pubsub, { :unregister, sid, pid })
   def session_ids, do: :gen_server.call(:pubsub, :session_ids)
-  def publish(message, sid), do: :gen_server.cast(:pubsub, { :publish, message, sid })
+  def publish(sid, message), do: :gen_server.cast(:pubsub, { :publish, sid, message })
   def register_list(sid), do: :gen_server.call(:pubsub, { :register_list, sid })
   def last_messages(sid), do: :gen_server.call(:pubsub, { :last_messages, sid })
 
@@ -80,9 +80,9 @@ defmodule Wspubsub.Pubsub do
     { :noreply, State.blank }
   end
 
-  def handle_call({ :register, pid, sid, send_last }, _from, state) do
-    if send_last do
-      messages = Enum.reverse(State.last_messages(state))
+  def handle_call({ :register, sid, pid, send_messages }, _from, state) do
+    if send_messages do
+      messages = Enum.reverse(State.last_messages(state, sid))
       Enum.each messages, fn message ->
         pid <- { :pubsub_message, message }
       end
@@ -90,7 +90,7 @@ defmodule Wspubsub.Pubsub do
     { :reply, :registered, State.add_registered(state, pid, sid) }
   end
 
-  def handle_call({ :unregister, pid, sid }, _from, state) do
+  def handle_call({ :unregister, sid, pid }, _from, state) do
     { :reply, :unregistered, State.del_registered(state, pid, sid) }
   end
 
@@ -108,7 +108,7 @@ defmodule Wspubsub.Pubsub do
     { :reply, list, state }
   end
 
-  def handle_cast({ :publish, message, sid }, state) do
+  def handle_cast({ :publish, sid, message }, state) do
     session = State.fetch_session(state, sid)
     Enum.each session.registrees, fn pid ->
       pid <- { :pubsub_message, message }
