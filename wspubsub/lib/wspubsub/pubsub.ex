@@ -5,7 +5,12 @@ defmodule Wspubsub.Pubsub do
     end
 
     def del_registree(pid, session) do
-      session.registrees Enum.reject(session.registrees, &(&1 == pid))
+      registrees = Enum.reject(session.registrees, &(&1 == pid))
+      if length(registrees) == 0 do
+        Session.new
+      else
+        session.registrees(registrees)
+      end
     end
 
     def add_message(message, session) do

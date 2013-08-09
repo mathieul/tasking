@@ -57,4 +57,11 @@ defmodule PubsubTest do
     assert Pubsub.last_messages("ze-sid") == expected
     assert Pubsub.last_messages("not-set-yet") == []
   end
+
+  test "it cleans up a session after the last registree has unregistered" do
+    Pubsub.register("ou812", self)
+    Pubsub.publish("ou812", "Lonely")
+    Pubsub.unregister("ou812", self)
+    assert Pubsub.last_messages("ou812") == []
+  end
 end
