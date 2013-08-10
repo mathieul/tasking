@@ -1,7 +1,7 @@
 #= require ../lib/base_controller
 
 wsTest = ->
-  ws = new WebSocket "ws://localhost:4000/web-socket"
+  ws = new WebSocket "ws://localhost:4000/web-socket?sid=toto"
 
   ws.onopen = ->
     console.log ">>> connected"

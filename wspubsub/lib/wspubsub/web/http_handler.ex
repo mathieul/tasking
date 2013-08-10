@@ -10,6 +10,8 @@ defmodule Wspubsub.Web.HttpHandler do
   def handle(req, state) do
     sid = get_param!(req, "sid")
     msg = get_param!(req, "msg")
+    { :ok, params, _ } = :cowboy_req.body_qs(req)
+    IO.puts "post_val: #{inspect params}"
     if sid && msg do
       Pubsub.publish(sid, msg)
       { :ok, req } = :cowboy_req.reply(200, [], "sent", req)

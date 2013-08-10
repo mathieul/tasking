@@ -2,7 +2,7 @@ defmodule Wspubsub.Web do
   def run do
     dispatch = :cowboy_router.compile([
       { :_, [
-        { "/", Wspubsub.Web.HttpHandler, [] },
+        { "/publish", Wspubsub.Web.HttpHandler, [] },
         { "/web-socket", Wspubsub.Web.WebsocketHandler, [] }
         ] }
     ])

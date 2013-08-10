@@ -1,23 +1,25 @@
 defmodule Wspubsub.Web.WebsocketHandler do
   @behaviour :cowboy_websocket_handler
 
+  alias Wspubsub.Pubsub
+
   def init({:tcp, :http}, _req, _opts) do
     {:upgrade, :protocol, :cowboy_websocket}
   end
 
   def websocket_init(_transport_name, req, _opts) do
-    :erlang.start_timer(1000, self, "Hello")
-    {:ok, req, :undefined_state}
+    { sid, _ } = :cowboy_req.qs_val("sid", req, nil)
+    if sid, do: Pubsub.register(sid, self)
+    { :ok, req, { sid } }
   end
 
-  def websocket_handle({:text, msg}, req, state) do
-    { :reply, { :text, "That's what she said! #{msg}" }, req, state }
+  def websocket_handle( { :text, message }, req, state) do
+    { :reply, {:text, message }, req, state }
   end
   def websocket_handle(_data, req, state), do: { :ok, req, state}
 
-  def websocket_info({:timeout, _ref, msg}, req, state) do
-    :erlang.start_timer(5000, self, "How' you doin'?")
-    { :reply, {:text, msg}, req, state }
+  def websocket_info({ :pubsub_message, message }, req, state) do
+    { :reply, { :text, message }, req, state }
   end
   def websocket_info(_data, req, state), do: { :ok, req, state }
 
