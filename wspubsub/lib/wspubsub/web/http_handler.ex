@@ -8,10 +8,7 @@ defmodule Wspubsub.Web.HttpHandler do
   end
 
   def handle(req, state) do
-    sid = get_param!(req, "sid")
-    msg = get_param!(req, "msg")
-    { :ok, params, _ } = :cowboy_req.body_qs(req)
-    IO.puts "post_val: #{inspect params}"
+    { sid, msg } = get_sid_and_msg(req)
     if sid && msg do
       Pubsub.publish(sid, msg)
       { :ok, req } = :cowboy_req.reply(200, [], "sent", req)
@@ -25,8 +22,16 @@ defmodule Wspubsub.Web.HttpHandler do
     :ok
   end
 
-  defp get_param!(req, name) do
-    { value, _ } = :cowboy_req.qs_val(name, req, nil)
-    value
+  defp get_sid_and_msg(req) do
+    { :ok, params, _ } = :cowboy_req.body_qs(req)
+    if Enum.empty?(params), do: { params, _ } = :cowboy_req.qs_vals(req)
+    values = Enum.reduce params, {nil, nil}, fn { name, value }, acc ->
+      { sid, msg } = acc
+      case name do
+        "sid" -> { value, msg }
+        "msg" -> { sid, value }
+        _ -> acc
+      end
+    end
   end
 end
