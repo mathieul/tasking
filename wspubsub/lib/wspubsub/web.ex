@@ -6,6 +6,7 @@ defmodule Wspubsub.Web do
         { "/web-socket", Wspubsub.Web.WebsocketHandler, [] }
         ] }
     ])
-    :cowboy.start_http(:http, 100, [port: 8080], [env: [dispatch: dispatch]])
+    port = Mix.project[:web][:port] || 8000
+    :cowboy.start_http(:http, 100, [port: port], [env: [dispatch: dispatch]])
   end
 end
