@@ -4,5 +4,6 @@ defmodule Wspubsub do
   """
   def start(_type, _args) do
     Wspubsub.Supervisor.start_link(nil)
+    Wspubsub.Web.run
   end
 end
