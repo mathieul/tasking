@@ -1,16 +1,5 @@
 #= require ../lib/base_controller
-
-wsTest = ->
-  ws = new WebSocket "ws://localhost:4000/web-socket?sid=toto"
-
-  ws.onopen = ->
-    console.log ">>> connected"
-
-  ws.onmessage = (evt) ->
-    console.log "  - message received: #{evt.data}"
-
-  ws.onclose = ->
-    console.log ">>> connection closed"
+#= require ../lib/updater
 
 class StoriesController extends App.BaseController
   setup: ->
@@ -20,7 +9,9 @@ class StoriesController extends App.BaseController
     @enablePointSelector()
     @makeStoriesStortable()
     @updateVelocityOnChange()
-    wsTest()
+    @updater = new App.Updater $(body).data("update-session")
+    @updater.onUpdate (message) ->
+      console.log "message: #{message}"
 
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->

@@ -6,7 +6,7 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
 
-  %body#body.preserve-scroll
+  %body#body.preserve-scroll{:"data-update-session" => update_session}
     = render "layouts/navigation_bar"
     %header.title
       .summary-bar.container

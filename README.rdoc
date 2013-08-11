@@ -52,3 +52,9 @@ $ cap deploy:setup deploy deploy:setup_nginx deploy:start deploy:start_resque
 Update:
 
 $ cap deploy deploy:reload_resque
+
+== Misc
+
+Publish a message:
+
+    $ curl -d "sid=stories-index-1&msg=YESSSS :p" http://localhost:4000/publish

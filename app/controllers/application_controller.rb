@@ -6,10 +6,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   add_flash_types :error
+  helper_method :update_session
+
+  def update_session
+    return nil unless (team = find_team)
+    [controller_name, action_name, team.id].join("-")
+  end
 
   protected
 
   def find_team
-    @team = Team.find(current_account.team)
+    @team ||= Team.find(current_account.team)
   end
 end
