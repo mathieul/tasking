@@ -23,5 +23,9 @@ defmodule Wspubsub.Web.WebsocketHandler do
   end
   def websocket_info(_data, req, state), do: { :ok, req, state }
 
-  def websocket_terminate(_reason, _req, _state), do: :ok
+  def websocket_terminate(_reason, _req, state) do
+    { sid } = state
+    Pubsub.unregister(sid, self)
+    :ok
+  end
 end
