@@ -10,8 +10,9 @@ class StoriesController extends App.BaseController
     @makeStoriesStortable()
     @updateVelocityOnChange()
     @updater = new App.Updater $(body).data("pubsub-session")
-    @updater.onUpdate (message) ->
-      console.log "message: #{message}"
+    @updater.onUpdate (data) ->
+      $("#main").load(data.refresh_url)
+      console.log "message: #{data.message} - id: #{data.id}"
 
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->

@@ -70,10 +70,15 @@ class StoriesController < ApplicationController
 
   def update_velocity
     @team.update(projected_velocity: params.require(:velocity))
+    publish!("update_velocity")
     respond_to do |format|
       format.html { redirect_to stories_url }
       format.js   { setup_to_render_main }
     end
+  end
+
+  def refresh
+    setup_to_render_main
   end
 
   private

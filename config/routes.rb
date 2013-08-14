@@ -14,6 +14,7 @@ Tasking::Application.routes.draw do
   # backlog
   resources :stories do
     collection do
+      get  "refresh"
       post "update_velocity"
     end
     member do
