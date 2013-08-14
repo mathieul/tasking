@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def find_team
-    @team ||= Team.find(current_account.team)
+    @team ||= Team.find(current_account.team) if current_account.present?
   end
 end
