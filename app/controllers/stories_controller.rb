@@ -1,6 +1,4 @@
 class StoriesController < ApplicationController
-  include Effectable
-
   before_action :authorize
   before_action :find_team
   before_action :find_story, only: [:edit, :update, :update_position, :destroy]
