@@ -15,6 +15,7 @@ module Publishable
   def publish!(message, object = nil)
     uri = URI("http://localhost:4000/publish")
     message = {
+      from: current_account.try(:email),
       message: message,
       refresh_url: url_for(controller: controller_name, action: "refresh")
     }

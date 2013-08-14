@@ -82,6 +82,7 @@ class StoriesController < ApplicationController
   def setup_to_render_main
     @stories = @team.stories.ranked.backlogged.decorate
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
+    @config = {sid: pubsub_session, email: current_account.try(:email)}
   end
 
   def story_params
