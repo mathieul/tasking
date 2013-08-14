@@ -11,10 +11,17 @@ class StoriesController extends App.BaseController
     @updateVelocityOnChange()
     @registerToUpdates($(document.body).data())
 
+  teardown: ->
+    @disablePointSelector()
+    @unloadVelocityChange()
+
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->
       target = $(event.currentTarget)
       target.closest(".controls").find("#story_points").val(target.data("value"))
+
+  disablePointSelector: ->
+    $("form .point-selector").off("click", ".btn")
 
   makeStoriesStortable: ->
     $("#stories")
@@ -43,11 +50,14 @@ class StoriesController extends App.BaseController
     newPosition
 
   updateVelocityOnChange: ->
-    $("#velocity").change (event) ->
+    $("#velocity").on "change", (event) ->
       $("#btn-new-sprint")
         .attr("disabled", true)
         .click (event) -> event.preventDefault()
       $(event.target).closest("form").submit()
+
+  unloadVelocityChange: ->
+    $("#velocity").off("change")
 
   registerToUpdates: (options) ->
     {sid, email} = options
