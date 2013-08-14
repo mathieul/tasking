@@ -12,13 +12,13 @@ module Publishable
     "#{controller_name}-#{team.id}"
   end
 
-  def publish!(message, id = nil)
+  def publish!(message, object = nil)
     uri = URI("http://localhost:4000/publish")
     message = {
       message: message,
-      id: id,
       refresh_url: url_for(controller: controller_name, action: "refresh")
     }
+    message[:dom_id] = dom_id(object) if object
     result = Net::HTTP.post_form(uri, "sid" => pubsub_session,
                                       "msg" => ActiveSupport::JSON.encode(message))
     result.code == "200"

@@ -11,8 +11,9 @@ class StoriesController extends App.BaseController
     @updateVelocityOnChange()
     @updater = new App.Updater $(body).data("pubsub-session")
     @updater.onUpdate (data) ->
-      $("#main").load(data.refresh_url)
-      console.log "message: #{data.message} - id: #{data.id}"
+      url = "#{data.refresh_url}?#{(new Date).getTime()}"
+      $("#main").load url, ->
+        $("##{data.dom_id}").effect("highlight", duration: 1000) if data.dom_id
 
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->

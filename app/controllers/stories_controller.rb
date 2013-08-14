@@ -4,13 +4,11 @@ class StoriesController < ApplicationController
   before_action :find_story, only: [:edit, :update, :update_position, :destroy]
 
   def index
-    publish!("index")
     setup_to_render_main
   end
 
   def new
     @story = Story.new(row_order_position: params[:row_order_position])
-    publish!("new")
     setup_to_render_main
   end
 
@@ -18,12 +16,11 @@ class StoriesController < ApplicationController
     @story = @team.stories.build(story_params)
     respond_to do |format|
       if @story.save
-        publish!("create:success", @story.id)
+        publish!("create:success", @story)
         notice = "New story was created."
         format.html { redirect_to stories_url, notice: notice }
         format.js   { setup_to_render_main; flash.now[:notice] = notice }
       else
-        publish!("create:failure")
         format.html { setup_to_render_main; render :new }
         format.js   { render :create_error }
       end
@@ -31,18 +28,16 @@ class StoriesController < ApplicationController
   end
 
   def edit
-    publish!("edit", @story.id)
     setup_to_render_main
   end
 
   def update
     respond_to do |format|
       if @story.update(story_params)
-        publish!("update:success", @story.id)
+        publish!("update:success", @story)
         format.html { redirect_to stories_url }
         format.js   { setup_to_render_main }
       else
-        publish!("update:failure", @story.id)
         format.html { setup_to_render_main; render :edit }
         format.js   { render :update_error }
       end
@@ -51,7 +46,7 @@ class StoriesController < ApplicationController
 
   def update_position
     @story.update(row_order_position: params.require(:position))
-    publish!("update_position:success", @story.id)
+    publish!("update_position:success", @story)
     respond_to do |format|
       format.html { redirect_to stories_url }
       format.js   { setup_to_render_main; render :update }
@@ -61,7 +56,7 @@ class StoriesController < ApplicationController
   def destroy
     @story.destroy
     warning = "Story ##{@story.id} was deleted."
-    publish!("destroy", @story.id)
+    publish!("destroy", @story)
     respond_to do |format|
       format.html { redirect_to stories_url, warning: warning }
       format.js   { setup_to_render_main; flash.now[:warning] = warning }
@@ -79,6 +74,7 @@ class StoriesController < ApplicationController
 
   def refresh
     setup_to_render_main
+    render layout: false
   end
 
   private
