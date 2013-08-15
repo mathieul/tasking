@@ -13,6 +13,7 @@ module Authenticatable
   end
 
   def set_current_account(account, permanent: false)
+    session[:sid] = make_sid
     if permanent
       cookies.permanent[:auth_token] = account.auth_token
     else
@@ -22,10 +23,21 @@ module Authenticatable
 
   def clear_current_account
     cookies.delete(:auth_token)
+    session.delete(:sid)
   end
 
   def authorize
     return if current_account
     redirect_to sign_in_url, alert: "You're not authorized to access this page"
+  end
+
+  def current_sid
+    session[:sid]
+  end
+
+  protected
+
+  def make_sid
+    SecureRandom.uuid
   end
 end
