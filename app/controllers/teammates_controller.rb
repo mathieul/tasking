@@ -5,11 +5,13 @@ class TeammatesController < ApplicationController
 
   def index
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def new
     @teammate = Teammate.new
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def create
@@ -17,6 +19,7 @@ class TeammatesController < ApplicationController
     respond_to do |format|
       if @teammate.save
         notice = "New teammate was created."
+        publish!("create:success", @teammate)
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { setup_to_render_main; flash.now[:notice] = notice }
       else
@@ -28,12 +31,14 @@ class TeammatesController < ApplicationController
 
   def edit
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def update
     respond_to do |format|
       if @teammate.update(teammate_params)
         notice = "Teammate #{@teammate.name.inspect} was updated."
+        publish!("update:success", @teammate)
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { setup_to_render_main; flash.now[:notice] = notice; render :create }
       else
@@ -46,6 +51,7 @@ class TeammatesController < ApplicationController
   def destroy
     @teammate.destroy
     warning = "Teammate #{@teammate.name.inspect} was deleted."
+    publish!("destroy:success", @teammate)
     respond_to do |format|
       format.html { redirect_to teammates_url, warning: warning }
       format.js   { setup_to_render_main; flash.now[:warning] = warning }
@@ -69,11 +75,17 @@ class TeammatesController < ApplicationController
 
   def import
     result = importer.teammates(csv: import_params.read, team: @team)
+    publish!("import:success")
     flash[:info] = "Import was successful: #{result[:added]} added, #{result[:updated]} updated."
   rescue StandardError => error
     flash[:error] = "Import failed: #{error.message}"
   ensure
     redirect_to teammates_url
+  end
+
+  def refresh
+    setup_to_render_main
+    render layout: false
   end
 
   private

@@ -6,5 +6,9 @@ class TeammatesController extends App.BaseController
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
+    @registerToUpdates(App.teammates)
+
+  teardown: ->
+    @unregisterFromUpdates()
 
 @App.teammates = new TeammatesController

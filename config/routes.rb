@@ -14,11 +14,11 @@ Tasking::Application.routes.draw do
   # backlog
   resources :stories do
     collection do
-      get  "refresh"
-      post "update_velocity"
+      get  :refresh
+      post :update_velocity
     end
     member do
-      post "update_position"
+      post :update_position
     end
   end
 
@@ -27,8 +27,8 @@ Tasking::Application.routes.draw do
   resources :taskable_stories, only: [:update] do
     resources :tasks, only: [:create, :update, :destroy] do
       member do
-        post "progress"
-        post "complete"
+        post :progress
+        post :complete
       end
     end
   end
@@ -38,6 +38,7 @@ Tasking::Application.routes.draw do
     collection do
       get :export
       get :import_form
+      get  :refresh
       post :import
     end
   end
