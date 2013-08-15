@@ -4,6 +4,7 @@ module Publishable
   extend ActiveSupport::Concern
 
   included do
+    include ActionView::RecordIdentifier
     helper_method :pubsub_room_id
   end
 

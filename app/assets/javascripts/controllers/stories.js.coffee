@@ -7,13 +7,14 @@ class StoriesController extends App.BaseController
     @autoCloseAlerts()
     @transitionWhenClosingModals()
     @enablePointSelector()
-    @makeStoriesStortable()
+    @makeStoriesSortable()
     @updateVelocityOnChange()
     @registerToUpdates($(document.body).data())
 
   teardown: ->
     @disablePointSelector()
     @unloadVelocityChange()
+    @undoStoriesSortable()
 
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->
@@ -23,7 +24,7 @@ class StoriesController extends App.BaseController
   disablePointSelector: ->
     $("form .point-selector").off("click", ".btn")
 
-  makeStoriesStortable: ->
+  makeStoriesSortable: ->
     $("#stories")
       .disableSelection()
       .sortable
@@ -42,6 +43,11 @@ class StoriesController extends App.BaseController
               .val(@_newPositionFor(ui.item))
               .end()
             .submit()
+
+  undoStoriesSortable: ->
+    $("#stories")
+      .sortable("destroy")
+      .enableSelection()
 
   _newPositionFor: (item) ->
     newPosition = item.next(".story-row").data("position")
@@ -69,5 +75,6 @@ class StoriesController extends App.BaseController
         $("#main").load url, ->
           if data.dom_id
             $("##{data.dom_id}").effect("highlight", duration: 1000)
+          App.stories.setup()
 
 @App.stories = new StoriesController
