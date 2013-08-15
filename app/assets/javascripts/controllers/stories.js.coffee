@@ -15,6 +15,7 @@ class StoriesController extends App.BaseController
     @disablePointSelector()
     @unloadVelocityChange()
     @undoStoriesSortable()
+    @unregisterFromUpdates()
 
   enablePointSelector: ->
     $("form .point-selector").on "click", ".btn", (event) ->
@@ -68,8 +69,8 @@ class StoriesController extends App.BaseController
   registerToUpdates: (options) ->
     {roomId, sid} = options
     return unless roomId && sid
-    updater = new App.Updater(roomId)
-    updater.onUpdate (data) ->
+    @updater = new App.Updater(roomId)
+    @updater.onUpdate (data) ->
       if data.from isnt sid
         url = "#{data.refresh_url}?#{(new Date).getTime()}"
         console.log "onUpdate(#{sid}): refresh[#{url}] using", data
@@ -77,5 +78,8 @@ class StoriesController extends App.BaseController
           if data.dom_id
             $("##{data.dom_id}").effect("highlight", duration: 1000)
           App.stories.setup()
+
+  unregisterFromUpdates: ->
+    @updater.destroy()
 
 @App.stories = new StoriesController
