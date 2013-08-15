@@ -5,11 +5,13 @@ class StoriesController < ApplicationController
 
   def index
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def new
     @story = Story.new(row_order_position: params[:row_order_position])
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def create
@@ -29,6 +31,7 @@ class StoriesController < ApplicationController
 
   def edit
     setup_to_render_main
+    register_to_pubsub!
   end
 
   def update
@@ -82,7 +85,6 @@ class StoriesController < ApplicationController
   def setup_to_render_main
     @stories = @team.stories.ranked.backlogged.decorate
     @velocity = VelocityService.new(@team.projected_velocity, @stories)
-    @config = {room_id: pubsub_room_id, sid: current_sid}
   end
 
   def story_params

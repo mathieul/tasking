@@ -13,6 +13,10 @@ module Publishable
     team ? "#{controller_name}-#{team.id}" : nil
   end
 
+  def register_to_pubsub!
+    @config = {room_id: pubsub_room_id, sid: current_sid}
+  end
+
   def publish!(message, object = nil)
     uri = URI("http://localhost:4000/publish")
     data = {

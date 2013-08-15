@@ -6,15 +6,15 @@ class StoriesController extends App.BaseController
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
+    @registerToUpdates()
     @enablePointSelector()
     @makeStoriesSortable()
     @updateVelocityOnChange()
-    @registerToUpdates($(document.body).data())
 
   teardown: ->
-    @disablePointSelector()
     @unloadVelocityChange()
     @undoStoriesSortable()
+    @disablePointSelector()
     @unregisterFromUpdates()
 
   enablePointSelector: ->
@@ -65,22 +65,5 @@ class StoriesController extends App.BaseController
 
   unloadVelocityChange: ->
     $("#velocity").off("change")
-
-  registerToUpdates: (options) ->
-    {roomId, sid} = options
-    return unless roomId && sid
-    @updater = new App.Updater(roomId)
-    @updater.onUpdate (data) ->
-      if data.from isnt sid
-        url = "#{data.refresh_url}?#{(new Date).getTime()}"
-        console.log "onUpdate(#{sid}): refresh[#{url}] using", data
-        App.stories.teardown()
-        $("#main").load url, ->
-          if data.dom_id
-            $("##{data.dom_id}").effect("highlight", duration: 1000)
-          App.stories.setup()
-
-  unregisterFromUpdates: ->
-    @updater.destroy()
 
 @App.stories = new StoriesController
