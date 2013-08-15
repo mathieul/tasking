@@ -1,12 +1,11 @@
 #= require ../lib/base_controller
-#= require ../lib/updater
 
 class StoriesController extends App.BaseController
   setup: ->
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
-    @registerToUpdates()
+    @registerToUpdates(App.stories)
     @enablePointSelector()
     @makeStoriesSortable()
     @updateVelocityOnChange()

@@ -1,3 +1,5 @@
+#= require ./updater
+
 class @App.BaseController
   setup: ->
   teardown: ->
@@ -22,19 +24,18 @@ class @App.BaseController
         .modal("hide")
         .on "hidden", -> Turbolinks.visit cancel.attr("href")
 
-  registerToUpdates: ->
+  registerToUpdates: (controller) ->
     {roomId, sid} = $(document.body).data()
     return unless roomId && sid
     @updater = new App.Updater(roomId)
     @updater.onUpdate (data) ->
       if data.from isnt sid
         url = "#{data.refresh_url}?#{(new Date).getTime()}"
-        console.log "onUpdate(#{sid}): refresh[#{url}] using", data
-        App.stories.teardown()
+        controller.teardown()
         $("#main").load url, ->
           if data.dom_id
             $("##{data.dom_id}").effect("highlight", duration: 1000)
-          App.stories.setup()
+          controller.setup()
 
   unregisterFromUpdates: ->
     @updater.destroy()
