@@ -1,30 +1,31 @@
-- if teammates.empty?
-  %table.table.table-bordered
-    %tbody.table
-      %tr
-        %td
-          %p
-            There are no teammates yet.
-- else
-  %table.table.table-stripped.table-hover.hidden-commands
-    %thead.table
-      %tr
-        %th Name
-        %th Roles
-        %th Color
-        %th Account
-        %th Updated
-    %tbody.table
-      - teammates.each.with_index do |teammate, index|
-        - cache [teammate, index] do
-          %tr{id: dom_id(teammate)}
-            %td<
-              = render "edit_button", target: teammate, position: index
-              = teammate.name
-              (
-              = teammate.initials
-              )
-            %td= teammate.role_labels
-            %td{teammate.show_color_class}= teammate.color
-            %td= teammate.account_email
-            %td= teammate.updated_at
+- cache teammates do
+  - if teammates.empty?
+    %table.table.table-bordered
+      %tbody.table
+        %tr
+          %td
+            %p
+              There are no teammates yet.
+  - else
+    %table.table.table-stripped.table-hover.hidden-commands
+      %thead.table
+        %tr
+          %th Name
+          %th Roles
+          %th Color
+          %th Account
+          %th Updated
+      %tbody.table
+        - teammates.each.with_index do |teammate, index|
+          - cache [teammate, index] do
+            %tr{id: dom_id(teammate)}
+              %td<
+                = render "edit_button", target: teammate, position: index
+                = teammate.name
+                (
+                = teammate.initials
+                )
+              %td= teammate.role_labels
+              %td{teammate.show_color_class}= teammate.color
+              %td= teammate.account_email
+              %td= teammate.updated_at
