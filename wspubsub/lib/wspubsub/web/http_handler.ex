@@ -8,9 +8,9 @@ defmodule Wspubsub.Web.HttpHandler do
   end
 
   def handle(req, state) do
-    { sid, msg } = get_sid_and_msg(req)
-    if sid && msg do
-      Pubsub.publish(sid, msg)
+    { room_id, data } = get_room_id_and_data(req)
+    if room_id && data do
+      Pubsub.publish(room_id, data)
       { :ok, req } = :cowboy_req.reply(200, [], "sent", req)
     else
       { :ok, req } = :cowboy_req.reply(406, [], "406 Not Acceptable", req)
@@ -22,14 +22,14 @@ defmodule Wspubsub.Web.HttpHandler do
     :ok
   end
 
-  defp get_sid_and_msg(req) do
+  defp get_room_id_and_data(req) do
     { :ok, params, _ } = :cowboy_req.body_qs(req)
     if Enum.empty?(params), do: { params, _ } = :cowboy_req.qs_vals(req)
     values = Enum.reduce params, {nil, nil}, fn { name, value }, acc ->
-      { sid, msg } = acc
+      { room_id, data } = acc
       case name do
-        "sid" -> { value, msg }
-        "msg" -> { sid, value }
+        "room_id" -> { value, data }
+        "data" -> { room_id, value }
         _ -> acc
       end
     end

@@ -8,9 +8,9 @@ defmodule Wspubsub.Web.WebsocketHandler do
   end
 
   def websocket_init(_transport_name, req, _opts) do
-    { sid, _ } = :cowboy_req.qs_val("sid", req, nil)
-    if sid, do: Pubsub.register(sid, self)
-    { :ok, req, { sid } }
+    { room_id, _ } = :cowboy_req.qs_val("room_id", req, nil)
+    if room_id, do: Pubsub.register(room_id, self)
+    { :ok, req, { room_id } }
   end
 
   def websocket_handle( { :text, message }, req, state) do
@@ -24,8 +24,8 @@ defmodule Wspubsub.Web.WebsocketHandler do
   def websocket_info(_data, req, state), do: { :ok, req, state }
 
   def websocket_terminate(_reason, _req, state) do
-    { sid } = state
-    Pubsub.unregister(sid, self)
+    { room_id } = state
+    Pubsub.unregister(room_id, self)
     :ok
   end
 end

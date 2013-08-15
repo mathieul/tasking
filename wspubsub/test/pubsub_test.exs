@@ -52,9 +52,9 @@ defmodule PubsubTest do
   end
 
   test "the server remembers the last 10 messages" do
-    Enum.each 1..12, fn n -> Pubsub.publish("ze-sid", "msg#{n}") end
+    Enum.each 1..12, fn n -> Pubsub.publish("ze-room-id", "msg#{n}") end
     expected = Enum.map 12..3, fn n -> "msg#{n}" end
-    assert Pubsub.last_messages("ze-sid") == expected
+    assert Pubsub.last_messages("ze-room-id") == expected
     assert Pubsub.last_messages("not-set-yet") == []
   end
 

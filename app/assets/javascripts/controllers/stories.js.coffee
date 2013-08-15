@@ -60,9 +60,9 @@ class StoriesController extends App.BaseController
     $("#velocity").off("change")
 
   registerToUpdates: (options) ->
-    {sid, email} = options
-    return unless sid && email
-    updater = new App.Updater(sid)
+    {roomId, email} = options
+    return unless roomId && email
+    updater = new App.Updater(roomId)
     updater.onUpdate (data) ->
       if data.from isnt email
         url = "#{data.refresh_url}?#{(new Date).getTime()}"

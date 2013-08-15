@@ -1,8 +1,8 @@
 WS_URL = "ws://localhost:4000/web-socket"
 
 class Updater
-  constructor: (sid) ->
-    ws = new WebSocket("#{WS_URL}?sid=#{sid}")
+  constructor: (room_id) ->
+    ws = new WebSocket("#{WS_URL}?room_id=#{room_id}")
     @onmessage = ->
     @setup(ws)
 
