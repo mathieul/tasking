@@ -16,7 +16,7 @@ class PageUpdateManager
 
   refreshMain: (request) ->
     controller = App[request.controllerName]
-    controller.teardown();
+    controller.teardown()
     if request.modal
       @hideModal(request.modal)
       timer = 1000
@@ -24,6 +24,6 @@ class PageUpdateManager
     @highlight(request.highlight, timer || 0) if request.highlight
     @prepend(request.prepend...) if request.prepend
     @reflectNewUrl(request.newUrl) if request.newUrl
-    controller.setup();
+    controller.setup()
 
 @App.pageUpdateManager = new PageUpdateManager

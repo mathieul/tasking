@@ -74,6 +74,7 @@ class StoriesController extends App.BaseController
       if data.from isnt sid
         url = "#{data.refresh_url}?#{(new Date).getTime()}"
         console.log "onUpdate(#{sid}): refresh[#{url}] using", data
+        App.stories.teardown()
         $("#main").load url, ->
           if data.dom_id
             $("##{data.dom_id}").effect("highlight", duration: 1000)
