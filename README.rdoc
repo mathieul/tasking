@@ -52,3 +52,12 @@ $ cap deploy:setup deploy deploy:setup_nginx deploy:start deploy:start_resque
 Update:
 
 $ cap deploy deploy:reload_resque
+
+== Install pubsub server
+
+$ cd apps/tasking/current/wspubsub
+$ foreman export upstart . -l $PWD/../../shared/logs -u deploy -a wspubsub -p 8889
+$ sudo su -
+# cd /etc/init
+# cp /home/deploy/apps/tasking/current/wspubsub/wspubsub* .
+# service wspubsub start
