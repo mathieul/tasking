@@ -5,13 +5,10 @@
 # Steps to implement:
 #   * 
 
-# WS_URL = "ws://localhost:4000/web-socket"
-WS_URL = "ws://wspubsub.cloudigisafe.com/web-socket"
-
 class Updater
   constructor: (@options) ->
-    {@roomId, @sid, @controller, @updateSel} = @options
-    @setup("#{WS_URL}?room_id=#{@roomId}")
+    {@roomId, @sid, @controller, @updateSel, websocketUrl} = @options
+    @setup("#{websocketUrl}?room_id=#{@roomId}")
     @editing = false
     @buffered = null
 

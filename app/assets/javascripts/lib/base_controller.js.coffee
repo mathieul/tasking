@@ -27,11 +27,12 @@ class @App.BaseController
         .on "hidden", -> Turbolinks.visit cancel.attr("href")
 
   registerToUpdates: (controller) ->
-    {roomId, sid} = $(document.body).data()
+    {roomId, sid, websocketUrl} = $(document.body).data()
     if roomId && sid
       @updater = new App.Updater
         roomId: roomId
         sid: sid
+        websocketUrl: websocketUrl
         controller: controller
         updateSel: "#main"
       $(@editorSel)

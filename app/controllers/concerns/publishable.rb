@@ -14,12 +14,15 @@ module Publishable
   end
 
   def register_to_pubsub!
-    @config = {room_id: pubsub_room_id, sid: current_sid}
+    @config = {
+      room_id: pubsub_room_id,
+      sid: current_sid,
+      websocket_url: CONFIG[:websocket_url]
+    }
   end
 
   def publish!(message, object = nil)
-    # uri = URI("http://localhost:4000/publish")
-    uri = URI("http://wspubsub.cloudigisafe.com/publish")
+    uri = URI(CONFIG[:publish_url])
     data = {
       from: current_sid,
       message: message,
