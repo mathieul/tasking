@@ -5,7 +5,8 @@
 # Steps to implement:
 #   * 
 
-WS_URL = "ws://localhost:4000/web-socket"
+# WS_URL = "ws://localhost:4000/web-socket"
+WS_URL = "ws://wspubsub.cloudigisafe.com/web-socket"
 
 class Updater
   constructor: (@options) ->
