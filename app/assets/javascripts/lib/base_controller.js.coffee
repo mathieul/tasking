@@ -1,6 +1,8 @@
 #= require ./updater
 
 class @App.BaseController
+  editorSel: "#editor"
+
   setup: ->
   destroy: ->
 
@@ -10,7 +12,7 @@ class @App.BaseController
       time.text moment(time.attr("datetime")).fromNow()
 
   showEditorIfPresent: ->
-    $("#editor").modal()
+    $(@editorSel).modal()
 
   autoCloseAlerts: ->
     alerts = $(".alert.auto-close")
@@ -32,6 +34,10 @@ class @App.BaseController
         sid: sid
         controller: controller
         updateSel: "#main"
+      $(@editorSel)
+        .on("show", => @updater.startEdit())
+        .on("hidden", => @updater.stopEdit())
 
   unregisterFromUpdates: ->
+    $(@editorSel).off("show, hidden")
     @updater.destroy()

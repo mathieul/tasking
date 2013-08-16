@@ -2,10 +2,10 @@
 
 class StoriesController extends App.BaseController
   setup: ->
+    @registerToUpdates(App.stories)
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
-    @registerToUpdates(App.stories)
     @enablePointSelector()
     @makeStoriesSortable()
     @updateVelocityOnChange()

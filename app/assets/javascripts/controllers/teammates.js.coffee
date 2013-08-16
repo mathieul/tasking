@@ -2,11 +2,11 @@
 
 class TeammatesController extends App.BaseController
   setup: ->
+    @registerToUpdates(App.teammates)
     @labelTimeTags()
     @showEditorIfPresent()
     @autoCloseAlerts()
     @transitionWhenClosingModals()
-    @registerToUpdates(App.teammates)
 
   destroy: ->
     @unregisterFromUpdates()
