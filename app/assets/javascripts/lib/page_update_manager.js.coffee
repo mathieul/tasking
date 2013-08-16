@@ -16,7 +16,7 @@ class PageUpdateManager
 
   refreshMain: (request) ->
     controller = App[request.controllerName]
-    controller.teardown()
+    controller.destroy()
     if request.modal
       @hideModal(request.modal)
       timer = 1000

@@ -10,7 +10,7 @@ class StoriesController extends App.BaseController
     @makeStoriesSortable()
     @updateVelocityOnChange()
 
-  teardown: ->
+  destroy: ->
     @unloadVelocityChange()
     @undoStoriesSortable()
     @disablePointSelector()

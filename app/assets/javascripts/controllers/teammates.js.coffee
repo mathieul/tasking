@@ -8,7 +8,7 @@ class TeammatesController extends App.BaseController
     @transitionWhenClosingModals()
     @registerToUpdates(App.teammates)
 
-  teardown: ->
+  destroy: ->
     @unregisterFromUpdates()
 
 @App.teammates = new TeammatesController

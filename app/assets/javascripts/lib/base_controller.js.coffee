@@ -2,7 +2,7 @@
 
 class @App.BaseController
   setup: ->
-  teardown: ->
+  destroy: ->
 
   labelTimeTags: ->
     $('time').each ->

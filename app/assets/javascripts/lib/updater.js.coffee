@@ -14,7 +14,7 @@ class Updater
   onMessage: (data) ->
     if data.from isnt @sid
       url = "#{data.refresh_url}?#{(new Date).getTime()}"
-      @controller.teardown()
+      @controller.destroy()
       $(@updateSel).load url, =>
         if data.dom_id
           $("##{data.dom_id}").effect("highlight", duration: 1000)
