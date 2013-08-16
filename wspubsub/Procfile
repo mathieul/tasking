@@ -1,1 +1,1 @@
-web: env MIX_ENV=dev elixir --sname dev -S mix server -p $PORT
+web: env MIX_ENV=dev elixir --sname wspubsub -S mix server -p $PORT
