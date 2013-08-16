@@ -6,7 +6,7 @@ defmodule Wspubsub.Mixfile do
       version: "0.0.1",
       elixir: "~> 0.10.2-dev",
       web: [
-        port: 4000,
+        port: 8889,
       ],
       deps: deps ]
   end
