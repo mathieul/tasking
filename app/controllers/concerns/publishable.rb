@@ -18,7 +18,8 @@ module Publishable
   end
 
   def publish!(message, object = nil)
-    uri = URI("http://localhost:4000/publish")
+    # uri = URI("http://localhost:4000/publish")
+    uri = URI("http://wspubsub.cloudigisafe.com/publish")
     data = {
       from: current_sid,
       message: message,
