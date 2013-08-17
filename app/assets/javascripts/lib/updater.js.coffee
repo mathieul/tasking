@@ -3,7 +3,13 @@
 #          accordingly.
 #
 # Steps to implement:
-#   * 
+#   * update js controller to call #registerToUpdates in #setup (with controller instance as parameter)
+#   * update js controller to call #unregisterFromUpdates in #destroy
+#   * add a route collection GET refresh route
+#   * update ruby controller actions intended to listen to changes to call #register_to_pubsub!
+#   * update ruby controller actions intended to publish changes to call #publish!
+#   * update ruby controller with adding a refresh action with setup to render the main partial
+#   * add a refresh view that renders the main partial
 
 class Updater
   constructor: (@options) ->

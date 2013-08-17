@@ -6,14 +6,4 @@
 - content_for :javascript do
   = javascript_tag "App.sprints.setup();"
 
-%h3 Team
-%p.muted Edit a story or a task and click on a teammate button below to make it the owner.
-= render "teammate_selector", teammates: @teammates
-
-%br
-%br
-%h3 Tasks
-%p.muted Hover over a story description or a task to reveal the command buttons.
-- cache @task_table do
-  #task-table-wrapper.preserve-scroll
-    = render "tasks/task_table", task_table: @task_table
+= render "main", teammates: @teammates, task_table: @task_table

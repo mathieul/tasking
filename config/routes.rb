@@ -23,7 +23,11 @@ Tasking::Application.routes.draw do
   end
 
   # sprints
-  resources :sprints, only: [:index, :new, :create, :edit, :update]
+  resources :sprints, only: [:index, :new, :create, :edit, :update] do
+    collection do
+      get :refresh
+    end
+  end
   resources :taskable_stories, only: [:update] do
     resources :tasks, only: [:create, :update, :destroy] do
       member do

@@ -3,12 +3,14 @@
 
 class SprintsController extends App.BaseController
   setup: (options) ->
+    @registerToUpdates(App.sprints)
     @initDatePickers()
     @initTaskTable()
     @initSprintTable()
 
   initDatePickers: ->
     $(".date .input-append").datetimepicker(pickTime: false)
+    @unregisterFromUpdates()
 
   initTaskTable: ->
     @taskTable = new App.TaskTable

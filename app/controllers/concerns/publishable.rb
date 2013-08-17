@@ -26,6 +26,7 @@ module Publishable
     data = {
       from: current_sid,
       message: message,
+      # TODO: allow to customize refresh_url (for sprints controller)
       refresh_url: url_for(controller: controller_name, action: "refresh")
     }
     data[:dom_id] = dom_id(object) if object
