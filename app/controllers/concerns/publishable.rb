@@ -33,6 +33,8 @@ module Publishable
     result = Net::HTTP.post_form(uri, "room_id" => pubsub_room_id(room),
                                       "data" => ActiveSupport::JSON.encode(data))
     result.code == "200"
+  rescue StandardError => exception
+    Rails.logger.error "Publishable#publish!: exception caught: #{exception}"
   end
 
   private
