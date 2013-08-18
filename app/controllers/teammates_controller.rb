@@ -19,7 +19,7 @@ class TeammatesController < ApplicationController
     respond_to do |format|
       if @teammate.save
         notice = "New teammate was created."
-        publish!("create:success", @teammate)
+        publish!("create", object: @teammate)
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { setup_to_render_main; flash.now[:notice] = notice }
       else
@@ -38,7 +38,7 @@ class TeammatesController < ApplicationController
     respond_to do |format|
       if @teammate.update(teammate_params)
         notice = "Teammate #{@teammate.name.inspect} was updated."
-        publish!("update:success", @teammate)
+        publish!("update", object: @teammate)
         format.html { redirect_to teammates_url, notice: notice }
         format.js   { setup_to_render_main; flash.now[:notice] = notice; render :create }
       else
@@ -51,7 +51,7 @@ class TeammatesController < ApplicationController
   def destroy
     @teammate.destroy
     warning = "Teammate #{@teammate.name.inspect} was deleted."
-    publish!("destroy:success", @teammate)
+    publish!("destroy", object: @teammate)
     respond_to do |format|
       format.html { redirect_to teammates_url, warning: warning }
       format.js   { setup_to_render_main; flash.now[:warning] = warning }

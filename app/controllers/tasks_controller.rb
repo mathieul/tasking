@@ -7,27 +7,32 @@ class TasksController < ApplicationController
   def create
     @task = @taskable_story.tasks.build(task_params.merge(team: @team))
     @task.save!
+    publish_change!("create:task")
     respond_with_fresh_task_table
   end
 
   def update
     @task.update!(task_params)
+    publish_change!("update:task")
     respond_with_fresh_task_table
   end
 
   def destroy
     @task = @taskable_story.tasks.find(params.require(:id))
     @task.destroy
+    publish_change!("destroy:task")
     respond_with_fresh_task_table
   end
 
   def progress
     @task.progress!
+    publish_change!("progress:task")
     respond_with_fresh_task_table
   end
 
   def complete
     @task.complete!
+    publish_change!("complete:task")
     respond_with_fresh_task_table
   end
 
@@ -59,5 +64,10 @@ class TasksController < ApplicationController
       format.html { redirect_to [:edit, @taskable_story.sprint] }
       format.js   { refresh_task_table }
     end
+  end
+
+  def publish_change!(message)
+    publish!(message, object: @task, room: "sprints",
+      controller: "sprints", id: @taskable_story.sprint_id)
   end
 end

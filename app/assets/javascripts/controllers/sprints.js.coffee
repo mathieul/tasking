@@ -8,9 +8,11 @@ class SprintsController extends App.BaseController
     @initTaskTable()
     @initSprintTable()
 
+  destroy: ->
+    @unregisterFromUpdates()
+
   initDatePickers: ->
     $(".date .input-append").datetimepicker(pickTime: false)
-    @unregisterFromUpdates()
 
   initTaskTable: ->
     @taskTable = new App.TaskTable

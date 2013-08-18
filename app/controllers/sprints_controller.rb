@@ -71,7 +71,7 @@ class SprintsController < ApplicationController
   end
 
   def setup_for_edit
-    sprint = @team.sprints.find_from_kind_or_id(sprint_id))
+    sprint = @team.sprints.find_from_kind_or_id(sprint_id)
     return unless sprint
     @task_table = TaskTable.new(sprint)
     @sprint = sprint.decorate

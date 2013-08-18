@@ -20,7 +20,7 @@ class Updater
 
   setup: (url) ->
     @ws = new WebSocket(url)
-    @ws.onopen    = -> console.log ">>> connected"
+    @ws.onopen    = -> console.log ">>> connected: #{url}"
     @ws.onmessage = (evt) => @onMessage JSON.parse(evt.data)
     @ws.onclose   = -> console.log ">>> connection closed"
 
@@ -49,6 +49,7 @@ class Updater
       @buffered = null
 
   destroy: ->
+    console.log ">>> destroy"
     @ws.close()
 
 @App.Updater = Updater

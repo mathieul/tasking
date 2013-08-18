@@ -5,6 +5,8 @@ class TaskableStoriesController < ApplicationController
   def update
     @taskable_story = TaskableStory.where(team_id: @team.id).find(params.require(:id))
     @taskable_story.update(taskable_story_params)
+    publish!("taskable_story:update", object: @taskable_story, room: "sprints",
+      controller: "sprints", id: @taskable_story.sprint_id)
     respond_to do |format|
       format.html { redirect_to [:edit, @taskable_story.sprint] }
       format.js   { @task_table = TaskTable.new(@taskable_story.sprint) }
