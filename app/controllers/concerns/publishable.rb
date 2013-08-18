@@ -3,6 +3,10 @@ require 'net/http'
 module Publishable
   extend ActiveSupport::Concern
 
+  included do
+    include ActionView::RecordIdentifier
+  end
+
   def pubsub_room_id(name)
     team = find_team
     team ? "#{name}-#{team.id}" : nil
