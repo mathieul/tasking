@@ -3,8 +3,8 @@ development:
   publish_url: http://localhost:8889/publish
 
 test:
-  websocket_url: ws://localhost:8889/web-socket
-  publish_url: http://localhost:8889/publish
+  websocket_url:
+  publish_url:
 
 production:
   websocket_url: ws://wspubsub.cloudigisafe.com/web-socket

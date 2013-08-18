@@ -21,9 +21,9 @@ module Publishable
   end
 
   def publish!(message, content = {})
+    return unless (uri = URI(CONFIG[:publish_url]))
     object = content.delete(:object)
     room = content.delete(:room) || controller_name
-    uri = URI(CONFIG[:publish_url])
     data = {
       from: current_sid,
       message: message,

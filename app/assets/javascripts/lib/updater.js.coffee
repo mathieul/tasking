@@ -14,15 +14,19 @@
 class Updater
   constructor: (@options) ->
     {@roomId, @sid, @controller, @updateSel, websocketUrl} = @options
+    return unless websocketUrl
     @setup("#{websocketUrl}?room_id=#{@roomId}")
     @editing = false
     @buffered = null
 
   setup: (url) ->
     @ws = new WebSocket(url)
-    @ws.onopen    = -> console.log ">>> connected: #{url}"
+    # @ws.onopen    = -> console.log ">>> connected: #{url}"
     @ws.onmessage = (evt) => @onMessage JSON.parse(evt.data)
-    @ws.onclose   = -> console.log ">>> connection closed"
+    # @ws.onclose   = -> console.log ">>> connection closed"
+
+  destroy: ->
+    @ws?.close()
 
   onMessage: (data) ->
     return if data.from is @sid
@@ -37,19 +41,12 @@ class Updater
         @controller.setup()
 
   startEdit: ->
-    console.log ">>> startEdit"
     @editing = true
 
   stopEdit: ->
-    console.log ">>> stopEdit"
     @editing = false
     if @buffered
-      console.log "stopEdit: unbuffer"
       @onMessage(@buffered)
       @buffered = null
-
-  destroy: ->
-    console.log ">>> destroy"
-    @ws.close()
 
 @App.Updater = Updater
