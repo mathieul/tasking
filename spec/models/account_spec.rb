@@ -60,12 +60,19 @@ describe Account do
     end
   end
 
-  context "activation" do
+  context "miscellaneous" do
     it "can be activated with #activate!" do
       account = create(:account)
       expect(account).not_to be_activated
       account.activate!
       expect(account).to be_activated
+    end
+
+    it "can be an admin" do
+      account = build(:account)
+      expect(account.admin?).to be_false
+      account.admin = true
+      expect(account.admin?).to be_true
     end
   end
 end

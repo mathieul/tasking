@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130704035713) do
+ActiveRecord::Schema.define(version: 20130819072345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,8 @@ ActiveRecord::Schema.define(version: 20130704035713) do
     t.datetime "password_reset_sent_at"
     t.string   "activation_token"
     t.datetime "activated_at"
-    t.integer  "team_id",                null: false
+    t.integer  "team_id",                                null: false
+    t.boolean  "admin",                  default: false
   end
 
   add_index "accounts", ["activation_token"], name: "index_accounts_on_activation_token", unique: true, using: :btree
