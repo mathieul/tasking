@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.new(account_params)
+    @account = Account.new(account_params.merge(admin: true))
     if @account.save
       set_current_account(@account)
       EmailService.new(account: :activate).deliver(id: @account.id)

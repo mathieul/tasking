@@ -23,6 +23,10 @@ feature "Account management" do
     click_button "Sign Up"
     expect(page).to have_content "Thank you for signing up!"
     expect(current_path).to eq("/stories")
+    account = Account.find_by(email: "user@example.com")
+    expect(account).not_to be_nil
+    expect(account.team.name).to eq("Ze Team")
+    expect(account).to be_admin
   end
 
   scenario "Signing in", js: true do
