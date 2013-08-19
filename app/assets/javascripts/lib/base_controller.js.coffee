@@ -42,3 +42,6 @@ class @App.BaseController
   unregisterFromUpdates: ->
     $(@editorSel).off("show, hidden")
     @updater.destroy()
+
+  focusFirstField: ->
+    $("form:first input:visible:first").focus()

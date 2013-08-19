@@ -11,9 +11,9 @@ feature "Account management" do
     visit "/"
     click_link "Sign Up"
 
-    fill_in "Team name", with: "X"
     fill_in "Email",    with: "user@example.com"
     fill_in "Password", with: "123"
+    fill_in "Team name", with: "X"
     click_button "Sign Up"
     expect(page).to have_content "Please review the problems below:"
     expect(page).to have_content "is too short (minimum is 6 characters)"
@@ -27,6 +27,14 @@ feature "Account management" do
     expect(account).not_to be_nil
     expect(account.team.name).to eq("Ze Team")
     expect(account).to be_admin
+  end
+
+  scenario "Guessing team name when signing up", js: true do
+    visit "/"
+    click_link "Sign Up"
+    fill_in "Email",    with: "mathieu@caring.com"
+    fill_in "Password", with: "whatever"
+    expect(find_field("Team name").value).to eq("Caring")
   end
 
   scenario "Signing in", js: true do

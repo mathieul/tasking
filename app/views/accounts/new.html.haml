@@ -1,3 +1,7 @@
+- page_title "Sign Up"
+- content_for :javascript do
+  = javascript_tag "App.signup.setup();"
+
 %h2 Sign Up
 
 %br
@@ -6,10 +10,11 @@
     %legend Fill up below to sign up
     = f.error_notification
 
+    = f.input :email
+    = f.input :password
+    %br
     = f.simple_fields_for @account.errors_on_team? ? :team : :team_attributes do |team_f|
       = team_f.input :name, label: "Team name"
-    = f.input :email, html: {class: "span6"}
-    = f.input :password, html: {class: "span6"}
 
     %br
     = f.button :submit, "Sign Up", class: "btn-primary"
