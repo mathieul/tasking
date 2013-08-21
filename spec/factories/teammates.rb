@@ -6,7 +6,6 @@ FactoryGirl.define do
     sequence :initials do |n|
       "j#{n}"
     end
-    roles ["engineer"]
     color "red"
     team
   end

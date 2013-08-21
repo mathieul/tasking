@@ -3,6 +3,7 @@ team = Team.create! name: "Testing"
 account = Account.create! email: "admin@example.com",
                           password: "secret",
                           password_confirmation: "secret",
+                          admin: true,
                           team_id: team.id
 account.activate!
 
@@ -30,7 +31,6 @@ Story.create! description: "SPEC: As a CSR setting a valid status, I am required
 
 Teammate.create! name: "Admin",
                  initials: "ADM",
-                 roles: ["admin"],
                  color: "red",
                  account: account,
                  team: team

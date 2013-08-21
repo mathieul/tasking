@@ -14,7 +14,7 @@
 #
 
 class Teammate < ActiveRecord::Base
-  ROLES  = %w[admin teammate tech_lead product_manager]
+  ROLES  = %w[passive teammate tech_lead product_manager]
   COLORS = %w[baby-blue dark-beige dark-blue dark-green dark-purple light-green
               old-pink orange pink black purple red salmon yellow]
 
@@ -28,6 +28,7 @@ class Teammate < ActiveRecord::Base
                        inclusion: {in: COLORS, allow_nil: true}
   validates :team,     presence: true
 
+  after_initialize  :set_default_values
   before_validation :set_initials_if_missing
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }
@@ -35,6 +36,10 @@ class Teammate < ActiveRecord::Base
   scope :product_managers, -> { with_role("product_manager").order("name") }
 
   private
+
+  def set_default_values
+    self.roles = ["passive"] if roles.empty?
+  end
 
   def set_initials_if_missing
     return if initials.present? || name.nil?

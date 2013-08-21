@@ -7,14 +7,15 @@
         %ul.nav
           %li.divider-vertical
           - if current_account
-            = render "layouts/dropdown_menu", label: "Sprints", active: "sprints",
-              entries: [{label: "Current Sprint",  url: edit_sprint_path(:current)},
-                        {divider: true},
-                        {label: "Upcoming Sprint", url: edit_sprint_path(:next)},
-                        {label: "Last Sprint", url: edit_sprint_path(:last)},
-                        {label: "All Sprints...",  url: sprints_path}]
-            %li.divider-vertical
             = render "layouts/nav_link", label: "Backlog", url: stories_path
+            %li.divider-vertical
+            = render "layouts/dropdown_menu", label: "Sprints", active: "sprints",
+              entries: [{label: "Current",  url: edit_sprint_path(:current)},
+                        {divider: true},
+                        {label: "Upcoming", url: edit_sprint_path(:next)},
+                        {label: "Last", url: edit_sprint_path(:last)},
+                        {divider: true},
+                        {label: "All sprints",  url: sprints_path}]
             %li.divider-vertical
             = render "layouts/nav_link", label: "Teammates", url: teammates_path
             %li.divider-vertical
