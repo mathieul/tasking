@@ -15,10 +15,10 @@
           teammate.
         Please fix the errors below.
     = f.input :name
-    = f.input :initials, required: false
     = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
+    = f.input :email, as: :email
     = f.input :color, as: :select, collection: Teammate::COLORS
-    = f.association :account, collection: @team.accounts, label_method: :email
+    = f.input :initials
   .modal-footer
     = link_to "Cancel", teammates_path, class: "btn cancel"
     = f.button :submit, class: "btn-primary"

@@ -9,7 +9,7 @@ class TeammatesController < ApplicationController
   end
 
   def new
-    @teammate = Teammate.new
+    @teammate = TeammateForm.new
     setup_to_render_main
     register_to_pubsub!
   end
@@ -30,6 +30,7 @@ class TeammatesController < ApplicationController
   end
 
   def edit
+    @teammate = TeammateForm.from_teammate(@teammate)
     setup_to_render_main
     register_to_pubsub!
   end

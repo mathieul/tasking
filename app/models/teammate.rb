@@ -14,7 +14,7 @@
 #
 
 class Teammate < ActiveRecord::Base
-  ROLES  = %w[passive teammate tech_lead product_manager]
+  ROLES  = %w[teammate tech_lead product_manager]
   COLORS = %w[baby-blue dark-beige dark-blue dark-green dark-purple light-green
               old-pink orange pink black purple red salmon yellow]
 
@@ -34,6 +34,8 @@ class Teammate < ActiveRecord::Base
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }
   scope :tech_leads, -> { with_role("tech_lead").order("name") }
   scope :product_managers, -> { with_role("product_manager").order("name") }
+
+  delegate :email, to: :account, prefix: true, allow_nil: true
 
   private
 
