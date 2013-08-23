@@ -44,7 +44,7 @@ describe TeammateForm do
     let(:team) { create(:team) }
 
     it "returns true if the form is valid" do
-      form = TeammateForm.new(name: "toto", color: "blue")
+      form = TeammateForm.new(name: "toto", color: "red")
       expect(form.submit(scope: team)).to be_true
     end
 
@@ -53,20 +53,31 @@ describe TeammateForm do
       expect(form.submit(scope: team)).to be_false
     end
 
-    it "creates a new teammate if it doesn't exist already" do
-      form = TeammateForm.new(name: "toto", color: "baby-blue")
-      form.submit(scope: team)
-      teammate = Teammate.find_by(name: "toto")
-      expect(teammate.color).to eq("baby-blue")
-      expect(teammate.team).to eq(team)
+    context "teammate doesn't exist" do
+      it "creates a new teammate" do
+        form = TeammateForm.new(name: "toto", color: "baby-blue")
+        form.submit(scope: team)
+        expect(form.teammate).to be_valid
+        expect(form.teammate.color).to eq("baby-blue")
+        expect(form.teammate.team).to eq(team)
+      end
+
+      it "creates an account if email is set" do
+        form = TeammateForm.new(name: "jim", color: "black", email: "jim@black.com")
+        form.submit(scope: team)
+        expect(form.teammate.account).to be_valid
+        expect(form.teammate.account.email).to eq("jim@black.com")
+      end
     end
 
-    it "updates an existing teammate if it already exists" do
-      teammate = create(:teammate, name: "jojo", team: team)
-      form = TeammateForm.new(teammate_id: teammate.id, name: "titi", color: "baby-blue")
-      expect { form.submit(scope: team) }.not_to change { Teammate.count }
-      teammate.reload
-      expect(teammate.name).to eq("titi")
+    context "teammate already exists" do
+      it "updates an existing teammate" do
+        teammate = create(:teammate, name: "jojo", team: team)
+        form = TeammateForm.new(teammate_id: teammate.id, name: "titi", color: "baby-blue")
+        expect { form.submit(scope: team) }.not_to change { Teammate.count }
+        teammate.reload
+        expect(teammate.name).to eq("titi")
+      end
     end
   end
 

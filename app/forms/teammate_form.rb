@@ -1,9 +1,17 @@
 class TeammateForm
-  TEAMMATE_ATTRIBUTES = %w[name roles color initials]
+  TEAMMATE_ATTRIBUTES = %i[name roles color initials]
 
+  include Virtus
   include ActiveModel::Model
 
-  attr_accessor :teammate_id, :name, :roles, :email, :color, :initials
+  attr_reader :teammate
+
+  attribute :teammate_id, Integer
+  attribute :name, String
+  attribute :initials, String
+  attribute :roles, Array[String]
+  attribute :email, String
+  attribute :color, String
 
   validates :name, presence: true
   validates :color, presence: true
@@ -13,7 +21,7 @@ class TeammateForm
   end
 
   def self.from_teammate(teammate)
-    attributes = teammate.attributes.slice(*TEAMMATE_ATTRIBUTES)
+    attributes = teammate.attributes.symbolize_keys.slice(*TEAMMATE_ATTRIBUTES)
     attributes["email"] = teammate.account_email
     attributes["teammate_id"] = teammate.id
     new(attributes)
@@ -22,20 +30,29 @@ class TeammateForm
   def submit(scope: nil)
     return false unless valid?
     raise ArgumentError, "missing mandatory team scope" if scope.nil?
-    teammate = scope.teammates.find(teammate_id) if teammate_id.present?
-    if teammate
-      teammate.update(get_attributes)
+    if create_or_update_teammate(scope).valid?
+      create_account(scope)
+      true
     else
-      scope.teammates.create(get_attributes)
+      false
     end
   end
 
   private
 
-  def get_attributes
-    TEAMMATE_ATTRIBUTES.each.with_object({}) do |name, attributes|
-      value = send(name)
-      attributes[name] = send(name) unless value.nil?
+  def create_or_update_teammate(team)
+    teammate = team.teammates.find(teammate_id) if teammate_id.present?
+    teammate_attributes = attributes.slice(*TEAMMATE_ATTRIBUTES)
+    if teammate
+      teammate.update(teammate_attributes)
+    else
+      teammate = team.teammates.create(teammate_attributes)
     end
+    @teammate = teammate
+  end
+
+  def create_account(team)
+    return if teammate.nil? || email.blank?
+    teammate.account = team.accounts.create(email: email)
   end
 end
