@@ -45,17 +45,17 @@ describe TeammateForm do
 
     it "returns true if the form is valid" do
       form = TeammateForm.new(name: "toto", color: "blue")
-      expect(form.submit_for_team(team)).to be_true
+      expect(form.submit(scope: team)).to be_true
     end
 
     it "returns false if the form isn't valid" do
       form = TeammateForm.new(name: "toto")
-      expect(form.submit_for_team(team)).to be_false
+      expect(form.submit(scope: team)).to be_false
     end
 
     it "creates a new teammate if it doesn't exist already" do
       form = TeammateForm.new(name: "toto", color: "baby-blue")
-      form.submit_for_team(team)
+      form.submit(scope: team)
       teammate = Teammate.find_by(name: "toto")
       expect(teammate.color).to eq("baby-blue")
       expect(teammate.team).to eq(team)
@@ -64,7 +64,7 @@ describe TeammateForm do
     it "updates an existing teammate if it already exists" do
       teammate = create(:teammate, name: "jojo", team: team)
       form = TeammateForm.new(teammate_id: teammate.id, name: "titi", color: "baby-blue")
-      expect { form.submit_for_team(team) }.not_to change { Teammate.count }
+      expect { form.submit(scope: team) }.not_to change { Teammate.count }
       teammate.reload
       expect(teammate.name).to eq("titi")
     end

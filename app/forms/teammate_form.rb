@@ -19,13 +19,14 @@ class TeammateForm
     new(attributes)
   end
 
-  def submit_for_team(team)
+  def submit(scope: nil)
     return false unless valid?
-    teammate = Teammate.find(teammate_id) if teammate_id.present?
+    raise ArgumentError, "missing mandatory team scope" if scope.nil?
+    teammate = scope.teammates.find(teammate_id) if teammate_id.present?
     if teammate
       teammate.update(get_attributes)
     else
-      team.teammates.create(get_attributes)
+      scope.teammates.create(get_attributes)
     end
   end
 
