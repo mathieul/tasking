@@ -2,6 +2,7 @@
     html: {class: "form-horizontal"},
     defaults: {input_html: {class: "input-xlarge"}},
     data: {remote: true} do |f|
+  = f.hidden_field :teammate_id
   .modal-header
     = link_to "x", teammates_path, class: "close"
     %h3.title= title
