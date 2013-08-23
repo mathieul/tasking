@@ -39,6 +39,8 @@ gem 'simple_form', github: 'plataformatec/simple_form',
 
 gem 'draper', '~> 1.2.1'
 
+gem 'virtus', '~> 1.0.0.beta0'
+
 gem 'cancan', '~> 1.6.10'
 
 gem 'ranked-model', '~> 0.3.0'
