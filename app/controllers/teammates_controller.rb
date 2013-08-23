@@ -15,9 +15,9 @@ class TeammatesController < ApplicationController
   end
 
   def create
-    @teammate = @team.teammates.build(teammate_params)
+    @teammate = TeammateForm.new(teammate_params)
     respond_to do |format|
-      if @teammate.save
+      if @teammate.submit(scope: @team)
         notice = "New teammate was created."
         publish!("create", object: @teammate)
         format.html { redirect_to teammates_url, notice: notice }
@@ -36,8 +36,9 @@ class TeammatesController < ApplicationController
   end
 
   def update
+    @teammate = TeammateForm.from_teammate(@teammate)
     respond_to do |format|
-      if @teammate.update(teammate_params)
+      if @teammate.submit(scope: @team)
         notice = "Teammate #{@teammate.name.inspect} was updated."
         publish!("update", object: @teammate)
         format.html { redirect_to teammates_url, notice: notice }
