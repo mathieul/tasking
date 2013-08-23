@@ -4,7 +4,7 @@ class TeammateForm
   include Virtus
   include ActiveModel::Model
 
-  attr_reader :teammate
+  attr_reader :teammate, :attributes_initialized
 
   attribute :teammate_id, Integer
   attribute :name, String
@@ -27,12 +27,16 @@ class TeammateForm
     new(attributes)
   end
 
+  def initialize(params)
+    super
+    @attributes_initialized = TEAMMATE_ATTRIBUTES & params.keys.map(&:to_sym)
+  end
+
   def submit(scope: nil)
     return false unless valid?
     raise ArgumentError, "missing mandatory team scope" if scope.nil?
     if create_or_update_teammate(scope).valid?
-      create_account(scope)
-      true
+      set_teammate_account(scope)
     else
       false
     end
@@ -42,7 +46,7 @@ class TeammateForm
 
   def create_or_update_teammate(team)
     teammate = team.teammates.find(teammate_id) if teammate_id.present?
-    teammate_attributes = attributes.slice(*TEAMMATE_ATTRIBUTES)
+    teammate_attributes = attributes.slice(*attributes_initialized)
     if teammate
       teammate.update(teammate_attributes)
     else
@@ -51,8 +55,23 @@ class TeammateForm
     @teammate = teammate
   end
 
-  def create_account(team)
-    return if teammate.nil? || email.blank?
-    teammate.account = team.accounts.create(email: email)
+  def find_or_create_account(team)
+    account = Account.find_by(email: email)
+    if account && (account.teammate.present? || account.team != team)
+      errors.add(:base, "account #{email} is already in use")
+      nil
+    else
+      account || team.accounts.create(email: email)
+    end
+  end
+
+  def set_teammate_account(scope)
+    return true if teammate.nil? || email.blank?
+    if (account = find_or_create_account(scope))
+      teammate.account = account
+      teammate.save
+    else
+      false
+    end
   end
 end

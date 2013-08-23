@@ -40,7 +40,7 @@ class Teammate < ActiveRecord::Base
   private
 
   def set_default_values
-    self.roles = ["passive"] if roles.blank?
+    self.roles = ["passive"] if roles.empty?
   end
 
   def set_initials_if_missing

@@ -53,30 +53,51 @@ describe TeammateForm do
       expect(form.submit(scope: team)).to be_false
     end
 
-    context "teammate doesn't exist" do
-      it "creates a new teammate" do
-        form = TeammateForm.new(name: "toto", color: "baby-blue")
-        form.submit(scope: team)
-        expect(form.teammate).to be_valid
-        expect(form.teammate.color).to eq("baby-blue")
-        expect(form.teammate.team).to eq(team)
-      end
+    it "creates a new teammate if teammate doesn't exist" do
+      form = TeammateForm.new(name: "toto", color: "baby-blue")
+      form.submit(scope: team)
+      expect(form.teammate).to be_valid
+      expect(form.teammate.color).to eq("baby-blue")
+      expect(form.teammate.team).to eq(team)
+    end
 
-      it "creates an account if email is set" do
+    it "updates an existing teammate if teammate already exists" do
+      teammate = create(:teammate, name: "jojo", team: team)
+      form = TeammateForm.new(teammate_id: teammate.id, name: "titi", color: "baby-blue")
+      expect { form.submit(scope: team) }.not_to change { Teammate.count }
+      teammate.reload
+      expect(teammate.name).to eq("titi")
+    end
+
+    context "if email is set" do
+      it "creates an account if it doesn't exist" do
         form = TeammateForm.new(name: "jim", color: "black", email: "jim@black.com")
         form.submit(scope: team)
         expect(form.teammate.account).to be_valid
         expect(form.teammate.account.email).to eq("jim@black.com")
       end
-    end
 
-    context "teammate already exists" do
-      it "updates an existing teammate" do
-        teammate = create(:teammate, name: "jojo", team: team)
-        form = TeammateForm.new(teammate_id: teammate.id, name: "titi", color: "baby-blue")
-        expect { form.submit(scope: team) }.not_to change { Teammate.count }
-        teammate.reload
-        expect(teammate.name).to eq("titi")
+      it "associates an existing account if not associated yet" do
+        account = create(:account, email: "blah@foo.com", team: team)
+        form = TeammateForm.new(name: "blah", color: "black", email: "blah@foo.com")
+        form.submit(scope: team)
+        expect(form.teammate.account).to be_valid
+        expect(form.teammate.account.id).to eq(account.id)
+      end
+
+      it "returns an error if account exists and is already associated" do
+        account = create(:account, email: "blah@foo.com", team: team)
+        create(:teammate, account: account, team: team)
+        form = TeammateForm.new(name: "blah", color: "black", email: "blah@foo.com")
+        expect(form.submit(scope: team)).to be_false
+        expect(form.errors[:base].length).to eq(1)
+      end
+
+      it "returns an error if account exists for another team" do
+        create(:account, email: "blah@foo.com")
+        form = TeammateForm.new(name: "blah", color: "black", email: "blah@foo.com")
+        expect(form.submit(scope: team)).to be_false
+        expect(form.errors[:base].length).to eq(1)
       end
     end
   end
