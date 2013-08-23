@@ -23,7 +23,7 @@ feature "Sprint management" do
 
     sign_in "serge@gainsbourg.com", password: "auxarmesetc..."
     click_link "Sprints"
-    click_link "Current Sprint"
+    click_link "Current"
     expect(page).to have_content("Sprint Tasking")
     # check tasks table content
     within "table.tasks tbody" do

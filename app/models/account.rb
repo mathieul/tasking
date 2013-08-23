@@ -16,13 +16,13 @@
 #
 
 class Account < ActiveRecord::Base
-  has_secure_password
+  has_secure_password validations: false
 
   belongs_to :team
   has_one    :teammate
 
   validates :email,    presence: true, uniqueness: true
-  validates :password, length: {minimum: 6, allow_nil: true}, presence: {on: :create}
+  validates :password, length: {minimum: 6, allow_nil: true}
   validates :team,     presence: true
 
   before_create :generate_auth_token

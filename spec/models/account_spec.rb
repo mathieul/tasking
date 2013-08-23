@@ -6,13 +6,6 @@ describe Account do
       expect(build(:account)).to be_valid
     end
 
-    it "is valid without a password if persisted already" do
-      account = create(:account)
-      account = Account.find(account.id)
-      expect(account.password).to be_nil
-      expect(account).to be_valid
-    end
-
     it "is not valid without an email" do
       account = build(:account, email: nil)
       expect(account).to have(1).error_on(:email)
@@ -27,7 +20,12 @@ describe Account do
     it "is not valid with an invalid password" do
       account = build(:account, password: "12345")
       expect(account).to have(1).error_on(:password)
-      account.password = account.password_confirmation = "123456"
+      account.password = "123456"
+      expect(account).to be_valid
+    end
+
+    it "is valid without a password" do
+      account = build(:account, password: nil)
       expect(account).to be_valid
     end
   end
