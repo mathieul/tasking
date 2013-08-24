@@ -3,7 +3,7 @@ class Ability
 
   def initialize(account)
     account ||= Account.new
-    if user.admin?
+    if account.admin?
       can :manage, :all
     else
       can :manage, :stories
