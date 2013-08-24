@@ -23,12 +23,10 @@ class Teammate < ActiveRecord::Base
 
   validates :name,     presence: true, uniqueness: {case_sensitive: false}
   validates :initials, presence: true, uniqueness: {case_sensitive: false}
-  validates :roles,    presence: {message: "can't be empty"}
   validates :color,    presence: true,
                        inclusion: {in: COLORS, allow_nil: true}
   validates :team,     presence: true
 
-  after_initialize  :set_default_values
   before_validation :set_initials_if_missing
 
   scope :with_role, -> (role) { where("roles @> '{#{role.inspect}}'") }
@@ -38,10 +36,6 @@ class Teammate < ActiveRecord::Base
   delegate :email, to: :account, prefix: true, allow_nil: true
 
   private
-
-  def set_default_values
-    self.roles = ["passive"] if roles.empty?
-  end
 
   def set_initials_if_missing
     return if initials.present? || name.nil?

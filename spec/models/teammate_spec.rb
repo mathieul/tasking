@@ -17,18 +17,6 @@ describe Teammate do
       expect(teammate).to have(1).error_on(:name)
     end
 
-    it "is not valid without at least one role" do
-      teammate = build(:teammate, roles: [])
-      expect(teammate).to have(1).error_on(:roles)
-      teammate.roles << "product_manager"
-      expect(teammate).to be_valid
-    end
-
-    it "defaults to a 'passive' role" do
-      teammate = build(:teammate)
-      expect(teammate.roles).to eq(["passive"])
-    end
-
     it "is not valid without a color" do
       teammate = build(:teammate, color: nil)
       expect(teammate).to have(1).error_on(:color)
