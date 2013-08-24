@@ -20,7 +20,9 @@
             = render "layouts/nav_link", label: "Teammates", url: teammates_path
             %li.divider-vertical
             = render "layouts/dropdown_menu", label: current_account.email,
-              entries: [{label: "Sign Out", url: sign_out_path}]
+              entries: [{label: "My Account", url: edit_account_path(current_account)},
+                        {divider: true},
+                        {label: "Sign Out", url: sign_out_path}]
           - else
             = render "layouts/nav_link", label: "Sign Up", url: sign_up_path
             %li.divider-vertical

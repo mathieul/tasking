@@ -1,0 +1,15 @@
+- page_title "My Account", size: "span4"
+- page_description size: "span8"
+
+%br
+= simple_form_for @account, defaults: {input_html: {autocomplete: "off"}} do |f|
+  %fieldset
+    %legend Update your email or password
+    = f.error_notification
+
+    = f.input :email
+    = f.input :password
+
+    %br
+    = f.button :submit, "Update", class: "btn-primary"
+    = link_to "Cancel", :back, class: "btn"

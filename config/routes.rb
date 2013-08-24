@@ -1,6 +1,6 @@
 Tasking::Application.routes.draw do
   # authentication
-  resources :accounts, only: [:new, :create] do
+  resources :accounts, only: [:new, :create, :edit, :update] do
     get "activate/:token", as: :activate, on: :collection, action: :activate
   end
   resources :sessions, only: [:new, :create, :destroy]

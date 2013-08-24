@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+  before_action :find_account, only: [:edit, :update]
+  before_action :authorize, only: [:edit, :update]
+
   def new
     @account = Account.new
   end
@@ -15,9 +18,30 @@ class AccountsController < ApplicationController
   end
 
   def activate
-    account = Account.find_by(activation_token: activation_token_params)
-    account.activate! if account
-    redirect_to root_url, notice: "Thank you for confirming your account!"
+    case account = Account.find_by(activation_token: activation_token_params)
+    when account.nil?
+      redirect_to root_url, error: "Invalid activation token."
+    when account.activated?
+      redirect_to root_url, error: "Account is already activated."
+    else
+      account.activate!
+      set_current_account(account, permanent: true)
+      flash[:warning] = "Your account is now activated, please select your password."
+      redirect_to [:edit, account]
+    end
+  end
+
+  def edit
+    authorize! :read, @account
+  end
+
+  def update
+    authorize! :update, @account
+    if @account.update(account_params)
+      redirect_to root_url, notice: "Your account was updated."
+    else
+      render :edit
+    end
   end
 
   private
@@ -28,5 +52,9 @@ class AccountsController < ApplicationController
 
   def activation_token_params
     params.require(:token)
+  end
+
+  def find_account
+    @account = Account.find(params.require(:id))
   end
 end
