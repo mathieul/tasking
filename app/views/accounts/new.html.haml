@@ -2,17 +2,16 @@
 - content_for :javascript do
   = javascript_tag "App.signup.setup();"
 
-%h2 Sign Up
-
 %br
 = simple_form_for @account, defaults: {input_html: {autocomplete: "off"}} do |f|
   %fieldset
-    %legend Fill up below to sign up
+    %legend Enter your email and your team name to sign up
+    %p
+      You will received an email to activate your account and choose a password
+      so you can sign in later on.
     = f.error_notification
 
     = f.input :email
-    = f.input :password
-    %br
     = f.simple_fields_for @account.errors_on_team? ? :team : :team_attributes do |team_f|
       = team_f.input :name, label: "Team name"
 
