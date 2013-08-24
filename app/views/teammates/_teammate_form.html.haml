@@ -1,4 +1,6 @@
 = simple_form_for teammate,
+    url: teammate.path,
+    method: teammate.method,
     html: {class: "form-horizontal"},
     defaults: {input_html: {class: "input-xlarge"}},
     data: {remote: true} do |f|
@@ -17,7 +19,7 @@
         Please fix the errors below.
     = f.input :name
     = f.input :roles, as: :check_boxes, collection: Teammate::ROLES
-    = f.input :email, as: :email
+    = f.input :email, as: :email, disabled: teammate.email.present?
     = f.input :color, as: :select, collection: Teammate::COLORS
     = f.input :initials
   .modal-footer

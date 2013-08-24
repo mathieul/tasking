@@ -3,6 +3,7 @@ class TeammateForm
 
   include Virtus
   include ActiveModel::Model
+  include Rails.application.routes.url_helpers
 
   attr_reader :teammate, :attributes_initialized
 
@@ -20,16 +21,25 @@ class TeammateForm
     @_model_name ||= ActiveModel::Name.new(self, nil, "teammate")
   end
 
-  def self.from_teammate(teammate)
-    attributes = teammate.attributes.symbolize_keys.slice(*TEAMMATE_ATTRIBUTES)
-    attributes["email"] = teammate.account_email
-    attributes["teammate_id"] = teammate.id
-    new(attributes)
+  def self.from_teammate(source)
+    attributes = source.attributes.symbolize_keys.slice(*TEAMMATE_ATTRIBUTES)
+    new(attributes.merge(
+      email: source.account_email,
+      teammate_id: source.id
+    ))
   end
 
-  def initialize(params)
+  def initialize(params = {})
     super
     @attributes_initialized = TEAMMATE_ATTRIBUTES & params.keys.map(&:to_sym)
+  end
+
+  def path
+    polymorphic_path(target)
+  end
+
+  def method
+    persisted? ? :patch : :post
   end
 
   def submit(scope: nil)
@@ -42,7 +52,15 @@ class TeammateForm
     end
   end
 
+  def persisted?
+    teammate_id.present?
+  end
+
   private
+
+  def target
+    teammate_id.present? ? Teammate.find(teammate_id) : Teammate.new
+  end
 
   def create_or_update_teammate(team)
     teammate = team.teammates.find(teammate_id) if teammate_id.present?

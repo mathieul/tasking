@@ -36,7 +36,7 @@ class TeammatesController < ApplicationController
   end
 
   def update
-    @teammate = TeammateForm.from_teammate(@teammate)
+    @teammate = TeammateForm.new(teammate_params.merge(teammate_id: @teammate.id))
     respond_to do |format|
       if @teammate.submit(scope: @team)
         notice = "Teammate #{@teammate.name.inspect} was updated."
@@ -100,7 +100,7 @@ class TeammatesController < ApplicationController
   def teammate_params
     secured = params
       .require(:teammate)
-      .permit(:name, :account_id, :initials, :color, :roles, roles: [])
+      .permit(:name, :account_id, :initials, :color, :roles, :email, roles: [])
     secured[:roles] ||= []
     secured[:roles] = secured[:roles].split(",") if secured[:roles].is_a?(String)
     secured[:roles].reject!(&:blank?)

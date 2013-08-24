@@ -18,7 +18,7 @@ describe TeammateForm do
     end
   end
 
-  context "instanciation" do
+  context "instantiation" do
     let(:teammate) { build(:teammate) }
 
     it "can be created from a teammate" do
@@ -69,6 +69,11 @@ describe TeammateForm do
       expect(teammate.name).to eq("titi")
     end
 
+    it "is persited if it has a teammate id" do
+      expect(TeammateForm.new).not_to be_persisted
+      expect(TeammateForm.new(teammate_id: 12)).to be_persisted
+    end
+
     context "if email is set" do
       it "creates an account if it doesn't exist" do
         form = TeammateForm.new(name: "jim", color: "black", email: "jim@black.com")
@@ -99,6 +104,17 @@ describe TeammateForm do
         expect(form.submit(scope: team)).to be_false
         expect(form.errors[:base].length).to eq(1)
       end
+    end
+  end
+
+  context "routing" do
+    it "returns the teammate create path with #path if not persisted" do
+      expect(TeammateForm.new.path).to eq("/teammates")
+    end
+
+    it "returns the teammate update path with #path if persisted" do
+      teammate = create(:teammate)
+      expect(TeammateForm.new(teammate_id: teammate.id).path).to eq("/teammates/#{teammate.id}")
     end
   end
 
