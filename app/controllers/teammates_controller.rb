@@ -3,6 +3,8 @@ class TeammatesController < ApplicationController
   before_action :find_team
   before_action :find_teammate, only: [:edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   def index
     setup_to_render_main
     register_to_pubsub!
@@ -51,7 +53,10 @@ class TeammatesController < ApplicationController
   end
 
   def destroy
-    @teammate.destroy
+    Teammate.transaction do
+      @teammate.account.destroy if @teammate.account
+      @teammate.destroy
+    end
     warning = "Teammate #{@teammate.name.inspect} was deleted."
     publish!("destroy", object: @teammate)
     respond_to do |format|
@@ -61,6 +66,7 @@ class TeammatesController < ApplicationController
   end
 
   def export
+    authorize! :read, Teammate
     respond_to do |format|
       format.csv {
         send_data(exporter.teammates(:csv, team: @team),

@@ -79,8 +79,14 @@ class TeammateForm
       errors.add(:base, "account #{email} is already in use")
       nil
     else
-      account || team.accounts.create(email: email)
+      account || create_account(email, team)
     end
+  end
+
+  def create_account(email, team)
+    account = team.accounts.create(email: email)
+    EmailService.new(account: :activate).deliver(id: account.id)
+    account
   end
 
   def set_teammate_account(scope)

@@ -16,8 +16,9 @@
                         {label: "Last", url: edit_sprint_path(:last)},
                         {divider: true},
                         {label: "All sprints",  url: sprints_path}]
-            %li.divider-vertical
-            = render "layouts/nav_link", label: "Teammates", url: teammates_path
+            - if can? :update, Teammate
+              %li.divider-vertical
+              = render "layouts/nav_link", label: "Teammates", url: teammates_path
             %li.divider-vertical
             = render "layouts/dropdown_menu", label: current_account.email,
               entries: [{label: "My Account", url: edit_account_path(current_account)},

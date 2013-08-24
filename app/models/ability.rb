@@ -9,11 +9,8 @@ class Ability
       can :manage, :stories
       can :manage, :task_stories
       can :manage, :tasks
-      can :update, Account do |candidate|
+      can [:read, :update], Account do |candidate|
         candidate.id == account.id
-      end
-      can :update, Teammate do |candidate|
-        candidate.id == account.teammate.try(:id)
       end
     end
   end
