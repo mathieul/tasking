@@ -3,20 +3,21 @@ class TeammatesController < ApplicationController
   before_action :find_team
   before_action :find_teammate, only: [:edit, :update, :destroy]
 
-  load_and_authorize_resource
-
   def index
+    authorize! :read, Teammate
     setup_to_render_main
     register_to_pubsub!
   end
 
   def new
+    authorize! :create, Teammate
     @teammate = TeammateForm.new
     setup_to_render_main
     register_to_pubsub!
   end
 
   def create
+    authorize! :create, Teammate
     @teammate = TeammateForm.new(teammate_params)
     respond_to do |format|
       if @teammate.submit(scope: @team)
@@ -32,12 +33,14 @@ class TeammatesController < ApplicationController
   end
 
   def edit
+    authorize! :update, Teammate
     @teammate = TeammateForm.from_teammate(@teammate)
     setup_to_render_main
     register_to_pubsub!
   end
 
   def update
+    authorize! :update, Teammate
     @teammate = TeammateForm.new(teammate_params.merge(teammate_id: @teammate.id))
     respond_to do |format|
       if @teammate.submit(scope: @team)
@@ -53,6 +56,7 @@ class TeammatesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, Teammate
     Teammate.transaction do
       @teammate.account.destroy if @teammate.account
       @teammate.destroy
@@ -76,12 +80,14 @@ class TeammatesController < ApplicationController
   end
 
   def import_form
+    authorize! :create, Teammate
     setup_to_render_main
     @required_columns = DataExchange::ImportTeammatesCsv::MANDATORY
     @optional_columns = DataExchange::ExportTeammatesCsv::HEADER - @required_columns
   end
 
   def import
+    authorize! :create, Teammate
     result = importer.teammates(csv: import_params.read, team: @team)
     publish!("import:success")
     flash[:info] = "Import was successful: #{result[:added]} added, #{result[:updated]} updated."
@@ -92,6 +98,7 @@ class TeammatesController < ApplicationController
   end
 
   def refresh
+    authorize! :read, Teammate
     setup_to_render_main
     render layout: false
   end
