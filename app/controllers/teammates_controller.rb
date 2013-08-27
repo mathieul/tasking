@@ -33,14 +33,14 @@ class TeammatesController < ApplicationController
   end
 
   def edit
-    authorize! :update, Teammate
+    authorize! :update, @teammate
     @teammate = TeammateForm.from_teammate(@teammate)
     setup_to_render_main
     register_to_pubsub!
   end
 
   def update
-    authorize! :update, Teammate
+    authorize! :update, @teammate
     @teammate = TeammateForm.new(teammate_params.merge(teammate_id: @teammate.id))
     respond_to do |format|
       if @teammate.submit(scope: @team)
@@ -56,7 +56,7 @@ class TeammatesController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, Teammate
+    authorize! :destroy, @teammate
     Teammate.transaction do
       @teammate.account.destroy if @teammate.account
       @teammate.destroy
