@@ -17,21 +17,21 @@ class TeammateForm
   validates :name, presence: true
   validates :color, presence: true
 
+  delegate :cache_key, to: :teammate
+
   def self.model_name
     @_model_name ||= ActiveModel::Name.new(self, nil, "teammate")
   end
 
   def self.from_teammate(source)
     attributes = source.attributes.symbolize_keys.slice(*TEAMMATE_ATTRIBUTES)
-    new(attributes.merge(
-      email: source.account_email,
-      teammate_id: source.id
-    ))
+    new(attributes.merge(email: source.account_email, teammate_id: source.id))
   end
 
   def initialize(params = {})
     super
     @attributes_initialized = TEAMMATE_ATTRIBUTES & params.keys.map(&:to_sym)
+    @teammate = Teammate.find(teammate_id) if teammate_id
   end
 
   def path
