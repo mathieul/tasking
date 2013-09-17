@@ -1,3 +1,0 @@
-# Wspubsub
-
-** TODO: Add description **
