@@ -1,16 +1,16 @@
-upstream wspubsub {
+upstream teller {
   server 127.0.0.1:8889;
 }
 
 server {
   listen 80;
-  server_name wspubsub.cloudigisafe.com;
-  root /home/deploy/apps/tasking/current/wspubsub/public;
-  access_log /var/log/nginx/wspubsub_access.log;
+  server_name teller.cloudigisafe.com;
+  root /home/deploy/apps/tasking/current/teller/public;
+  access_log /var/log/nginx/teller_access.log;
   rewrite_log on;
 
   location / {
-    proxy_pass http://wspubsub;
+    proxy_pass http://teller;
     proxy_redirect off;
     proxy_set_header Host             $host;
     proxy_set_header X-Real-IP        $remote_addr;
@@ -36,7 +36,7 @@ server {
   }
 
   location ~ ^/(images|javascripts|stylesheets)/ {
-    root /home/deploy/apps/tasking/current/wspubsub/priv/static;
+    root /home/deploy/apps/tasking/current/teller/priv/static;
     expires max;
     add_header Cache-Control public;
     add_header ETag "";
@@ -44,7 +44,7 @@ server {
   }
 
   location /favicon.ico {
-    root /home/deploy/apps/tasking/current/wspubsub/priv/static;
+    root /home/deploy/apps/tasking/current/teller/priv/static;
     break;
   }
 }

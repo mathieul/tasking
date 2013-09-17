@@ -55,16 +55,16 @@ $ cap deploy deploy:reload_resque
 
 == Install pubsub server
 
-$ cd apps/tasking/current/wspubsub
-$ foreman export upstart . -l $PWD/logs -u deploy -a wspubsub -p 8889
+$ cd apps/tasking/current/teller
+$ foreman export upstart . -l $PWD/logs -u deploy -a teller -p 8889
 $ sudo su -
 # cd /etc/init
-# cp /home/deploy/apps/tasking/current/wspubsub/wspubsub* .
-# service wspubsub start
+# cp /home/deploy/apps/tasking/current/teller/teller* .
+# service teller start
 
 == Test Websocket
 
 Using wssh tool (https://github.com/progrium/wssh):
 
-$ wssh -q 0 ws://wspubsub.cloudigisafe.com/web-socket\?room_id=teammates-3
+$ wssh -q 0 ws://teller.cloudigisafe.com/web-socket\?room_id=teammates-3
 {"from":"9327ab34-ecbf-4d39-9a4c-c29dd0e023ec","message":"create","refresh_url":"http://tasking.cloudigisafe.com/teammates/refresh","dom_id":"new_teammate"}

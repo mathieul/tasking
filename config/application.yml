@@ -7,5 +7,5 @@ test:
   publish_url:
 
 production:
-  websocket_url: ws://wspubsub.cloudigisafe.com/web-socket
-  publish_url: http://wspubsub.cloudigisafe.com/publish
+  websocket_url: ws://teller.cloudigisafe.com/web-socket
+  publish_url: http://teller.cloudigisafe.com/publish
