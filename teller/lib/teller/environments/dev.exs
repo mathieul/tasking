@@ -17,5 +17,5 @@ config :dynamo,
   # in development
   exceptions_handler: Exceptions.Debug
 
-# Run on port 4000 for development
-config :server, port: 4000
+# Run on port 8889 for development
+config :server, port: 8889
