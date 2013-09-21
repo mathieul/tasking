@@ -1,6 +1,7 @@
-[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "bbee34fe1638b742796b00b39c0859395a752167", []},
-  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "afb15a0df464ac70e4c96860d605a9a76d9cef9f", []},
-  "hackney": {:git, "git://github.com/benoitc/hackney.git", "5b0f7eb949ebebd6fabfbc4e08a7b7231850606a", []},
+[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "eb4843a46b781f93030b623e2b1feb1898ba3da0", []},
+  "cowlib": {:git, "git://github.com/extend/cowlib.git", "2f35af5b0a67f591dde5ae4305a9587988a37c0c", [{:ref, "0.1.0"}]},
+  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "640696b1bf487fa76849acb604f2691092162079", []},
+  "hackney": {:git, "git://github.com/benoitc/hackney.git", "25a7fa2115680a09c0e932f71f22082b29d1b714", []},
   "mimetypes": {:git, "git://github.com/spawngrid/mimetypes.git", "47d37a977a7d633199822bf6b08353007483d00f", []},
   "ranch": {:git, "git://github.com/extend/ranch.git", "41705752ffc7e3ecb96eef8374015ead4ca7f699", [{:ref, "0.8.5"}]},
   "websocket_client": {:git, "git://github.com/jeremyong/websocket_client.git", "7b8731ab0aa6070fb78e29750380f89cf529627a", []} ]

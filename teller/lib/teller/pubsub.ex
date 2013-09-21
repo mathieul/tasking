@@ -105,7 +105,7 @@ defmodule Teller.Pubsub do
 
   def handle_call({ :register_list, room_id }, _from, state) do
     session = State.fetch_session(state, room_id)
-    list = Enum.map(session.registrees, inspect(&1))
+    list = Enum.map(session.registrees, &inspect(&1))
     { :reply, list, state }
   end
 
