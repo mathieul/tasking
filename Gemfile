@@ -1,18 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
-gem 'pry', '0.9.12.2'
+gem 'rails', '4.0.2'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.17.0'
+gem 'pg', '~> 0.17.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 2.3.2.0'
-gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass-rails', '~> 1.1.2'
 gem 'animate-sass', '~> 0.1.1'
 
 # Use HAML templates
@@ -76,7 +75,7 @@ end
 
 group :test, :development do
   gem 'pry-nav'
-  gem 'rspec-rails', '~> 2.0'
-  gem 'factory_girl', github: 'thoughtbot/factory_girl'
-  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'factory_girl'
+  gem 'factory_girl_rails', '~> 4.3.0'
 end
