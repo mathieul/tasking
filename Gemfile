@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '~> 4.1.1'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.17.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'compass-rails', '~> 1.1.2'
 gem 'animate-sass', '~> 0.1.1'
@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.0.0'
 
-gem 'turbolinks', '~> 1.3.0'
+gem 'turbolinks', '~> 2.2.2'
 gem 'jquery-turbolinks', '~> 2.0.1'
 
 gem 'simple_form', '~> 3.0.0'
@@ -37,11 +37,11 @@ gem 'virtus', '~> 1.0.0.rc1'
 
 gem 'cancan', '~> 1.6.10'
 
-gem 'ranked-model', '~> 0.3.0'
+gem 'ranked-model', '~> 0.4.0'
 
-gem 'dalli', '~> 2.6.4'
+gem 'dalli', '~> 2.7.2'
 
-gem 'puma', '~> 2.6.0'
+gem 'puma', '~> 2.8.2'
 
 gem 'nokogiri'
 gem 'css_parser'
@@ -65,7 +65,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-email', '~> 2.2.0'
+  gem 'capybara-email', '~> 2.3.0'
   gem 'poltergeist'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
@@ -75,7 +75,7 @@ end
 
 group :test, :development do
   gem 'pry-nav'
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails', '~> 3.0.1'
   gem 'factory_girl'
   gem 'factory_girl_rails', '~> 4.3.0'
 end
