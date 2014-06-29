@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.1'
+gem 'rails', '~> 4.1.2'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
@@ -24,14 +24,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 3.0.0'
+gem 'jquery-rails', '~> 3.1.1'
 
 gem 'turbolinks', '~> 2.2.2'
 gem 'jquery-turbolinks', '~> 2.0.1'
 
 gem 'simple_form', '~> 3.0.0'
 
-gem 'draper', '~> 1.2.1'
+gem 'draper', '~> 1.3.1'
 
 gem 'virtus', '~> 1.0.0.rc1'
 
@@ -75,7 +75,7 @@ end
 
 group :test, :development do
   gem 'pry-nav'
-  gem 'rspec-rails', '~> 3.0.1'
+  gem 'rspec-rails'
   gem 'factory_girl'
-  gem 'factory_girl_rails', '~> 4.3.0'
+  gem 'factory_girl_rails'
 end
