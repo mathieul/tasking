@@ -41,10 +41,11 @@ gem 'ranked-model', '~> 0.4.0'
 
 gem 'dalli', '~> 2.7.2'
 
-gem 'puma', '~> 2.8.2'
+gem 'puma', '~> 3.11.4'
 
 gem 'nokogiri'
 gem 'css_parser'
+gem 'json', '~> 1.8.6'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
