@@ -37,7 +37,8 @@
     = f.hidden_field :status, class: "status"
   = form_tag [taskable_story, task], method: :delete, remote: true, class: "destroy-task-form" do
     %span
-  = form_tag progress_taskable_story_task_path(taskable_story, task), remote: true, class: "progress-task-form" do
-    %span
-  = form_tag complete_taskable_story_task_path(taskable_story, task), remote: true, class: "complete-task-form" do
-    %span
+  - if task.persisted?
+    = form_tag progress_taskable_story_task_path(taskable_story, task), remote: true, class: "progress-task-form" do
+      %span
+    = form_tag complete_taskable_story_task_path(taskable_story, task), remote: true, class: "complete-task-form" do
+      %span

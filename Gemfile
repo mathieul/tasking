@@ -31,7 +31,7 @@ gem 'jquery-turbolinks', '~> 2.0.1'
 
 gem 'simple_form', '~> 3.0.0'
 
-gem 'draper', '~> 1.3.1'
+gem 'draper', '~> 2.1.0'
 
 gem 'virtus', '~> 1.0.0.rc1'
 
